@@ -26,9 +26,10 @@ export default function SmoothScroll() {
       const el = hash === "#top" ? document.body : document.querySelector<HTMLElement>(hash);
       if (!el) return;
       e.preventDefault();
-      const offset = 0;
-      if (lenis) lenis.scrollTo(el, { offset, duration: 2, easing: (t) => 1 - Math.pow(1 - t, 4) });
-      else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset });
+      // A stuck sheet reports where it is pinned, not where it starts; Sheets.tsx records the start.
+      const top = el.dataset.top ? Number(el.dataset.top) : el.getBoundingClientRect().top + window.scrollY;
+      if (lenis) lenis.scrollTo(top, { duration: 2, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      else window.scrollTo({ top });
       history.replaceState(null, "", hash);
     };
     document.addEventListener("click", onClick);

@@ -3,7 +3,6 @@ import Hero from "./_components/Hero";
 import Thesis from "./_components/Thesis";
 import Proof from "./_components/Proof";
 import Hop from "./_components/Hop";
-import Record from "./_components/Record";
 import Ideas from "./_components/Ideas";
 import Legacy from "./_components/Legacy";
 import Doors from "./_components/Doors";
@@ -18,9 +17,10 @@ const person = {
   jobTitle: "Founder",
   description: "Platform builder across iodine, private capital, real estate and live entertainment.",
   homeLocation: { "@type": "Place", name: "Dubai, United Arab Emirates" },
-  sameAs: ["https://www.instagram.com/kalpesh.kinariwala/"],
+  sameAs: ["https://www.instagram.com/kalpesh.kinariwala/", "https://www.linkedin.com/in/kalpeshkinariwala/"],
 };
 
+// The home page is a stack of sheets, each sliding over the last (see Sheets.tsx).
 export default function Home() {
   return (
     <Shell>
@@ -33,7 +33,6 @@ export default function Home() {
         <Thesis />
         <Proof />
         <Hop />
-        <Record />
         <Ideas />
         <Legacy />
         <Doors />

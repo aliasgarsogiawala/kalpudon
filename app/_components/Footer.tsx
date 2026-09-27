@@ -1,52 +1,65 @@
 import Link from "next/link";
-import { DOORS, doorHref } from "./data";
-import Logo from "./Logo";
+import Giant from "./Giant";
+import { WRAP } from "./Sheet";
+import { DOORS, ELSEWHERE, doorHref } from "./data";
 
+// Social marks, drawn inline so nothing loads from a third party.
+const ICONS: Record<string, React.ReactNode> = {
+  Instagram: (
+    <svg viewBox="0 0 24 24" className="size-[22px]" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="5.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" />
+    </svg>
+  ),
+  LinkedIn: (
+    <svg viewBox="0 0 24 24" className="size-[22px]" aria-hidden>
+      <path
+        fill="currentColor"
+        d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.83v1.5h.05c.53-.95 1.84-1.95 3.79-1.95 4.05 0 4.83 2.55 4.83 5.87v5.58h-4v-4.95c0-1.18-.02-2.7-1.72-2.7-1.72 0-1.98 1.29-1.98 2.62v5.03h-4v-11Z"
+      />
+    </svg>
+  ),
+};
+
+// The sitemap (brief §4).
 const SITE = [
   { href: "/", label: "Home" },
-  { href: "/#proof", label: "The work" },
   { href: "/#hop", label: "HOP" },
   { href: "/ideas", label: "Ideas" },
   { href: "/press", label: "Press" },
+  { href: "/contact", label: "Contact" },
 ];
 
-const ELSEWHERE = [
-  { href: "https://www.instagram.com/kalpesh.kinariwala/", label: "Instagram" },
-  { href: "https://www.linkedin.com/", label: "LinkedIn" }, // TODO: his LinkedIn profile URL
-];
+const link = "transition-opacity duration-300 hover:opacity-60";
 
-function Column({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <h2 className="text-[14px] text-ash">{title}</h2>
-      <ul className="mt-5 space-y-3 text-[16px]">{children}</ul>
-    </div>
-  );
-}
-
-const link = "text-bone/85 transition-colors duration-300 hover:text-champagne";
-
-// A plain closing page: who he is in one sentence, then every way onward — pages, doors, profiles.
+// The close, on gold like the last sheet: every way onward, then the name signed across the foot.
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-carbon text-bone">
-      <div className="mx-auto max-w-[1680px] px-5 pt-20 md:px-10 md:pt-28">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-5">
-            <Logo className="mb-8 size-12" />
-            <p className="max-w-[22ch] text-[clamp(23px,2.1vw,32px)] font-medium leading-[1.2] tracking-[-0.02em]">
-              Kalpesh Kinariwala builds platforms in fragmented markets. Based in Dubai, since 2001.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-8 inline-block border-b border-champagne pb-1 text-[16px] text-champagne transition-colors hover:border-bone hover:text-bone"
-            >
-              Write to him →
-            </Link>
+    <footer data-theme="light" className="relative isolate z-[1] overflow-hidden bg-gold text-ink">
+      <div className={`${WRAP} pt-16 md:pt-24`}>
+        <div className="grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-4">
+            <p className="text-[15px] font-semibold">© {new Date().getFullYear()} Kalpesh Kinariwala</p>
+            <p className="mt-1 text-[15px]">Dubai, United Arab Emirates</p>
+            <ul className="mt-6 flex gap-5">
+              {ELSEWHERE.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${l.label} (opens in a new tab)`}
+                    className="block text-ink transition-opacity duration-300 hover:opacity-60"
+                  >
+                    {ICONS[l.label]}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-12 sm:grid-cols-3 lg:col-span-6 lg:col-start-7">
-            <Column title="Site">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-8 text-[15px] md:col-span-5 md:col-start-6">
+            <ul className="space-y-2">
               {SITE.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className={link}>
@@ -54,8 +67,8 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </Column>
-            <Column title="Contact">
+            </ul>
+            <ul className="space-y-2">
               {DOORS.map((d) => (
                 <li key={d.slug}>
                   <Link href={doorHref(d)} className={link}>
@@ -63,23 +76,19 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </Column>
-            <Column title="Elsewhere">
-              {ELSEWHERE.map((l) => (
-                <li key={l.label}>
-                  <a href={l.href} target="_blank" rel="noreferrer" className={link}>
-                    {l.label} ↗
-                  </a>
-                </li>
-              ))}
-            </Column>
+            </ul>
           </nav>
+          <p className="text-[13px] leading-relaxed text-ink/75 md:col-span-3 md:text-right">
+            Photography: Kalpesh Kinariwala and HOP Events. Some images are placeholders until the brand shoot.
+          </p>
         </div>
+      </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white/10 py-7 text-[14px] text-ash md:mt-16 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Kalpesh Kinariwala · Dubai, United Arab Emirates</p>
-          <p>Photography shown is placeholder until the brand shoot.</p>
-        </div>
+      {/* The name, signed across the foot of every page */}
+      <div aria-hidden className={`${WRAP} mt-24 text-ink/15 md:mt-40`}>
+        <Giant as="span" n={18} max={30} className="-mb-[0.06em]">
+          Kalpesh Kinariwala
+        </Giant>
       </div>
     </footer>
   );

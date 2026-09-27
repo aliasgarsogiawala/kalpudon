@@ -17,15 +17,15 @@ export default function DoorForm({ label, desk, field, cta, topics }: Props) {
   };
 
   const input =
-    "mt-2 w-full border-b border-white/20 bg-transparent py-3 text-[17px] text-bone outline-none transition-colors placeholder:text-ash/40 focus:border-champagne";
+    "mt-2 w-full border-b border-white/20 bg-transparent py-3 text-[17px] text-bone outline-none transition-colors placeholder:text-stone/40 focus:border-gold";
 
   if (sent) {
     return (
       <div className="fade-in" role="status">
-        <p className="display text-[clamp(38px,4.1vw,65px)]">
-          Received<em className="text-champagne">.</em>
+        <p className="serif text-[clamp(52px,5vw,88px)] leading-none">
+          Received<em className="text-gold-soft">.</em>
         </p>
-        <p className="mt-5 max-w-[420px] text-[17px] leading-[1.6] text-ash">
+        <p className="mt-5 max-w-[420px] text-[17px] leading-[1.6] text-stone">
           Your note has gone to the people who handle {desk} enquiries.
         </p>
       </div>
@@ -35,13 +35,13 @@ export default function DoorForm({ label, desk, field, cta, topics }: Props) {
   return (
     <form onSubmit={submit} className="flex flex-col gap-7">
       <fieldset>
-        <legend className="text-[15px] text-ash">About</legend>
+        <legend className="text-[15px] text-stone">About</legend>
         <div className="mt-3 flex flex-wrap gap-2">
           {topics.map((t) => (
             <label
               key={t}
-              className={`cursor-pointer border px-4 py-2.5 text-[15px] transition-colors duration-300 has-[:focus-visible]:outline has-[:focus-visible]:outline-champagne ${
-                topic === t ? "border-champagne bg-champagne text-obsidian" : "border-white/20 text-bone/80 hover:border-champagne"
+              className={`cursor-pointer rounded-full border px-4 py-2.5 text-[15px] transition-colors duration-300 has-[:focus-visible]:outline has-[:focus-visible]:outline-gold ${
+                topic === t ? "border-gold bg-gold text-ink" : "border-white/20 text-bone/80 hover:border-gold"
               }`}
             >
               <input type="radio" name="topic" value={t} checked={topic === t} onChange={() => setTopic(t)} className="sr-only" />
@@ -51,26 +51,26 @@ export default function DoorForm({ label, desk, field, cta, topics }: Props) {
         </div>
       </fieldset>
       <div className="grid gap-7 md:grid-cols-2">
-        <label className="block text-[15px] text-ash">
+        <label className="block text-[15px] text-stone">
           Full name
           <input required name="name" autoComplete="name" className={input} placeholder="Your name" />
         </label>
-        <label className="block text-[15px] text-ash">
+        <label className="block text-[15px] text-stone">
           Email
           <input required type="email" name="email" autoComplete="email" className={input} placeholder="you@company.com" />
         </label>
       </div>
-      <label className="block text-[15px] text-ash">
+      <label className="block text-[15px] text-stone">
         {field}
         <input name="org" className={input} />
       </label>
-      <label className="block text-[15px] text-ash">
+      <label className="block text-[15px] text-stone">
         A few lines
         <textarea name="message" rows={3} className={`${input} resize-none`} placeholder="What should we know?" />
       </label>
       <button
         type="submit"
-        className="mt-2 w-fit bg-champagne px-8 py-4 text-[16px] font-medium text-obsidian transition-colors duration-500 hover:bg-bone"
+        className="mt-2 inline-flex h-14 w-fit items-center rounded-full bg-gold px-8 text-[16px] font-medium text-ink transition-colors duration-500 hover:bg-bone"
       >
         {cta} →
       </button>

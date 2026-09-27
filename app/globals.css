@@ -1,53 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --obsidian: #0b0a0e;
-  --carbon: #141218;
-  --graphite: #211d27;
-  --gold: #d4af37;
-  --champagne: #e5c378;
-  --violet: #3d2159;
-  --violet-deep: #2a173e;
+  /* Black, gold and purple (client). The blacks lean faintly violet so the purples belong to them. */
+  --ink: #0b0910;
+  --coal: #141019;
+  --smoke: #1e1826;
+  --bone: #efe9df;
+  --stone: #a69fae;
+  --paper: #ebe5d9;
+  --gold: #c9a66b;
+  --gold-soft: #e2ca98;
+  --gold-deep: #7d6034;
+  /* The purples, from nearly black to the glow */
+  --plum: #1c1027;
   --aubergine: #2a173e;
-  --bone: #f4f1f6;
-  --ash: #aaa2b4;
+  --violet: #3d2159;
+  --amethyst: #7b4fb3;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --header-h: 88px;
 }
 
 /* Laptop screens with little height: 1280×720, 1366×768 */
 @custom-variant short (@media (min-width: 1024px) and (max-height: 820px));
 
 @theme inline {
-  --color-obsidian: var(--obsidian);
-  --color-carbon: var(--carbon);
-  --color-graphite: var(--graphite);
-  --color-gold: var(--gold);
-  --color-champagne: var(--champagne);
-  --color-violet: var(--violet);
-  --color-violet-deep: var(--violet-deep);
-  --color-aubergine: var(--aubergine);
+  --color-ink: var(--ink);
+  --color-coal: var(--coal);
+  --color-smoke: var(--smoke);
   --color-bone: var(--bone);
-  --color-ash: var(--ash);
-  --font-display: var(--font-inter);
-  --font-sans: var(--font-inter);
+  --color-stone: var(--stone);
+  --color-paper: var(--paper);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-plum: var(--plum);
+  --color-aubergine: var(--aubergine);
+  --color-violet: var(--violet);
+  --color-amethyst: var(--amethyst);
+  --font-serif: var(--font-instrument), "Times New Roman", serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
 }
 
 @layer base {
   html {
-    background: var(--obsidian);
+    background: var(--ink);
     color: var(--bone);
     scroll-behavior: auto;
   }
   body {
-    background: var(--obsidian);
-    font-family: var(--font-inter), system-ui, sans-serif;
-    font-feature-settings: "cv11", "ss03";
+    background: var(--ink);
+    font-family: var(--font-archivo), system-ui, sans-serif;
+    font-stretch: 106%;
     overflow-x: clip;
   }
   ::selection {
-    background: var(--champagne);
-    color: var(--obsidian);
+    background: var(--gold);
+    color: var(--ink);
   }
   h1,
   h2,
@@ -55,10 +62,8 @@
   h4 {
     font-weight: 400;
   }
-  em {
-    font-style: normal;
-  }
-  img {
+  img,
+  video {
     user-select: none;
     -webkit-user-drag: none;
   }
@@ -73,29 +78,82 @@ html.lenis body {
 }
 
 @layer components {
-  .display {
-    font-family: var(--font-inter), system-ui, sans-serif;
-    font-weight: 500;
-    letter-spacing: -0.055em;
-    line-height: 0.92;
+  /* Giant words: ultra-condensed caps that run the full measure (sized by Giant.tsx) */
+  .giant {
+    display: block;
+    font-family: var(--font-archivo), system-ui, sans-serif;
+    font-stretch: 62%;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.8;
+    letter-spacing: -0.012em;
+    white-space: nowrap;
+    font-size: min(calc(100cqw / (var(--n) * 0.46)), var(--max, 40svh));
   }
-  .display-sm {
-    font-family: var(--font-inter), system-ui, sans-serif;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+  .giant-in {
+    display: inline-block;
+  }
+  /* Tall poster letters: stretched upward, with the space they gain reserved beneath */
+  .giant[data-stretch] {
+    --s: var(--stretch-sm, var(--stretch));
+    transform: scaleY(var(--s));
+    transform-origin: top left;
+    margin-bottom: calc((var(--s) - 1) * var(--lines, 1) * 0.8em);
+  }
+  @media (min-width: 768px) {
+    .giant[data-stretch] {
+      --s: var(--stretch);
+    }
   }
 
-  .label {
-    font-size: 13px;
-    letter-spacing: 0.14em;
+  /* The voice: an editorial serif for statements, and in italic the handwritten layer over the giant words */
+  .serif {
+    font-family: var(--font-instrument), "Times New Roman", serif;
+    font-weight: 400;
+    font-stretch: 100%;
+    letter-spacing: -0.012em;
+    line-height: 0.98;
+  }
+  .serif em,
+  em.serif {
+    font-style: italic;
+  }
+  .script {
+    font-family: var(--font-instrument), "Times New Roman", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: 100%;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  /* Keeps a script word legible where it crosses the giant letters */
+  .script-outline {
+    text-shadow:
+      0 0 1px var(--outline, var(--ink)),
+      2px 0 0 var(--outline, var(--ink)),
+      -2px 0 0 var(--outline, var(--ink)),
+      0 2px 0 var(--outline, var(--ink)),
+      0 -2px 0 var(--outline, var(--ink)),
+      2px 2px 0 var(--outline, var(--ink)),
+      -2px -2px 0 var(--outline, var(--ink)),
+      2px -2px 0 var(--outline, var(--ink)),
+      -2px 2px 0 var(--outline, var(--ink));
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
+    font-stretch: 110%;
   }
 
   .line-mask {
     overflow: clip;
-    padding-bottom: 0.2em;
-    margin-bottom: -0.2em;
+    padding: 0.14em 0 0.2em;
+    margin: -0.14em 0 -0.2em;
   }
 
   .nav-link {
@@ -106,9 +164,9 @@ html.lenis body {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -7px;
+    bottom: -5px;
     height: 1px;
-    background: var(--champagne);
+    background: currentColor;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.8s var(--ease-out);
@@ -119,27 +177,15 @@ html.lenis body {
     transform-origin: left;
   }
 
-  /* Button with a champagne sweep from below */
-  .btn-sweep {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
+  /* Text link with a hairline that redraws on hover */
+  .link-line {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+    transition: background-size 0.7s var(--ease-out);
+    padding-bottom: 3px;
   }
-  .btn-sweep::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--champagne);
-    border-radius: inherit;
-    transform: translateY(101%);
-    transition: transform 0.7s var(--ease-out);
-  }
-  .btn-sweep:hover::before {
-    transform: translateY(0);
-  }
-  .btn-sweep:hover {
-    color: var(--obsidian);
+  .link-line:hover {
+    background-size: 0% 1px;
+    background-position: 100% 100%;
   }
 
   .grain::after {
@@ -147,30 +193,30 @@ html.lenis body {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.07;
+    opacity: 0.06;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
-
-  .kenburns {
-    animation: kenburns 22s ease-in-out infinite alternate;
+  .pulse-dot {
+    position: relative;
   }
-  @keyframes kenburns {
+  .pulse-dot::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 1px solid currentColor;
+    animation: pulse 2.4s var(--ease-out) infinite;
+  }
+  @keyframes pulse {
     from {
-      transform: scale(1.04);
+      transform: scale(0.6);
+      opacity: 0.9;
     }
     to {
-      transform: scale(1.16) translate3d(-1.5%, -1%, 0);
-    }
-  }
-
-  @keyframes scrollcue {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(200%);
+      transform: scale(1.8);
+      opacity: 0;
     }
   }
 
@@ -184,8 +230,126 @@ html.lenis body {
   }
 }
 
+/* Sheets: each section is a sheet of colour that slides up over the one before, tilted, and settles
+   (follow.art). Sticky is switched on by Sheets.tsx once it has measured the sheet (--h), so without
+   JavaScript the page simply scrolls. */
+[data-sheet] {
+  position: relative;
+  isolation: isolate;
+}
+.is-sheet {
+  position: sticky;
+  top: min(0px, calc(100svh - var(--h, 100svh)));
+  box-shadow: 0 -30px 70px -30px rgb(0 0 0 / 0.55);
+}
+/* Colour runs past the edges so a tilted sheet never shows a gap at its sides */
+.is-sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -15vw;
+  right: -15vw;
+  bottom: -12svh;
+  z-index: -1;
+  background: inherit;
+  pointer-events: none;
+}
+
+/* Gradient washes: light falling across black and purple, with gold catching at the edges.
+   Bone text stays above 7:1 on every one; ink text on the gold wash stays above 6:1. */
+.wash {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.wash-ink {
+  background:
+    radial-gradient(55% 45% at 88% 2%, rgb(201 166 107 / 0.16), transparent 70%),
+    radial-gradient(60% 50% at 0% 100%, rgb(123 79 179 / 0.18), transparent 70%),
+    linear-gradient(180deg, #110c18 0%, var(--ink) 60%);
+}
+.wash-plum {
+  background:
+    radial-gradient(70% 55% at 88% 6%, rgb(123 79 179 / 0.34), transparent 70%),
+    radial-gradient(50% 40% at 0% 100%, rgb(201 166 107 / 0.12), transparent 70%),
+    linear-gradient(170deg, #26153a 0%, var(--plum) 55%, #0e0916 100%);
+}
+.wash-violet {
+  background:
+    radial-gradient(75% 60% at 92% 0%, rgb(150 100 215 / 0.38), transparent 70%),
+    radial-gradient(60% 45% at 0% 100%, rgb(201 166 107 / 0.14), transparent 70%),
+    linear-gradient(165deg, #4b2a6e 0%, var(--violet) 40%, #1b0e2a 100%);
+}
+.wash-aubergine {
+  background:
+    radial-gradient(65% 50% at 10% 0%, rgb(201 166 107 / 0.16), transparent 70%),
+    radial-gradient(70% 55% at 100% 100%, rgb(123 79 179 / 0.3), transparent 70%),
+    linear-gradient(175deg, #331c4b 0%, var(--aubergine) 50%, #140b1e 100%);
+}
+.wash-gold {
+  background:
+    radial-gradient(60% 50% at 12% 0%, rgb(255 246 226 / 0.5), transparent 70%),
+    radial-gradient(45% 40% at 100% 45%, rgb(125 96 52 / 0.2), transparent 70%),
+    linear-gradient(165deg, #e2ca98 0%, var(--gold) 45%, #bf9a5f 100%);
+}
+
+/* The header: a floating glass capsule that condenses once the page moves (Header.tsx sets data-state). */
+.nav-capsule {
+  position: relative;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.6s ease,
+    border-color 0.6s ease,
+    box-shadow 0.6s ease,
+    padding 0.6s var(--ease-out),
+    backdrop-filter 0.6s ease;
+}
+.nav-shell[data-state="float"] .nav-capsule,
+.nav-shell[data-open="true"] .nav-capsule {
+  background: rgb(12 9 18 / 0.66);
+  border-color: rgb(255 255 255 / 0.09);
+  box-shadow:
+    0 24px 60px -24px rgb(0 0 0 / 0.75),
+    inset 0 1px 0 rgb(226 202 152 / 0.12);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
+}
+.nav-tag {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 0.6s var(--ease-out),
+    opacity 0.4s ease;
+}
+.nav-shell[data-state="float"] .nav-tag {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+.nav-pill {
+  transition:
+    transform 0.55s var(--ease-out),
+    width 0.55s var(--ease-out),
+    opacity 0.3s ease;
+}
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+.menu-in {
+  animation: menuIn 0.9s var(--ease-out) both;
+}
+
+/* Keyboard focus, visible on every surface (brief §8) */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .kenburns {
+  .pulse-dot::after {
     animation: none;
   }
 }

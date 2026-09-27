@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Shell from "../_components/Shell";
 import PageHero, { Strip } from "../_components/PageHero";
+import { WRAP, WashLayer } from "../_components/Sheet";
 import { IDEAS } from "../_components/data";
 import IdeasIndex from "./IdeasIndex";
 
@@ -18,18 +19,15 @@ export default function IdeasPage() {
       <main>
         <PageHero
           label="Ideas"
-          tone="violet"
-          title={
-            <>
-              Ideas, written <em>after</em> they worked.
-            </>
-          }
-          intro="Essays and talks, filed under the five things he keeps coming back to."
+          word="Ideas"
+          script="written after they worked."
+          intro="Essays and talks, filed under the five things I keep coming back to."
         >
           <Strip frames={IDEAS.map((i) => ({ src: i.img, alt: "", caption: i.title, n: i.n }))} />
         </PageHero>
-        <section className="bg-champagne text-obsidian">
-          <div className="mx-auto max-w-[1680px] px-5 py-16 md:px-10 md:py-20">
+        <section data-theme="dark" className="relative isolate bg-plum text-bone">
+          <WashLayer wash="plum" />
+          <div className={`${WRAP} py-32 md:py-52`}>
             <IdeasIndex />
           </div>
         </section>

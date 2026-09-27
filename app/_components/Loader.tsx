@@ -33,5 +33,5 @@ export default function Loader() {
 
   if (gone) return null;
 
-  return <div ref={root} className="loader pointer-events-none fixed inset-0 z-[100] bg-obsidian" aria-hidden />;
+  return <div ref={root} className="loader pointer-events-none fixed inset-0 z-[100] bg-ink" aria-hidden />;
 }

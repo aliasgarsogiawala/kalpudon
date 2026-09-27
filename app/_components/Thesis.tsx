@@ -1,70 +1,61 @@
 import Image from "next/image";
-import { MOVES } from "./data";
+import Giant from "./Giant";
+import Sheet, { PAD, Split, WRAP } from "./Sheet";
+import { INSTINCT } from "./data";
 
-function Inline({ src, alt }: { src: string; alt: string }) {
-  return (
-    <span className="relative mx-[0.12em] inline-block h-[0.74em] w-[1.1em] translate-y-[0.04em] overflow-hidden align-baseline">
-      <Image src={src} alt={alt} fill sizes="120px" className="object-cover" />
-    </span>
-  );
-}
-
+// Brief §5.2: who he is, short — one instinct applied across four unrelated industries. The frame that
+// makes everything below it make sense.
 export default function Thesis() {
   return (
-    <section id="thesis" className="relative bg-champagne text-obsidian">
-      <div className="mx-auto max-w-[1680px] px-5 pb-16 pt-24 md:px-10 md:pb-24 md:pt-28">
-        <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-3">
-            <p data-fade className="label text-obsidian/55">
-              The thesis
-            </p>
-          </div>
-          <p
-            data-scrub-words
-            className="display-sm text-[clamp(26px,3.4vw,59px)] leading-[1.08] lg:col-span-9"
-          >
-            He doesn’t choose industries. He chooses <em>fragmentation</em> — in iodine
-            <Inline src="/img/iodine-crystals.jpg" alt="" />, in capital
-            <Inline src="/img/gold-leaf.jpg" alt="" />, in property
-            <Inline src="/img/dubai-night.jpg" alt="" /> and now on stage
-            <Inline src="/img/confetti.jpg" alt="" />. Then he engineers the downside before anyone mentions the
-            upside — and lets scale follow.
-          </p>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-[1680px] px-5 pb-16 md:px-10 md:pb-24">
-        <div className="flex items-end justify-between gap-6 pb-8">
-          <h2 data-split className="display text-[clamp(30px,4.1vw,73px)]">
-            The playbook
-          </h2>
-          <p data-fade className="hidden max-w-[300px] pb-3 text-[16px] leading-relaxed text-obsidian/60 md:block">
-            Run four times, in four markets that shared nothing but the shape of their problem.
+    <Sheet id="story" theme="dark" wash="plum" className="bg-plum text-bone">
+      <div className={`${WRAP} ${PAD}`}>
+        <div className="relative">
+          <Giant as="h2" n={12} max={24} stretch={1.3} stretchSm={1.6}>
+            One instinct
+          </Giant>
+          <p className="script absolute bottom-[-6%] right-[2%] -rotate-[6deg] text-[clamp(36px,6vw,112px)] text-gold-soft">
+            four markets.
           </p>
         </div>
 
-        <ol>
-          {MOVES.map((m, i) => (
-            <li key={m.title} className="relative">
-              <span data-rule className="absolute inset-x-0 top-0 h-px origin-left bg-obsidian/25" />
-              <div className="grid gap-4 py-10 md:grid-cols-12 md:items-center md:gap-8 md:py-12">
-                <span
-                  data-fade
-                  className="display text-[64px] leading-[0.8] text-transparent [-webkit-text-stroke:1px_var(--obsidian)] md:col-span-2 md:text-[92px]"
-                >
-                  {i + 1}
-                </span>
-                <h3 data-split className="display text-[clamp(26px,3vw,54px)] md:col-span-6">
-                  {m.title}
-                </h3>
-                <p data-fade className="max-w-[440px] text-[17px] leading-[1.65] text-obsidian/65 md:col-span-4">
-                  {m.body}
-                </p>
+        <Split
+          className="mt-32 md:mt-52"
+          left={
+            <figure className="mx-auto w-[78%] max-w-[440px] lg:mx-0">
+              <div data-reveal className="relative aspect-[4/5] -rotate-[3deg] bg-bone p-2 shadow-[0_40px_80px_-30px_rgba(0,0,0,.6)]">
+                <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
+                  <Image
+                    src="/img/ig-portrait.jpg"
+                    alt="Kalpesh Kinariwala at Shows of India 2026"
+                    fill
+                    sizes="(min-width:1024px) 30vw, 78vw"
+                    className="object-cover object-[50%_25%]"
+                  />
+                </div>
               </div>
-            </li>
-          ))}
-        </ol>
+            </figure>
+          }
+          right={
+            <div className="max-w-[620px]">
+              <p data-fade className="text-[clamp(24px,2.2vw,36px)] leading-[1.25] tracking-[-0.01em]">
+                I don’t choose industries. I choose fragmented markets — iodine, private capital, real estate and now live entertainment — and run the same instinct through each.
+              </p>
+              <ol className="mt-14 space-y-10">
+                {INSTINCT.map((s) => (
+                  <li key={s.t} data-fade>
+                    <span>
+                      <span className="block text-[clamp(28px,2.4vw,40px)] font-black uppercase leading-[0.9] tracking-[-0.01em] [font-stretch:62%]">
+                        {s.t}
+                      </span>
+                      <span className="mt-2 block text-[16px] leading-[1.6] text-bone/75">{s.d}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          }
+        />
       </div>
-    </section>
+    </Sheet>
   );
 }

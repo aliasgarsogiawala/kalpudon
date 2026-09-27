@@ -1,148 +1,91 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { gsap, reducedMotion } from "./gsap";
-import { CHAPTERS, type Chapter } from "./data";
-import Crop from "./Crop";
+import Link from "next/link";
+import Giant from "./Giant";
+import Sheet, { PAD, WRAP } from "./Sheet";
+import { CHAPTERS, RECOGNITION, type Chapter } from "./data";
 
-type Tone = { bg: string; text: string; sub: string; word: string; rule: string; accent: string; crop: string };
-const SURFACE: Record<Chapter["surface"], Tone> = {
-  violet: { bg: "bg-violet", text: "text-bone", sub: "text-bone/65", word: "text-champagne", rule: "border-white/15", accent: "text-champagne", crop: "bg-champagne/70" },
-  gold: { bg: "bg-champagne", text: "text-obsidian", sub: "text-obsidian/70", word: "text-obsidian", rule: "border-obsidian/20", accent: "text-violet-deep", crop: "bg-obsidian/60" },
-  bone: { bg: "bg-obsidian", text: "text-bone", sub: "text-bone/70", word: "text-champagne", rule: "border-white/15", accent: "text-champagne", crop: "bg-champagne/70" },
-  stage: { bg: "bg-violet-deep", text: "text-bone", sub: "text-bone/70", word: "text-champagne", rule: "border-white/15", accent: "text-champagne", crop: "bg-champagne/70" },
-};
+// Only the names a visitor would recognise; the full record lives on the press page.
+const RECOGNISED = ["Entrepreneur Middle East", "Forbes Middle East", "Shows of India"].map(
+  (who) => RECOGNITION.find((r) => r.who === who)!,
+);
 
-const MOVE_LABELS = ["Fragmentation", "Downside", "Scale"];
-
-function Panel({ c }: { c: Chapter }) {
-  const s = SURFACE[c.surface];
-  return (
-    <article
-      className={`proof-panel relative flex min-h-[100svh] w-full shrink-0 overflow-hidden lg:h-[100svh] lg:w-[100vw] ${s.bg} ${s.text}`}
-    >
-      <div className="mx-auto grid w-full max-w-[1680px] gap-10 px-5 pb-16 pt-24 md:px-10 lg:grid-cols-12 lg:gap-12 lg:pb-12 lg:pt-[128px] short:pt-[104px] short:pb-8">
-        {/* Arch photograph */}
-        <div className="relative lg:col-span-5">
-          <div className="relative aspect-[4/5] w-full max-w-[520px] lg:aspect-auto lg:h-[calc(100svh-200px)] lg:max-w-none short:h-[calc(100svh-160px)]">
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="proof-img absolute -inset-x-[14%] inset-y-0">
-                <Image src={c.img} alt={c.alt} fill sizes="(min-width:1024px) 42vw, 90vw" className="object-cover" />
-              </div>
-            </div>
-            <Crop tone={s.crop} />
-            <p className="label absolute -bottom-8 left-0 text-[11px] opacity-60">
-              Fig. {c.n} — {c.word}
-            </p>
-          </div>
+function Card({ c }: { c: Chapter }) {
+  const body = (
+    <>
+      <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-[20px]">
+        <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-smoke">
+          <Image
+            src={c.img}
+            alt={c.alt}
+            fill
+            sizes="(min-width:1280px) 22vw, (min-width:768px) 44vw, 90vw"
+            className={`object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105 ${c.pos ?? ""}`}
+          />
         </div>
-
-        {/* Narrative */}
-        <div className="flex flex-col lg:col-span-7">
-          <div className={`flex flex-wrap items-center justify-between gap-3 border-b pb-5 ${s.rule}`}>
-            <p className="label flex items-center gap-3">
-              <span className="display-sm text-[22px] normal-case tracking-normal">{c.n}</span>
-              {c.sector}
-            </p>
-            <p className="label opacity-70">
-              {c.entity} · {c.since}
-            </p>
-          </div>
-
-          <p className={`proof-word display mt-8 text-[clamp(50px,7.2vw,132px)] leading-[0.82] short:mt-5 short:text-[clamp(43px,10.2svh,90px)] ${s.word}`}>{c.word}</p>
-
-          <h3 className="display-sm mt-8 max-w-[18ch] text-[clamp(23px,2.3vw,41px)] leading-[1.06] short:mt-4 short:text-[clamp(23px,4.1svh,36px)]">{c.headline}</h3>
-          <p className={`mt-5 max-w-[46ch] text-[17px] leading-[1.6] short:mt-3 short:text-[16px] ${s.sub}`}>{c.proof}</p>
-
-          <ol className={`mt-auto grid gap-6 border-t pt-7 sm:grid-cols-3 lg:mt-10 short:mt-auto short:pt-5 ${s.rule}`}>
-            {c.moves.map((m, i) => (
-              <li key={i}>
-                <p className={`display-sm text-[15px] ${s.accent}`}>
-                  {i + 1} — {MOVE_LABELS[i]}
-                </p>
-                <p className={`mt-2 text-[15px] leading-[1.55] ${s.sub}`}>{m}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <div className="absolute inset-0 z-[3] bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
+        <span className="eyebrow absolute left-4 top-4 z-[3] rounded-full bg-ink/60 px-3 py-1.5 text-[10px] text-gold-soft backdrop-blur-sm">
+          {c.since}
+        </span>
+        <p className="absolute bottom-4 left-5 right-5 z-[3] text-[clamp(34px,2.8vw,48px)] font-black uppercase leading-[0.86] tracking-[-0.01em] text-bone [font-stretch:62%]">
+          {c.sector}
+        </p>
       </div>
-    </article>
+      <p className="eyebrow mt-6 text-[10px] text-bone/70">{c.entity}</p>
+      <p className="serif mt-3 text-[clamp(24px,1.9vw,32px)] leading-[1.08]">{c.headline}</p>
+      <p className="mt-4 text-[15px] leading-[1.55] text-gold-soft">{c.proof}</p>
+      {c.cta && (
+        <span className="mt-4 inline-flex items-center gap-2 text-[14px] text-bone/80 transition-colors group-hover:text-gold-soft">
+          {c.cta} <span aria-hidden>→</span>
+        </span>
+      )}
+    </>
+  );
+  return c.href ? (
+    <Link href={c.href.startsWith("/#") ? c.href.slice(1) : c.href} className="group block">
+      {body}
+    </Link>
+  ) : (
+    <div className="group">{body}</div>
   );
 }
 
+// Brief §5.3: the four businesses as evidence of one instinct — "the same move, four times", not a
+// portfolio. Equal weight, so real estate reads as one proof point among four, never the headline.
 export default function Proof() {
-  const root = useRef<HTMLElement>(null);
-  const track = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (reducedMotion()) return;
-    const section = root.current!;
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 1024px)", () => {
-      const q = gsap.utils.selector(section);
-      const distance = () => track.current!.scrollWidth - window.innerWidth;
-
-      const slide = gsap.to(track.current, {
-        x: () => -distance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${distance()}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => gsap.set(q(".proof-progress"), { scaleX: self.progress }),
-        },
-      });
-
-      // Depth inside each panel: photo drifts against the scroll, the big word drifts with it.
-      q(".proof-panel").forEach((panel) => {
-        const img = panel.querySelector(".proof-img");
-        const word = panel.querySelector(".proof-word");
-        gsap.fromTo(img, { xPercent: -9 }, { xPercent: 9, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: slide, start: "left right", end: "right left", scrub: true } });
-        gsap.fromTo(word, { xPercent: 18 }, { xPercent: -8, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: slide, start: "left right", end: "right left", scrub: true } });
-      });
-    });
-
-    return () => mm.revert();
-  }, []);
-
   return (
-    <section id="proof" ref={root} className="relative overflow-hidden bg-obsidian">
-      <div ref={track} className="flex flex-col lg:w-max lg:flex-row">
-        {/* Opening panel */}
-        <div className="grain relative flex min-h-[80svh] w-full shrink-0 flex-col justify-between overflow-hidden px-5 pb-12 pt-24 md:px-10 lg:h-[100svh] lg:w-[64vw] lg:pb-14 lg:pt-[140px]">
-          <p data-fade className="label relative text-ash">
-            The proof
-          </p>
-          <div className="relative">
-            <h2 data-split className="display text-[clamp(36px,5vw,94px)]">
-              The same move, <em className="text-champagne">four times.</em>
-            </h2>
-            <p data-fade className="mt-8 max-w-[520px] text-[17px] leading-[1.6] text-bone/70">
-              Not a portfolio. One instinct — find the fragmentation, engineer the downside, let scale follow — run
-              through four industries that shared nothing but the shape of their problem.
-            </p>
-          </div>
-          <p data-fade className="relative hidden items-center gap-4 text-[15px] text-ash lg:flex">
-            Keep scrolling <span className="h-px w-16 bg-champagne" />
-          </p>
-        </div>
+    <Sheet id="work" theme="dark" wash="violet" className="bg-violet text-bone">
+      <div className={`${WRAP} ${PAD}`}>
+        <h2 aria-label="The same move, four times." className="relative">
+          <span aria-hidden className="script script-outline absolute left-[1%] top-[2%] z-[2] -rotate-[7deg] text-[clamp(40px,6vw,112px)] text-gold-soft [--outline:var(--violet)]">
+            the same move,
+          </span>
+          <Giant as="span" n={10} max={24} stretch={1.3} stretchSm={1.6} className="text-right">
+            Four times
+          </Giant>
+        </h2>
 
-        {CHAPTERS.map((c) => (
-          <Panel key={c.n} c={c} />
-        ))}
-      </div>
+        <ul className="mt-28 grid gap-x-8 gap-y-20 md:mt-40 md:grid-cols-2 xl:grid-cols-4">
+          {CHAPTERS.map((c) => (
+            <li key={c.n}>
+              <Card c={c} />
+            </li>
+          ))}
+        </ul>
 
-      {/* Chapter rail */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden lg:block">
-        <div className="h-[3px] w-full bg-white/10">
-          <div className="proof-progress h-full origin-left scale-x-0 bg-champagne" />
+        <div className="mt-32 grid gap-8 md:mt-48 lg:grid-cols-12 lg:items-baseline">
+          <p className="eyebrow text-bone/60 lg:col-span-3">Recognised by</p>
+          <ul className="grid gap-6 sm:grid-cols-3 lg:col-span-9">
+            {RECOGNISED.map((r) => (
+              <li key={r.who} data-fade>
+                <p className="serif text-[clamp(26px,2.2vw,36px)] leading-[1.02]">{r.who}</p>
+                <p className="mt-2 text-[14px] text-bone/60">
+                  {r.what}, {r.y}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </section>
+    </Sheet>
   );
 }

@@ -1,115 +1,91 @@
 // Facts are drawn from public profiles (Entrepreneur Middle East, Forbes Middle East, Gulf News,
 // HOP Events press, May 2026). Brief §10: every figure needs sign-off against the client's approved
 // claims sheet before launch. Anything marked TODO still needs confirmation from the client.
+//
+// Photography: images of Kalpesh and HOP are from his own Instagram (@kalpesh.kinariwala, ig-*.jpg) —
+// usage rights to be confirmed by the client before launch (brief §9–10); some are event photographers'
+// work and artists on stage may need their own consent. The HOP clip is cut from his Lucky Ali reel at
+// Coca-Cola Arena. The rest (iodine, capital, the Pantheon in Rome) is Unsplash stock until the brand shoot.
 
 export const SITE_URL = "https://kalpeshkinariwala.com"; // TODO: confirm the production domain
 
-// Primary navigation: two stops in the home story, then the two pages people come looking for.
-// Contact is not a link here — it opens the five audience doors from the header itself.
+// Primary navigation follows the sitemap (brief §4): HOP, Ideas and Press, with Contact as the button that
+// opens the five audience doors. Everything else is a section of the home page.
 export const NAV = [
-  { href: "/#proof", id: "proof", label: "The work" },
   { href: "/#hop", id: "hop", label: "HOP" },
   { href: "/ideas", label: "Ideas" },
   { href: "/press", label: "Press" },
 ] as const;
 
-export const MOVES = [
-  {
-    title: "Find the fragmentation",
-    body: "Look for markets where supply, trust or talent is scattered across too many small hands. That scatter is where a platform earns its right to exist.",
-  },
-  {
-    title: "Engineer the downside",
-    body: "Decide what the worst case costs — and build the structure that survives it — before anyone is allowed to talk about the upside.",
-  },
-  {
-    title: "Let scale follow",
-    body: "When the pieces connect and the floor holds, growth stops needing to be forced. Scale becomes a consequence, not a campaign.",
-  },
+// Brief §5.2: one instinct, in four moves. Copy is draft until the client's positioning copy arrives (§9).
+export const INSTINCT = [
+  { t: "Find the fragmentation", d: "Markets where supply, trust or talent is scattered across too many small hands." },
+  { t: "Connect the pieces", d: "Build the one place the scattered pieces meet — the connection others will not make." },
+  { t: "Manage the downside", d: "Decide what the worst case costs, and survive it, before anyone talks about the upside." },
+  { t: "Let scale follow", d: "When the pieces connect and the floor holds, growth stops needing to be forced." },
 ] as const;
 
+// Brief §5.3: the four businesses as evidence of one instinct — equal weight, a few verified figures only.
 export type Chapter = {
   n: string;
-  word: string;
   sector: string;
   since: string;
   entity: string;
   headline: string;
   proof: string;
-  moves: [string, string, string];
   img: string;
+  pos?: string;
   alt: string;
-  surface: "violet" | "gold" | "bone" | "stage";
+  href?: string;
+  cta?: string;
 };
 
 export const CHAPTERS: Chapter[] = [
   {
-    n: "I",
-    word: "Supply",
-    sector: "Specialty chemistry — Iodine",
+    n: "01",
+    sector: "Iodine",
     since: "2001",
     entity: "Pantheon Group",
     headline: "A hundred square feet and two thousand borrowed dollars.",
     proof: "By 2008, the world’s leading distributor of iodine.",
-    moves: [
-      "Producers, traders and industrial buyers — a global chain with no centre.",
-      "Contract and inventory discipline, so no single shipment could sink the book.",
-      "Seven years from a borrowed desk to the top of a global market.",
-    ],
-    img: "/img/iodine-crystals.jpg",
-    alt: "Macro photograph of dark metallic crystals",
-    surface: "violet",
+    img: "/img/ch-supply.jpg",
+    pos: "object-[50%_40%]",
+    alt: "Container cranes at a port at dusk",
   },
   {
-    n: "II",
-    word: "Capital",
-    sector: "Private capital & funds",
+    n: "02",
+    sector: "Private capital",
     since: "Ongoing",
     entity: "Private mandates", // TODO: confirm fund names and dates with client
     headline: "Returns are an output. The floor is the only thing you control.",
-    proof: "Every mandate sized from the loss it can survive — not the story it can sell.",
-    moves: [
-      "Mid-market opportunities left between institutional cheques.",
-      "Downside-first structuring: the floor is agreed before the ceiling is discussed.",
-      "A repeatable allocation logic that compounds trust with each cycle.",
-    ],
-    img: "/img/gold-leaf.jpg",
-    alt: "Creased gold leaf catching the light",
-    surface: "gold",
+    proof: "Track record and allocation approach, on request.", // TODO: approved description of the fund
+    img: "/img/ch-capital.jpg",
+    alt: "A financial district skyline at night across dark water",
+    href: "/contact/capital",
+    cta: "Request a briefing",
   },
   {
-    n: "III",
-    word: "Ground",
-    sector: "Asset development — Real estate",
+    n: "03",
+    sector: "Real estate",
     since: "2016",
     entity: "Pantheon Development, Dubai",
-    headline: "Affordable luxury, delivered — on schedule, at scale.",
-    proof: "1,000+ homes handed over in Jumeirah Village Circle. The market calls him “the Delivery Man of JVC”.",
-    moves: [
-      "A gap between luxury pricing and what Dubai’s middle actually needed.",
-      "Payment plans and phasing built so buyers — and the balance sheet — were never over-exposed.",
-      "Elysee, Elysee Heights, VOXA, and the first private project in RAK Central.",
-    ],
-    img: "/img/dubai-twilight.jpg",
-    alt: "Dubai skyline at twilight",
-    surface: "bone",
+    headline: "Affordable luxury, delivered on schedule.",
+    proof: "1,000+ homes handed over in Jumeirah Village Circle.",
+    img: "/img/ig-ground.jpg",
+    pos: "object-[62%_50%]",
+    alt: "Kalpesh Kinariwala presenting a Pantheon Development project",
   },
   {
-    n: "IV",
-    word: "Stage",
-    sector: "Live entertainment — HOP",
+    n: "04",
+    sector: "Live entertainment",
     since: "Now",
     entity: "HOP Events, UAE",
     headline: "India’s leading artists, produced at arena scale.",
     proof: "A sold-out Etihad Arena with Arijit Singh and A.R. Rahman.",
-    moves: [
-      "Artists, promoters, venues and a vast diaspora audience — rarely in the same room.",
-      "Productions underwritten with the same discipline as every chapter before.",
-      "Scaling across the GCC and into South Asian diaspora hubs worldwide.",
-    ],
-    img: "/img/arena-violet.jpg",
-    alt: "Arena crowd under violet stage lights",
-    surface: "stage",
+    img: "/img/ig-arena.jpg",
+    alt: "A HOP Events concert, seen from the back of the arena",
+    href: "/#hop",
+    cta: "What I’m building now",
   },
 ];
 
@@ -124,17 +100,15 @@ export const PANTHEON_NOW = [
 export const HOP_FACTS = [
   { k: "Sold out", v: "Etihad Arena, Abu Dhabi", d: "Arijit Singh · A.R. Rahman · Rishab Sharma" },
   { k: "Anchor sponsor", v: "Shows of India 2026", d: "India’s live-entertainment industry conclave, Delhi" },
-  { k: "GCC → World", v: "Diaspora circuit", d: "Scaling from the UAE into South Asian diaspora hubs" },
+  { k: "Next", v: "The diaspora circuit", d: "From the UAE into South Asian diaspora hubs" },
 ];
 
-// Placeholder stills until the brand shoot's event footage arrives (brief §9).
+// HOP productions, from his own channels, until the brand shoot's event footage arrives (brief §9).
 export const PRODUCTIONS = [
-  { img: "/img/stage-gold.jpg", t: "Arena nights", w: "wide" },
-  { img: "/img/mic-smoke.jpg", t: "Intimate sets", w: "tall" },
-  { img: "/img/festival-violet.jpg", t: "Festival stages", w: "wide" },
-  { img: "/img/confetti.jpg", t: "Finales", w: "tall" },
-  { img: "/img/stage-amber.jpg", t: "Headline tours", w: "wide" },
-  { img: "/img/stage-burst.jpg", t: "Open-air", w: "wide" },
+  { img: "/img/ig-live.jpg", t: "Headline nights", w: "tall" },
+  { img: "/img/ig-arena.jpg", t: "Arena scale", w: "wide" },
+  { img: "/img/ig-smoke.jpg", t: "Choreography", w: "wide" },
+  { img: "/img/ig-stage.jpg", t: "Stagecraft", w: "wide" },
 ] as const;
 
 // Brief §6: categories map to his pillars.
@@ -163,7 +137,7 @@ export const IDEAS: Piece[] = [
     category: "Manage Risk",
     date: null,
     dek: "Returns are an output. The only lever you actually hold is how much you can afford to lose — and how early you decide it.",
-    img: "/img/molten-gold.jpg",
+    img: "/img/ig-sidelit.jpg",
   },
   {
     slug: "inspect-what-you-expect",
@@ -173,7 +147,7 @@ export const IDEAS: Piece[] = [
     category: "Building People",
     date: null,
     dek: "Trust scales when it is checked. Why inspection belongs on the calendar, not in the crisis.",
-    img: "/img/lab.jpg",
+    img: "/img/ig-podium-2.jpg",
   },
   {
     slug: "the-widest-not-the-tallest",
@@ -183,7 +157,7 @@ export const IDEAS: Piece[] = [
     category: "The Widest",
     date: null,
     dek: "Height is fragile — one market, one cycle, one point of failure. Width is a platform that survives any single storm.",
-    img: "/img/tower.jpg",
+    img: "/img/pantheon.jpg",
   },
 ];
 
@@ -209,6 +183,7 @@ export type Door = {
   cta: string;
   field: string;
   img: string;
+  href?: string;
   page?: { href: string; label: string };
 };
 
@@ -224,7 +199,7 @@ export const DOORS: Door[] = [
     offers: ["Track record summary", "Allocation approach", "Co-investment briefing"],
     cta: "Request a briefing",
     field: "Fund / institution",
-    img: "/img/door-capital.jpg",
+    img: "/img/ch-capital.jpg",
   },
   {
     n: "02",
@@ -237,7 +212,7 @@ export const DOORS: Door[] = [
     offers: ["Co-productions", "Touring", "Venue partnerships"],
     cta: "Start a conversation",
     field: "Artist / company / venue",
-    img: "/img/stage-amber.jpg",
+    img: "/img/ig-arena.jpg",
   },
   {
     n: "03",
@@ -250,7 +225,7 @@ export const DOORS: Door[] = [
     offers: ["Leadership roles", "Platform operators", "Advisory seats"],
     cta: "Introduce yourself",
     field: "Current role",
-    img: "/img/door-talent.jpg",
+    img: "/img/ig-console.jpg",
   },
   {
     n: "04",
@@ -263,7 +238,8 @@ export const DOORS: Door[] = [
     offers: ["Biography", "Media kit", "Interview requests"],
     cta: "Request the media kit",
     field: "Publication",
-    img: "/img/door-press.jpg",
+    img: "/img/ig-podium.jpg",
+    href: "/press", // brief §3: press goes to the press & media kit page
     page: { href: "/press", label: "Biography and fact sheet" },
   },
   {
@@ -272,12 +248,12 @@ export const DOORS: Door[] = [
     desk: "general",
     title: "Contact",
     label: "Contact",
-    who: "Everyone else",
+    who: "Speaking, introductions & everything else",
     body: "Speaking invitations, introductions and notes on the ideas.",
     offers: ["Speaking & panels", "Introductions", "Notes on the ideas"],
     cta: "Send a note",
     field: "Organisation (optional)",
-    img: "/img/door-ideas.jpg",
+    img: "/img/ig-smile.jpg",
     page: { href: "/ideas", label: "Read the ideas" },
   },
 ];
@@ -297,5 +273,10 @@ export const PRESS_FACTS = [
   { k: "Private capital", v: "Details on request" }, // TODO: approved description of the fund
 ];
 
-// Each door is its own page (/contact/capital, /contact/hop, …).
-export const doorHref = (d: Pick<Door, "slug">) => `/contact/${d.slug}`;
+export const ELSEWHERE = [
+  { href: "https://www.instagram.com/kalpesh.kinariwala/", label: "Instagram" },
+  { href: "https://www.linkedin.com/in/kalpeshkinariwala/", label: "LinkedIn" }, // from his Instagram bio
+];
+
+// Each door is its own page (/contact/capital, /contact/hop, …); press lands on the press & media kit page.
+export const doorHref = (d: Pick<Door, "slug" | "href">) => d.href ?? `/contact/${d.slug}`;

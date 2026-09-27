@@ -15,13 +15,9 @@ export default function ContactPage() {
       <main>
         <PageHero
           label="Contact"
-          tone="violet"
-          title={
-            <>
-              Five doors. <em>Pick yours.</em>
-            </>
-          }
-          intro="Each door goes to the people who handle it: capital, HOP partnerships, careers, press, and everything else."
+          word="Let’s talk"
+          script="pick your door."
+          intro="Tell me what you are here for. Each note goes straight to the people who handle it: capital, HOP partnerships, careers, press, and everything else."
         />
         <Doors page />
       </main>

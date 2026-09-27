@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Shell from "../_components/Shell";
-import Crop from "../_components/Crop";
 import PageHero, { Wide } from "../_components/PageHero";
+import { WRAP, WashLayer } from "../_components/Sheet";
 import { PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
 
 export const metadata: Metadata = {
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 
 // Placeholders until approved photography from the brand shoot (brief §9).
 const PHOTOS = [
-  { img: "/img/portrait.jpg", t: "Portrait, profile", pos: "object-[35%_20%]" },
-  { img: "/img/window-city.jpg", t: "At work, Dubai", pos: "object-[72%_50%]" },
-  { img: "/img/stage-gold.jpg", t: "HOP Events, live", pos: "object-center" },
+  { img: "/img/ig-founder.jpg", t: "Portrait, Pantheon", pos: "object-[50%_30%]" },
+  { img: "/img/ig-portrait.jpg", t: "Shows of India 2026", pos: "object-[50%_25%]" },
+  { img: "/img/ig-podium.jpg", t: "On stage, Shows of India 2026", pos: "object-[50%_30%]" },
 ];
 
 export default function PressPage() {
@@ -25,29 +25,26 @@ export default function PressPage() {
       <main>
         <PageHero
           label="Press"
-          tone="gold"
-          title={
-            <>
-              Press &amp; <em>media.</em>
-            </>
-          }
+          word="Press"
+          script="& media."
           intro="Biography, facts and approved photography. For interviews and the full media kit, write to the press desk."
           aside={
             <Link
               href="/contact/press"
-              className="mt-7 inline-block bg-obsidian px-7 py-4 text-[15px] font-medium text-champagne transition-colors duration-500 hover:bg-violet"
+              className="mt-7 inline-flex h-12 items-center gap-3 rounded-full border border-gold/60 px-6 text-[15px] text-bone transition-colors duration-500 hover:border-gold hover:bg-gold hover:text-ink"
             >
               Request the media kit →
             </Link>
           }
         >
-          <Wide frame={{ src: "/img/door-press.jpg", alt: "A printing press running newspapers (placeholder)", caption: "Fig. — On the record" }} tone="gold" />
+          <Wide frame={{ src: "/img/ig-panel.jpg", alt: "A HOP Events panel discussion at Shows of India 2026", caption: "Shows of India 2026 — panel discussion, presented by HOP Events.", pos: "object-[50%_45%]" }} />
         </PageHero>
 
-        <section className="bg-violet text-bone">
-          <div className="mx-auto grid max-w-[1680px] gap-10 px-5 py-16 md:px-10 md:py-24 lg:grid-cols-12">
+        <section data-theme="dark" className="relative isolate bg-plum text-bone">
+          <WashLayer wash="plum" />
+          <div className={`${WRAP} grid gap-10 py-32 md:py-52 lg:grid-cols-12`}>
             <div className="lg:col-span-3">
-              <h2 data-fade className="label text-champagne">
+              <h2 data-fade className="eyebrow text-gold">
                 Biography
               </h2>
             </div>
@@ -56,7 +53,7 @@ export default function PressPage() {
                 <p
                   key={i}
                   data-fade
-                  className={i === 0 ? "display-sm text-[clamp(25px,2.3vw,40px)] leading-[1.15]" : "text-[17px] leading-[1.7] text-bone/80"}
+                  className={i === 0 ? "serif text-[clamp(30px,2.9vw,50px)] leading-[1.08]" : "text-[17px] leading-[1.75] text-bone/75"}
                 >
                   {p}
                 </p>
@@ -64,60 +61,58 @@ export default function PressPage() {
             </div>
           </div>
 
-          <div className="mx-auto grid max-w-[1680px] gap-10 px-5 pb-16 md:px-10 md:pb-24 lg:grid-cols-12">
+          <div className={`${WRAP} grid gap-10 pb-32 md:pb-52 lg:grid-cols-12`}>
             <div className="lg:col-span-3">
-              <h2 data-fade className="label text-champagne">
+              <h2 data-fade className="eyebrow text-gold">
                 Fact sheet
               </h2>
             </div>
             <dl className="lg:col-span-9">
               {PRESS_FACTS.map((f) => (
                 <div key={f.k} className="relative grid gap-2 py-6 md:grid-cols-12 md:gap-8">
-                  <span data-rule className="absolute inset-x-0 top-0 h-px origin-left bg-white/20" />
-                  <dt className="text-[15px] font-medium text-bone/65 md:col-span-3">{f.k}</dt>
-                  <dd className="display-sm text-[clamp(20px,1.6vw,27px)] leading-[1.25] md:col-span-9">{f.v}</dd>
+                  <dt className="text-[15px] font-medium text-bone/60 md:col-span-3">{f.k}</dt>
+                  <dd className="serif text-[clamp(24px,1.9vw,32px)] leading-[1.15] md:col-span-9">{f.v}</dd>
                 </div>
               ))}
             </dl>
           </div>
         </section>
 
-        <section className="bg-champagne text-obsidian">
-          <div className="mx-auto max-w-[1680px] px-5 py-16 md:px-10 md:py-20">
-            <h2 data-split className="display text-[clamp(35px,4.8vw,87px)]">
+        <section data-theme="dark" className="relative isolate bg-ink text-bone">
+          <WashLayer wash="ink" />
+          <div className={`${WRAP} py-32 md:py-52`}>
+            <h2 data-split className="serif text-[clamp(48px,6vw,110px)] leading-[0.92]">
               Recognition
             </h2>
             <ul className="mt-12">
               {RECOGNITION.map((r) => (
                 <li key={r.who + r.y} className="relative grid grid-cols-12 items-baseline gap-4 py-6">
-                  <span data-rule className="absolute inset-x-0 top-0 h-px origin-left bg-obsidian/30" />
-                  <span className="display-sm col-span-12 text-[clamp(22px,2vw,32px)] md:col-span-5">{r.who}</span>
-                  <span className="col-span-9 text-[16px] text-obsidian/75 md:col-span-5">{r.what}</span>
-                  <span className="display-sm col-span-3 text-right text-[20px] md:col-span-2">{r.y}</span>
+                  <span className="serif col-span-12 text-[clamp(28px,2.4vw,40px)] leading-[1.05] md:col-span-5">{r.who}</span>
+                  <span className="col-span-9 text-[16px] text-bone/70 md:col-span-5">{r.what}</span>
+                  <span className="serif col-span-3 text-right text-[26px] text-gold-soft md:col-span-2">{r.y}</span>
                 </li>
               ))}
             </ul>
           </div>
         </section>
 
-        <section className="bg-obsidian text-bone">
-          <div className="mx-auto max-w-[1680px] px-5 py-16 md:px-10 md:py-24">
+        <section data-theme="dark" className="bg-coal text-bone">
+          <div className={`${WRAP} py-32 md:py-52`}>
             <div className="flex flex-wrap items-end justify-between gap-6">
-              <h2 data-split className="display text-[clamp(30px,3.4vw,63px)]">
+              <h2 data-split className="serif text-[clamp(44px,5vw,92px)] leading-[0.92]">
                 Photography
               </h2>
-              <p data-fade className="max-w-[360px] text-[16px] leading-relaxed text-ash">
+              <p data-fade className="max-w-[360px] text-[16px] leading-relaxed text-stone">
                 High-resolution files come with the media kit. Credit and usage terms are included.
               </p>
             </div>
-            <ul className="mt-14 grid gap-14 md:grid-cols-3 md:gap-10">
+            <ul className="mt-14 grid gap-14 md:grid-cols-3 md:gap-8">
               {PHOTOS.map((p) => (
                 <li key={p.t}>
                   <div data-reveal className="relative aspect-[4/5]">
-                    <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-carbon">
-                      <Image src={p.img} alt={`${p.t} (placeholder)`} fill sizes="(min-width:768px) 30vw, 90vw" className={`object-cover grayscale ${p.pos}`} />
+                    <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-smoke">
+                      <Image src={p.img} alt={`Kalpesh Kinariwala — ${p.t}`} fill sizes="(min-width:768px) 30vw, 90vw" className={`object-cover ${p.pos}`} />
                     </div>
-                    <Crop />
                   </div>
                   <p className="mt-5 text-[15px] text-bone/80">{p.t}</p>
                 </li>

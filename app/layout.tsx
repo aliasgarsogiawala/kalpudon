@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Archivo, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "./_components/data";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// One variable file does both jobs: ultra-condensed caps for the giant words (wdth 62) and the body text.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  axes: ["wdth"],
+});
+
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
 const description =
@@ -21,17 +30,17 @@ export const metadata: Metadata = {
     siteName: "Kalpesh Kinariwala",
     title: "Kalpesh Kinariwala — Platform builder",
     description,
-    images: [{ url: "/img/window-city.jpg", width: 2200, height: 1467, alt: "Kalpesh Kinariwala" }],
+    images: [{ url: "/img/ig-portrait.jpg", width: 1080, height: 1350, alt: "Kalpesh Kinariwala" }],
   },
   twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html lang="en" className={`${archivo.variable} ${instrument.variable} antialiased`}>
       <body>
         <noscript>
-          <style>{`[data-fade],[data-split]{opacity:1!important;transform:none!important}.loader{display:none!important}`}</style>
+          <style>{`[data-fade],[data-split],[data-giant],.hero-intro{opacity:1!important;transform:none!important}.loader{display:none!important}`}</style>
         </noscript>
         {children}
         <Analytics />
