@@ -16,7 +16,8 @@
   --violet: #150d1a;
   --amethyst: #4b295c;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --font-haas: var(--font-grotesk), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-grotesk: "Neue Haas Grotesk";
+  --font-haas: "Neue Haas Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Laptop screens with little height: 1280×720, 1366×768 */
