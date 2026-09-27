@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif } from "next/font/google";
+import { Instrument_Serif, Inter_Tight } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "./_components/data";
 import "./globals.css";
@@ -9,6 +9,12 @@ const instrument = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
+});
+
+// The grotesk from the brand's own posts: a bold Helvetica-style display face, set tight.
+const grotesk = Inter_Tight({
+  variable: "--font-grotesk",
+  subsets: ["latin"],
 });
 
 const description =
@@ -30,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${instrument.variable} antialiased`}>
+    <html lang="en" className={`${instrument.variable} ${grotesk.variable} antialiased`}>
       <body>
         <noscript>
           <style>{`[data-fade],[data-split],[data-giant],.hero-intro{opacity:1!important;transform:none!important}.loader{display:none!important}`}</style>

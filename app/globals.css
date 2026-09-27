@@ -16,7 +16,7 @@
   --violet: #150d1a;
   --amethyst: #4b295c;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --font-haas: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-haas: var(--font-grotesk), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Laptop screens with little height: 1280×720, 1366×768 */
@@ -78,39 +78,32 @@ html.lenis body {
 }
 
 @layer components {
-  /* Giant words: ultra-condensed caps that run the full measure (sized by Giant.tsx) */
+  /* Giant words: bold grotesk set tight, as large as the column allows (sized by Giant.tsx) */
   .giant {
     display: block;
     font-family: var(--font-haas);
-    font-stretch: 75%;
-    font-weight: 800;
-    text-transform: uppercase;
-    line-height: 0.8;
-    letter-spacing: -0.012em;
+    font-weight: 700;
+    line-height: 0.86;
+    letter-spacing: -0.06em;
     white-space: nowrap;
-    font-size: min(calc(100cqw / (var(--n) * 0.46)), var(--max, 40svh));
+    font-size: min(calc(100cqw / (var(--n) * 0.5)), var(--max, 40svh));
   }
   .giant-in {
     display: inline-block;
+    /* room for the last letter's overhang once the tracking pulls it in */
+    padding-right: 0.04em;
   }
-  /* Tall poster letters: stretched upward, with the space they gain reserved beneath */
-  .giant[data-stretch] {
-    --s: var(--stretch-sm, var(--stretch));
-    transform: scaleY(var(--s));
-    transform-origin: top left;
-    margin-bottom: calc((var(--s) - 1) * var(--lines, 1) * 0.8em);
-  }
-  @media (min-width: 768px) {
-    .giant[data-stretch] {
-      --s: var(--stretch);
-    }
+  /* Bold display lines at smaller sizes: card titles, labels, the marquee */
+  .display {
+    font-family: var(--font-haas);
+    font-weight: 700;
+    letter-spacing: -0.045em;
   }
 
   /* The voice: an editorial serif for statements, and in italic the handwritten layer over the giant words */
   .serif {
     font-family: var(--font-instrument), "Times New Roman", serif;
     font-weight: 400;
-    font-stretch: 100%;
     letter-spacing: -0.012em;
     line-height: 0.98;
   }
@@ -122,7 +115,6 @@ html.lenis body {
     font-family: var(--font-instrument), "Times New Roman", serif;
     font-style: italic;
     font-weight: 400;
-    font-stretch: 100%;
     line-height: 0.9;
     letter-spacing: -0.01em;
     white-space: nowrap;
@@ -147,7 +139,6 @@ html.lenis body {
     letter-spacing: 0.18em;
     text-transform: uppercase;
     font-weight: 600;
-    font-stretch: 110%;
   }
 
   .line-mask {

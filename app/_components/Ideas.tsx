@@ -11,7 +11,7 @@ export default function Ideas() {
     <Sheet id="ideas" theme="dark" wash="aubergine" className="bg-aubergine text-bone">
       <div className={`${WRAP} ${PAD}`}>
         <h2 aria-label="Ideas, written after they worked" className="relative">
-          <Giant as="span" n={5} max={26} stretch={1.35} stretchSm={1.6}>
+          <Giant as="span" n={5} max={26}>
             Ideas
           </Giant>
           <span aria-hidden className="script script-outline absolute bottom-[4%] right-[1%] z-[2] -rotate-[6deg] text-[clamp(27px,5.4vw,100px)] text-gold-soft [--outline:var(--aubergine)]">
@@ -29,11 +29,11 @@ export default function Ideas() {
                     alt="Kalpesh Kinariwala"
                     fill
                     sizes="(min-width:768px) 22vw, 40vw"
-                    className="object-cover object-[50%_25%] transition-transform duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105"
+                    className={`object-cover ${idea.pos ?? "object-[50%_25%]"} transition-transform duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105`}
                   />
                 </div>
                 <div className="col-span-7 md:col-span-9 md:grid md:grid-cols-9 md:items-center md:gap-10">
-                  <h3 className="text-[clamp(36px,4.4vw,84px)] font-black uppercase leading-[0.88] tracking-[-0.01em] transition-[transform,color] duration-700 ease-[cubic-bezier(.16,1,.3,1)] [font-stretch:62%] group-hover:translate-x-3 group-hover:text-gold-soft md:col-span-5">
+                  <h3 className="text-[clamp(36px,4.4vw,84px)] display leading-[0.95] transition-[transform,color] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-3 group-hover:text-gold-soft md:col-span-5">
                     {idea.title}
                   </h3>
                   <p className="mt-4 max-w-[46ch] text-[16px] leading-[1.6] text-bone/75 md:col-span-4 md:mt-0">

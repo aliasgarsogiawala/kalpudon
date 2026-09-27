@@ -52,7 +52,7 @@ export default async function DoorPage({ params }: PageProps<"/contact/[slug]">)
             </nav>
 
             <div className="relative mt-24 lg:mt-auto">
-              <h1 data-split className="text-[clamp(56px,6vw,108px)] font-black uppercase leading-[0.88] tracking-[-0.01em] [font-stretch:62%]">
+              <h1 data-split className="text-[clamp(56px,6vw,108px)] display leading-[0.92]">
                 {door.label}
               </h1>
               <p data-fade className="mt-5 text-[18px] text-bone">

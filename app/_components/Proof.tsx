@@ -24,7 +24,7 @@ function Card({ c }: { c: Chapter }) {
         </div>
         <div className="absolute inset-0 z-[3] bg-[linear-gradient(to_bottom,rgb(5_5_5/.55),transparent_28%,transparent_55%,rgb(5_5_5/.88))]" />
         <span className="serif absolute right-5 top-4 z-[3] text-[24px] text-gold-soft">{c.since}</span>
-        <p className="absolute bottom-4 left-5 right-5 z-[3] text-[clamp(34px,2.8vw,48px)] font-black uppercase leading-[0.86] tracking-[-0.01em] text-bone [font-stretch:62%]">
+        <p className="absolute bottom-4 left-5 right-5 z-[3] text-[clamp(34px,2.8vw,48px)] display leading-[0.9] text-bone">
           {c.sector}
         </p>
       </div>
@@ -49,10 +49,10 @@ export default function Proof() {
     <Sheet id="work" theme="dark" wash="violet" className="bg-violet text-bone">
       <div className={`${WRAP} ${PAD}`}>
         <h2 aria-label="The same move, four times." className="relative">
-          <span aria-hidden className="script script-outline absolute left-[1%] top-[2%] z-[2] -rotate-[7deg] text-[clamp(32px,6vw,112px)] text-gold-soft [--outline:var(--violet)]">
+          <span aria-hidden className="script script-outline absolute -top-[0.7em] left-[1%] z-[2] -rotate-[7deg] text-[clamp(32px,6vw,112px)] text-gold-soft [--outline:var(--violet)]">
             the same move,
           </span>
-          <Giant as="span" n={10} max={24} stretch={1.3} stretchSm={1.6} className="text-right">
+          <Giant as="span" n={10} max={24} className="text-right">
             Four times
           </Giant>
         </h2>

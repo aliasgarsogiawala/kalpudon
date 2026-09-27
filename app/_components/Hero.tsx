@@ -25,6 +25,29 @@ export default function Hero() {
         .to(q(".hero-script, .hero-line"), { yPercent: -60, ease: "none" }, 0);
     }, section);
 
+    // His head sits over the "p": its tail drops below the line, and he covers it wherever the name lands.
+    const placeHead = () => {
+      const mast = q(".hero-mast .giant-in")[0] as HTMLElement | undefined;
+      if (!mast) return;
+      const walker = document.createTreeWalker(mast, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null) {
+        const i = node.data.indexOf("p");
+        if (i < 0) continue;
+        const range = document.createRange();
+        range.setStart(node, i);
+        range.setEnd(node, i + 1);
+        const p = range.getBoundingClientRect();
+        const frame = section.getBoundingClientRect();
+        section.style.setProperty("--head-x", `${p.left + p.width * 0.36 - (frame.left + frame.width / 2)}px`);
+        return;
+      }
+    };
+    const onResize = () => requestAnimationFrame(() => {
+      fitGiants(section);
+      placeHead();
+    });
+    window.addEventListener("resize", onResize);
+
     let split: SplitText | undefined;
     const intro = gsap.context(() => {}, section);
     let cancelled = false;
@@ -32,6 +55,7 @@ export default function Hero() {
       document.fonts.ready.then(() => {
         if (cancelled) return;
         fitGiants(section);
+        placeHead();
         intro.add(() => {
           gsap.set(q(".hero-intro"), { opacity: 1 });
           if (reducedMotion()) return;
@@ -50,6 +74,7 @@ export default function Hero() {
 
     return () => {
       cancelled = true;
+      window.removeEventListener("resize", onResize);
       off();
       intro.revert();
       split?.revert();
@@ -76,14 +101,14 @@ export default function Hero() {
           aria-label="Kalpesh Kinariwala"
           className={`hero-mast ${WRAP} relative text-white md:absolute md:inset-x-0 md:top-[104px] short:top-[92px]`}
         >
-          <Giant as="span" n={7} max={40} className="text-center normal-case">
+          <Giant as="span" n={7} max={40} className="text-center">
             Kalpesh
           </Giant>
         </h1>
 
         {/* The man, in front of it */}
         <div className="hero-figure relative mx-auto -mt-[calc(var(--fw)*0.03)] w-[var(--fw)] md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:flex md:w-auto md:justify-center">
-          <div className="hero-figure-in relative aspect-[792/1006] w-full [mask-image:linear-gradient(to_bottom,#000_68%,transparent_97%)] md:aspect-auto md:h-[72svh] md:w-[calc(72svh*0.787)] md:shrink-0 md:translate-y-[9%] md:[mask-image:none]">
+          <div className="hero-figure-in relative aspect-[792/1006] w-full translate-x-[var(--head-x,0px)] [mask-image:linear-gradient(to_bottom,#000_68%,transparent_97%)] md:aspect-auto md:h-[72svh] md:w-[calc(72svh*0.787)] md:shrink-0 md:translate-y-[9%] md:[mask-image:none]">
             <Image
               src="/img/cut-founder.png"
               alt="Kalpesh Kinariwala"

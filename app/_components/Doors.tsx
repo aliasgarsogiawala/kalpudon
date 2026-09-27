@@ -4,7 +4,7 @@ import Giant from "./Giant";
 import Sheet, { PAD, WRAP } from "./Sheet";
 import { DOORS, doorHref, type Door } from "./data";
 
-const condensed = "font-black uppercase tracking-[-0.01em] [font-stretch:62%]";
+const condensed = "display";
 
 // Routing directory: each door set large — who it is for, what you can ask — each row a link to that
 // door's page. Works on the gold sheet (light) and on ink (dark).
@@ -63,7 +63,7 @@ function DoorCards() {
               alt=""
               fill
               sizes="(min-width:1024px) 20vw, (min-width:640px) 50vw, 100vw"
-              className="object-cover object-[50%_25%] opacity-70 grayscale-[.25] transition-[opacity,transform,filter] duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105 group-hover:opacity-90 group-hover:grayscale-0"
+              className={`object-cover ${d.pos ?? "object-[50%_25%]"} opacity-70 grayscale-[.25] transition-[opacity,transform,filter] duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105 group-hover:opacity-90 group-hover:grayscale-0`}
             />
             <span className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/20 to-ink/95" />
             <span className="relative mt-auto">
@@ -95,7 +95,7 @@ export default function Doors({ page = false }: { page?: boolean }) {
       <div className={`${WRAP} ${PAD}`}>
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <h2 aria-label="Enquiries" className="relative lg:col-span-7">
-            <Giant as="span" n={9} max={22} stretch={1.3} stretchSm={1.5}>
+            <Giant as="span" n={9} max={22}>
               Enquiries
             </Giant>
           </h2>

@@ -5,7 +5,8 @@
 // Photography: images of Kalpesh and HOP are from his own Instagram (@kalpesh.kinariwala, ig-*.jpg) —
 // usage rights to be confirmed by the client before launch (brief §9–10); some are event photographers'
 // work and artists on stage may need their own consent. The HOP clip is cut from his Lucky Ali reel at
-// Coca-Cola Arena. cut-founder.png is ig-founder.jpg with the backdrop lifted out (macOS Vision) for the hero;
+// Coca-Cola Arena. kk-*.jpg and hop-*.jpg are from the event photographer's shoot at the Jasmine Sandlas concert
+// (WeTransfer, 2026-09-22); the artist and dancers in hop-*.jpg may need their own consent. cut-founder.png is ig-founder.jpg with the backdrop lifted out (macOS Vision) for the hero;
 // replace it with a proper cut-out from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
 
 export const SITE_URL = "https://kalpeshkinariwala.com"; // TODO: confirm the production domain
@@ -59,9 +60,9 @@ export const CHAPTERS: Chapter[] = [
     entity: "Private mandates", // TODO: confirm fund names and dates with client
     headline: "Returns are an output. The floor is the only thing you control.",
     proof: "Track record and allocation approach, on request.", // TODO: approved description of the fund
-    img: "/img/ig-sidelit.jpg",
-    pos: "object-[50%_30%]",
-    alt: "Kalpesh Kinariwala arriving at an evening event",
+    img: "/img/kk-lounge.jpg",
+    pos: "object-[38%_30%]",
+    alt: "Kalpesh Kinariwala in conversation backstage",
     href: "/contact/capital",
   },
   {
@@ -82,9 +83,9 @@ export const CHAPTERS: Chapter[] = [
     entity: "HOP Events, UAE",
     headline: "India’s leading artists, produced at arena scale.",
     proof: "A sold-out Etihad Arena with Arijit Singh and A.R. Rahman.",
-    img: "/img/ig-podium.jpg",
-    pos: "object-[50%_28%]",
-    alt: "Kalpesh Kinariwala speaking at Shows of India 2026",
+    img: "/img/kk-stage.jpg",
+    pos: "object-[72%_30%]",
+    alt: "Kalpesh Kinariwala on stage at a concert",
     href: "/#hop",
   },
 ];
@@ -105,10 +106,10 @@ export const HOP_FACTS = [
 
 // HOP productions, from his own channels, until the brand shoot's event footage arrives (brief §9).
 export const PRODUCTIONS = [
-  { img: "/img/ig-live.jpg", t: "Headline nights", w: "tall" },
-  { img: "/img/ig-arena.jpg", t: "Arena scale", w: "wide" },
-  { img: "/img/ig-smoke.jpg", t: "Choreography", w: "wide" },
-  { img: "/img/ig-stage.jpg", t: "Stagecraft", w: "wide" },
+  { img: "/img/hop-smoke.jpg", t: "Headline nights", w: "tall" },
+  { img: "/img/hop-pyro.jpg", t: "Arena scale", w: "wide" },
+  { img: "/img/hop-dancers.jpg", t: "Choreography", w: "wide" },
+  { img: "/img/hop-confetti.jpg", t: "The room", w: "wide" },
 ] as const;
 
 // Brief §6: categories map to his pillars.
@@ -126,6 +127,7 @@ export type Piece = {
   date: string | null;
   dek: string;
   img: string;
+  pos?: string;
 };
 
 export const IDEAS: Piece[] = [
@@ -137,7 +139,8 @@ export const IDEAS: Piece[] = [
     category: "Manage Risk",
     date: null,
     dek: "Returns are an output. The only lever you actually hold is how much you can afford to lose — and how early you decide it.",
-    img: "/img/ig-sidelit.jpg",
+    img: "/img/kk-talk.jpg",
+    pos: "object-[45%_30%]",
   },
   {
     slug: "inspect-what-you-expect",
@@ -147,7 +150,8 @@ export const IDEAS: Piece[] = [
     category: "Building People",
     date: null,
     dek: "Trust scales when it is checked. Why inspection belongs on the calendar, not in the crisis.",
-    img: "/img/ig-podium-2.jpg",
+    img: "/img/kk-interview.jpg",
+    pos: "object-[28%_30%]",
   },
   {
     slug: "the-widest-not-the-tallest",
@@ -157,7 +161,8 @@ export const IDEAS: Piece[] = [
     category: "The Widest",
     date: null,
     dek: "Height is fragile — one market, one cycle, one point of failure. Width is a platform that survives any single storm.",
-    img: "/img/ig-smile.jpg",
+    img: "/img/kk-crowd.jpg",
+    pos: "object-[26%_35%]",
   },
 ];
 
@@ -183,6 +188,7 @@ export type Door = {
   cta: string;
   field: string;
   img: string;
+  pos?: string;
   href?: string;
   page?: { href: string; label: string };
 };
@@ -212,7 +218,8 @@ export const DOORS: Door[] = [
     offers: ["Co-productions", "Touring", "Venue partnerships"],
     cta: "Start a conversation",
     field: "Artist / company / venue",
-    img: "/img/ig-podium-2.jpg",
+    img: "/img/kk-stage-2.jpg",
+    pos: "object-[75%_30%]",
   },
   {
     n: "03",
@@ -225,7 +232,8 @@ export const DOORS: Door[] = [
     offers: ["Leadership roles", "Platform operators", "Advisory seats"],
     cta: "Introduce yourself",
     field: "Current role",
-    img: "/img/ig-ground.jpg",
+    img: "/img/kk-laugh.jpg",
+    pos: "object-[30%_30%]",
   },
   {
     n: "04",
@@ -253,7 +261,8 @@ export const DOORS: Door[] = [
     offers: ["Speaking & panels", "Introductions", "Notes on the ideas"],
     cta: "Send a note",
     field: "Organisation (optional)",
-    img: "/img/ig-smile.jpg",
+    img: "/img/kk-guest.jpg",
+    pos: "object-[33%_30%]",
     page: { href: "/ideas", label: "Read the ideas" },
   },
 ];

@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 // Placeholders until approved photography from the brand shoot (brief §9).
 const PHOTOS = [
   { img: "/img/ig-founder.jpg", t: "Portrait, Pantheon", pos: "object-[50%_30%]" },
-  { img: "/img/ig-portrait.jpg", t: "Shows of India 2026", pos: "object-[50%_25%]" },
-  { img: "/img/ig-podium.jpg", t: "On stage, Shows of India 2026", pos: "object-[50%_30%]" },
+  { img: "/img/kk-crowd.jpg", t: "In the room", pos: "object-[27%_35%]" },
+  { img: "/img/kk-stage.jpg", t: "On stage", pos: "object-[72%_30%]" },
 ];
 
 export default function PressPage() {

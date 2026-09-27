@@ -10,7 +10,7 @@ export default function Thesis() {
     <Sheet id="story" theme="dark" wash="plum" className="bg-plum text-bone">
       <div className={`${WRAP} ${PAD}`}>
         <div className="relative">
-          <Giant as="h2" n={12} max={24} stretch={1.3} stretchSm={1.6}>
+          <Giant as="h2" n={12} max={24}>
             One instinct
           </Giant>
           <p className="script script-outline absolute bottom-[-6%] right-[2%] -rotate-[6deg] text-[clamp(32px,6vw,112px)] text-gold-soft [--outline:var(--plum)]">
@@ -25,11 +25,11 @@ export default function Thesis() {
               <div data-reveal className="relative aspect-[4/5] -rotate-[3deg] bg-bone p-2 shadow-[0_40px_80px_-30px_rgba(0,0,0,.6)]">
                 <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
                   <Image
-                    src="/img/ig-portrait.jpg"
-                    alt="Kalpesh Kinariwala at Shows of India 2026"
+                    src="/img/kk-crowd.jpg"
+                    alt="Kalpesh Kinariwala in the crowd at a concert, phone lights behind him"
                     fill
                     sizes="(min-width:1024px) 30vw, 78vw"
-                    className="object-cover object-[50%_25%]"
+                    className="object-cover object-[27%_35%]"
                   />
                 </div>
               </div>
@@ -44,7 +44,7 @@ export default function Thesis() {
                 {INSTINCT.map((s) => (
                   <li key={s.t} data-fade>
                     <span>
-                      <span className="block text-[clamp(28px,2.4vw,40px)] font-black uppercase leading-[0.9] tracking-[-0.01em] [font-stretch:62%]">
+                      <span className="block text-[clamp(28px,2.4vw,40px)] display leading-[0.95]">
                         {s.t}
                       </span>
                       <span className="mt-2 block text-[16px] leading-[1.6] text-bone/75">{s.d}</span>

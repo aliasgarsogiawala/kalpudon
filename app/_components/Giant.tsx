@@ -4,29 +4,21 @@ type Props = {
   children: ReactNode;
   /** Characters in the longest line — gives CSS a close first guess at the size before fitGiants() measures it. */
   n: number;
-  /** Tallest the letters may get (before any stretch), in svh. */
+  /** Tallest the letters may get, in svh. */
   max?: number;
-  /** Vertical stretch, for follow.art's tall poster letters; stretchSm replaces it on phones. */
-  stretch?: number;
-  stretchSm?: number;
-  /** Lines in the word (for a <br />), so the space the stretch adds is reserved below it. */
-  lines?: number;
   as?: "h1" | "h2" | "h3" | "p" | "span";
   className?: string;
 };
 
-// A word set as large as its column allows: ultra-condensed caps that run the full measure (follow.art).
-export default function Giant({ children, n, max = 40, stretch, stretchSm, lines = 1, as: Tag = "p", className = "" }: Props) {
+// A word set as large as its column allows: bold grotesk, set tight, running the full measure.
+export default function Giant({ children, n, max = 40, as: Tag = "p", className = "" }: Props) {
   const style = {
     "--n": n,
     "--max": `${max}svh`,
-    "--lines": lines,
-    ...(stretch && { "--stretch": stretch }),
-    ...(stretchSm && { "--stretch-sm": stretchSm }),
   } as CSSProperties;
   return (
     <span className="@container block">
-      <Tag data-fit data-max={max} data-giant data-stretch={stretch ? "" : undefined} className={`giant ${className}`} style={style}>
+      <Tag data-fit data-max={max} data-giant className={`giant ${className}`} style={style}>
         <span className="giant-in">{children}</span>
       </Tag>
     </span>

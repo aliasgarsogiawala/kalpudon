@@ -19,7 +19,7 @@ const SLOTS = [
   "col-span-2 aspect-[16/9] md:col-span-3 md:aspect-auto",
 ];
 
-const condensed = "font-black uppercase tracking-[-0.01em] [font-stretch:62%]";
+const condensed = "display";
 
 // Brief §5.4: what he is building now — Pantheon as Art, Culture, Real Estate and HOP, with live events
 // leading. Present tense, and the sheet that should feel the most alive: crowd footage, motion, energy.
@@ -50,20 +50,20 @@ export default function Hop() {
             <figure data-fade className="relative mx-auto w-[72%] max-w-[340px] rotate-[2deg] md:mr-[3%] md:mt-auto md:w-[clamp(240px,25vw,420px)] md:max-w-none">
               <div className="relative aspect-[4/5] overflow-hidden bg-coal shadow-[0_50px_100px_-30px_rgba(0,0,0,.85)]">
                 <Image
-                  src="/img/ig-podium-2.jpg"
-                  alt="Kalpesh Kinariwala on stage at Shows of India 2026"
+                  src="/img/kk-arena-watch.jpg"
+                  alt="Kalpesh Kinariwala watching the show from the floor of the arena"
                   fill
                   sizes="(min-width:768px) 26vw, 72vw"
-                  className="object-cover object-[50%_22%]"
+                  className="object-cover object-[50%_50%]"
                 />
               </div>
             </figure>
 
             <h2 aria-label="The present tense" className="relative z-[2] mt-10 md:-mt-[12vw]">
-              <span aria-hidden className="script script-outline absolute left-[0.5%] top-[4%] z-[2] -rotate-[8deg] text-[clamp(36px,7vw,132px)] text-gold-soft">
+              <span aria-hidden className="script script-outline absolute -top-[0.62em] left-[0.5%] z-[2] -rotate-[8deg] text-[clamp(36px,7vw,132px)] text-gold-soft">
                 the
               </span>
-              <Giant as="span" n={13} max={26} stretch={1.3} stretchSm={1.6}>
+              <Giant as="span" n={13} max={26}>
                 Present tense
               </Giant>
             </h2>
@@ -83,7 +83,7 @@ export default function Hop() {
                     <li key={p.name} className={`pr-4 ${p.lead ? "text-bone" : "text-bone/55"}`}>
                       <p className={`text-[clamp(30px,2.6vw,44px)] leading-none ${condensed}`}>
                         {p.name}
-                        {p.lead && <span className="eyebrow ml-3 align-middle text-[10px] tracking-[0.18em] text-gold [font-stretch:110%]">Leading</span>}
+                        {p.lead && <span className="eyebrow ml-3 align-middle text-[10px] tracking-[0.18em] text-gold">Leading</span>}
                       </p>
                       {p.what && <p className="mt-2 text-[14px]">{p.what}</p>}
                     </li>

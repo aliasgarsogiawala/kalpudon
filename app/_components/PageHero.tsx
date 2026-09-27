@@ -103,7 +103,7 @@ export default function PageHero({
       )}
       <div className={`${WRAP} pb-24 pt-[140px] md:pb-40 md:pt-[210px]`}>
         <h1 aria-label={`${word} ${script}`} className="mt-8 md:mt-10">
-          <Giant as="span" n={word.length} max={24} stretch={1.3} stretchSm={1.6}>
+          <Giant as="span" n={word.length} max={24}>
             {word}
           </Giant>
           <span

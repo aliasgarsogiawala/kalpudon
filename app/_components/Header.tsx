@@ -13,7 +13,7 @@ function NavLink({ href, home, ...rest }: React.ComponentProps<"a"> & { href: st
   return <Link href={href} {...rest} />;
 }
 
-const condensed = "font-black uppercase tracking-[-0.01em] [font-stretch:62%]";
+const condensed = "display";
 const RING = 2 * Math.PI * 19;
 
 // The mark: KK inside a gold ring that fills as the page is read.
