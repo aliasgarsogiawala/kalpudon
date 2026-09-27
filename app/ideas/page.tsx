@@ -18,10 +18,10 @@ export default function IdeasPage() {
     <Shell>
       <main>
         <PageHero
-          label="Ideas"
           word="Ideas"
+          bg={{ src: "/img/ig-note.jpg", pos: "object-[50%_35%]" }}
           script="written after they worked."
-          intro="Essays and talks, filed under the five things I keep coming back to."
+          intro="Essays and talks, filed under the five things he keeps coming back to."
         >
           <Strip frames={IDEAS.map((i) => ({ src: i.img, alt: "", caption: i.title, n: i.n }))} />
         </PageHero>

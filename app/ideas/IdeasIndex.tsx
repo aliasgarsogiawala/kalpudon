@@ -8,14 +8,12 @@ export default function IdeasIndex() {
   const [pillar, setPillar] = useState<Pillar | null>(null);
   const shown = pillar ? IDEAS.filter((i) => i.category === pillar) : IDEAS;
   const chip = (on: boolean) =>
-    `rounded-full border px-4 py-2 text-[14px] transition-colors duration-300 ${
-      on ? "border-gold bg-gold text-ink" : "border-white/25 text-bone/75 hover:border-gold"
-    }`;
+    `py-1 text-[15px] transition-colors duration-300 ${on ? "text-gold-soft underline decoration-gold underline-offset-[6px]" : "text-bone/60 hover:text-bone"}`;
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by pillar">
-        <span className="eyebrow mr-3 text-bone/50">Filed under</span>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2" role="group" aria-label="Filter by pillar">
+        <span className="text-[15px] text-bone/40">Filed under</span>
         <button className={chip(pillar === null)} aria-pressed={pillar === null} onClick={() => setPillar(null)}>
           All
         </button>

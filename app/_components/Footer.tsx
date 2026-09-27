@@ -33,10 +33,10 @@ const SITE = [
 
 const link = "transition-opacity duration-300 hover:opacity-60";
 
-// The close, on gold like the last sheet: every way onward, then the name signed across the foot.
+// The close stays cinematic and near-black; gold is used as light, not as a bright surface.
 export default function Footer() {
   return (
-    <footer data-theme="light" className="relative isolate z-[1] overflow-hidden bg-gold text-ink">
+    <footer data-theme="dark" className="relative isolate z-[1] overflow-hidden border-t border-gold/20 bg-ink text-bone">
       <div className={`${WRAP} pt-16 md:pt-24`}>
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
@@ -50,7 +50,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`${l.label} (opens in a new tab)`}
-                    className="block text-ink transition-opacity duration-300 hover:opacity-60"
+                    className="block text-gold-soft transition-opacity duration-300 hover:opacity-60"
                   >
                     {ICONS[l.label]}
                   </a>
@@ -78,14 +78,14 @@ export default function Footer() {
               ))}
             </ul>
           </nav>
-          <p className="text-[13px] leading-relaxed text-ink/75 md:col-span-3 md:text-right">
+          <p className="text-[13px] leading-relaxed text-bone/55 md:col-span-3 md:text-right">
             Photography: Kalpesh Kinariwala and HOP Events. Some images are placeholders until the brand shoot.
           </p>
         </div>
       </div>
 
       {/* The name, signed across the foot of every page */}
-      <div aria-hidden className={`${WRAP} mt-24 text-ink/15 md:mt-40`}>
+      <div aria-hidden className={`${WRAP} mt-24 text-gold/15 md:mt-40`}>
         <Giant as="span" n={18} max={30} className="-mb-[0.06em]">
           Kalpesh Kinariwala
         </Giant>

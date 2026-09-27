@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  /* Black, gold and purple (client). The blacks lean faintly violet so the purples belong to them. */
-  --ink: #0b0910;
-  --coal: #141019;
-  --smoke: #1e1826;
-  --bone: #efe9df;
-  --stone: #a69fae;
-  --paper: #ebe5d9;
-  --gold: #c9a66b;
-  --gold-soft: #e2ca98;
-  --gold-deep: #7d6034;
-  /* The purples, from nearly black to the glow */
-  --plum: #1c1027;
-  --aubergine: #2a173e;
-  --violet: #3d2159;
-  --amethyst: #7b4fb3;
+  /* Deep black and warm gold. Purple only appears as a low-light undertone. */
+  --ink: #050505;
+  --coal: #0b090c;
+  --smoke: #151217;
+  --bone: #f2eee7;
+  --stone: #a8a0a6;
+  --paper: #e9e1d5;
+  --gold: #b88a42;
+  --gold-soft: #efd394;
+  --gold-deep: #68471f;
+  --plum: #0c080f;
+  --aubergine: #100a14;
+  --violet: #150d1a;
+  --amethyst: #4b295c;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-haas: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Laptop screens with little height: 1280×720, 1366×768 */
@@ -37,7 +37,7 @@
   --color-violet: var(--violet);
   --color-amethyst: var(--amethyst);
   --font-serif: var(--font-instrument), "Times New Roman", serif;
-  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-sans: var(--font-haas);
 }
 
 @layer base {
@@ -45,11 +45,11 @@
     background: var(--ink);
     color: var(--bone);
     scroll-behavior: auto;
+    overflow-x: clip;
   }
   body {
     background: var(--ink);
-    font-family: var(--font-archivo), system-ui, sans-serif;
-    font-stretch: 106%;
+    font-family: var(--font-haas);
     overflow-x: clip;
   }
   ::selection {
@@ -81,9 +81,9 @@ html.lenis body {
   /* Giant words: ultra-condensed caps that run the full measure (sized by Giant.tsx) */
   .giant {
     display: block;
-    font-family: var(--font-archivo), system-ui, sans-serif;
-    font-stretch: 62%;
-    font-weight: 900;
+    font-family: var(--font-haas);
+    font-stretch: 75%;
+    font-weight: 800;
     text-transform: uppercase;
     line-height: 0.8;
     letter-spacing: -0.012em;
@@ -198,6 +198,12 @@ html.lenis body {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
+  .gold-glow-text {
+    text-shadow:
+      0 0 18px rgb(239 211 148 / 0.2),
+      0 0 42px rgb(184 138 66 / 0.14);
+  }
+
   .pulse-dot {
     position: relative;
   }
@@ -265,33 +271,33 @@ html.lenis body {
 }
 .wash-ink {
   background:
-    radial-gradient(55% 45% at 88% 2%, rgb(201 166 107 / 0.16), transparent 70%),
-    radial-gradient(60% 50% at 0% 100%, rgb(123 79 179 / 0.18), transparent 70%),
-    linear-gradient(180deg, #110c18 0%, var(--ink) 60%);
+    radial-gradient(55% 45% at 88% 2%, rgb(184 138 66 / 0.13), transparent 70%),
+    radial-gradient(55% 45% at 0% 100%, rgb(75 41 92 / 0.13), transparent 72%),
+    linear-gradient(180deg, #09070a 0%, var(--ink) 62%);
 }
 .wash-plum {
   background:
-    radial-gradient(70% 55% at 88% 6%, rgb(123 79 179 / 0.34), transparent 70%),
-    radial-gradient(50% 40% at 0% 100%, rgb(201 166 107 / 0.12), transparent 70%),
-    linear-gradient(170deg, #26153a 0%, var(--plum) 55%, #0e0916 100%);
+    radial-gradient(70% 55% at 88% 6%, rgb(75 41 92 / 0.2), transparent 72%),
+    radial-gradient(50% 40% at 0% 100%, rgb(184 138 66 / 0.09), transparent 72%),
+    linear-gradient(170deg, #100a14 0%, var(--plum) 55%, #060507 100%);
 }
 .wash-violet {
   background:
-    radial-gradient(75% 60% at 92% 0%, rgb(150 100 215 / 0.38), transparent 70%),
-    radial-gradient(60% 45% at 0% 100%, rgb(201 166 107 / 0.14), transparent 70%),
-    linear-gradient(165deg, #4b2a6e 0%, var(--violet) 40%, #1b0e2a 100%);
+    radial-gradient(75% 60% at 92% 0%, rgb(75 41 92 / 0.22), transparent 72%),
+    radial-gradient(60% 45% at 0% 100%, rgb(184 138 66 / 0.11), transparent 72%),
+    linear-gradient(165deg, #1b1021 0%, var(--violet) 42%, #09060b 100%);
 }
 .wash-aubergine {
   background:
-    radial-gradient(65% 50% at 10% 0%, rgb(201 166 107 / 0.16), transparent 70%),
-    radial-gradient(70% 55% at 100% 100%, rgb(123 79 179 / 0.3), transparent 70%),
-    linear-gradient(175deg, #331c4b 0%, var(--aubergine) 50%, #140b1e 100%);
+    radial-gradient(65% 50% at 10% 0%, rgb(184 138 66 / 0.12), transparent 72%),
+    radial-gradient(70% 55% at 100% 100%, rgb(75 41 92 / 0.18), transparent 72%),
+    linear-gradient(175deg, #150c1a 0%, var(--aubergine) 50%, #070508 100%);
 }
 .wash-gold {
   background:
-    radial-gradient(60% 50% at 12% 0%, rgb(255 246 226 / 0.5), transparent 70%),
-    radial-gradient(45% 40% at 100% 45%, rgb(125 96 52 / 0.2), transparent 70%),
-    linear-gradient(165deg, #e2ca98 0%, var(--gold) 45%, #bf9a5f 100%);
+    radial-gradient(60% 50% at 12% 0%, rgb(255 241 207 / 0.2), transparent 72%),
+    radial-gradient(45% 40% at 100% 45%, rgb(104 71 31 / 0.22), transparent 72%),
+    linear-gradient(165deg, #c6a25e 0%, var(--gold) 45%, #8b632d 100%);
 }
 
 /* The header: a floating glass capsule that condenses once the page moves (Header.tsx sets data-state). */
@@ -314,17 +320,6 @@ html.lenis body {
     inset 0 1px 0 rgb(226 202 152 / 0.12);
   -webkit-backdrop-filter: blur(18px) saturate(1.3);
   backdrop-filter: blur(18px) saturate(1.3);
-}
-.nav-tag {
-  display: grid;
-  grid-template-rows: 1fr;
-  transition:
-    grid-template-rows 0.6s var(--ease-out),
-    opacity 0.4s ease;
-}
-.nav-shell[data-state="float"] .nav-tag {
-  grid-template-rows: 0fr;
-  opacity: 0;
 }
 .nav-pill {
   transition:

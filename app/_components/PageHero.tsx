@@ -28,7 +28,7 @@ const COLS: Record<number, string> = { 3: "md:grid-cols-3", 4: "md:grid-cols-4",
 export function Strip({ frames }: { frames: Frame[] }) {
   return (
     <ul
-      className={`-mx-5 mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:mt-16 md:grid md:gap-6 md:overflow-visible md:px-0 ${COLS[frames.length] ?? "md:grid-cols-4"}`}
+      className={`-mx-5 mt-14 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:mt-16 md:grid md:gap-6 md:overflow-visible md:px-0 ${COLS[frames.length] ?? "md:grid-cols-4"}`}
     >
       {frames.map((f, i) => {
         const body = (
@@ -70,44 +70,52 @@ export function Strip({ frames }: { frames: Frame[] }) {
 }
 
 export default function PageHero({
-  label,
   word,
   script,
   intro,
+  bg,
   aside,
   children,
 }: {
-  label: string;
   /** The giant word. */
   word: string;
   /** The line written across it. */
   script: string;
   intro: string;
+  /** Photograph behind the opening frame, anchored right and fading into the dark. */
+  bg?: { src: string; pos?: string; soft?: boolean };
   aside?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
-    <section data-theme="dark" className="relative isolate bg-ink text-bone">
+    <section data-theme="dark" className="relative isolate overflow-hidden bg-ink text-bone">
       <WashLayer wash="ink" />
-      <div className={`${WRAP} pb-24 pt-[132px] md:pb-40 md:pt-[200px]`}>
-        <p className="eyebrow text-gold">{label}</p>
-        <h1 aria-label={`${word} ${script}`} className="relative mt-10 md:mt-14">
+      {bg && (
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-[1] h-[100svh] max-h-[1080px]">
+          <div className="absolute inset-y-0 right-0 w-full md:w-[64%] md:[mask-image:linear-gradient(to_right,transparent,#000_45%)]">
+            <Image src={bg.src} alt="" fill preload sizes="(min-width:768px) 64vw, 100vw" className={`object-cover ${bg.soft ? "opacity-45 blur-[3px] saturate-[.7]" : "opacity-60"} ${bg.pos ?? "object-center"}`} />
+          </div>
+          <div className="absolute inset-0 bg-ink/45 md:bg-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/0 to-ink" />
+          <div className="absolute inset-0 bg-[radial-gradient(45%_40%_at_85%_20%,rgb(123_79_179/.22),transparent_70%)]" />
+        </div>
+      )}
+      <div className={`${WRAP} pb-24 pt-[140px] md:pb-40 md:pt-[210px]`}>
+        <h1 aria-label={`${word} ${script}`} className="mt-8 md:mt-10">
           <Giant as="span" n={word.length} max={24} stretch={1.3} stretchSm={1.6}>
             {word}
           </Giant>
           <span
             aria-hidden
-            className="script script-outline absolute bottom-[2%] right-[2%] z-[2] -rotate-[6deg] text-[clamp(40px,6vw,112px)] text-gold-soft"
+            className="script script-outline relative z-[2] -mt-[0.3em] ml-[0.2em] block origin-left -rotate-[5deg] whitespace-normal text-[clamp(40px,6vw,112px)] text-gold-soft sm:whitespace-nowrap"
           >
             {script}
           </span>
         </h1>
-        <div className="mt-28 grid lg:grid-cols-2 md:mt-40">
-          <div className="hidden lg:block" />
-          <div data-fade className="lg:pl-20">
-            <p className="max-w-[460px] text-[18px] leading-[1.6] text-bone/85">{intro}</p>
-            {aside}
-          </div>
+        <div data-fade className="mt-16 max-w-[520px] md:mt-24">
+          <p className="text-[18px] leading-[1.6] text-bone/85">{intro}</p>
+          {aside}
         </div>
         {children}
       </div>

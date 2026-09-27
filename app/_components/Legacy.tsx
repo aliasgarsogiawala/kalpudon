@@ -31,7 +31,7 @@ export default function Legacy() {
               </figure>
               <div>
                 <p data-fade className="max-w-[420px] text-[17px] leading-[1.7] text-bone/85">
-                  Every platform I have built is judged by one test: did the suppliers, investors, residents and
+                  Every platform he has built is judged by one test: did the suppliers, investors, residents and
                   artists leave better off than they arrived?
                 </p>
                 <p data-fade className="script mt-8 text-[clamp(48px,4.4vw,72px)] text-gold-soft">

@@ -21,8 +21,7 @@ export default function Loader() {
     }
     const tween = gsap.to(root.current, {
       opacity: 0,
-      duration: 1.4,
-      delay: 0.1,
+      duration: 0.75,
       ease: "power2.inOut",
       onComplete: () => setGone(true),
     });

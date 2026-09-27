@@ -5,7 +5,8 @@
 // Photography: images of Kalpesh and HOP are from his own Instagram (@kalpesh.kinariwala, ig-*.jpg) —
 // usage rights to be confirmed by the client before launch (brief §9–10); some are event photographers'
 // work and artists on stage may need their own consent. The HOP clip is cut from his Lucky Ali reel at
-// Coca-Cola Arena. The rest (iodine, capital, the Pantheon in Rome) is Unsplash stock until the brand shoot.
+// Coca-Cola Arena. cut-founder.png is ig-founder.jpg with the backdrop lifted out (macOS Vision) for the hero;
+// replace it with a proper cut-out from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
 
 export const SITE_URL = "https://kalpeshkinariwala.com"; // TODO: confirm the production domain
 
@@ -37,7 +38,6 @@ export type Chapter = {
   pos?: string;
   alt: string;
   href?: string;
-  cta?: string;
 };
 
 export const CHAPTERS: Chapter[] = [
@@ -48,9 +48,9 @@ export const CHAPTERS: Chapter[] = [
     entity: "Pantheon Group",
     headline: "A hundred square feet and two thousand borrowed dollars.",
     proof: "By 2008, the world’s leading distributor of iodine.",
-    img: "/img/ch-supply.jpg",
-    pos: "object-[50%_40%]",
-    alt: "Container cranes at a port at dusk",
+    img: "/img/ig-smile.jpg",
+    pos: "object-[50%_20%]",
+    alt: "Kalpesh Kinariwala, smiling, in a white jacket",
   },
   {
     n: "02",
@@ -59,10 +59,10 @@ export const CHAPTERS: Chapter[] = [
     entity: "Private mandates", // TODO: confirm fund names and dates with client
     headline: "Returns are an output. The floor is the only thing you control.",
     proof: "Track record and allocation approach, on request.", // TODO: approved description of the fund
-    img: "/img/ch-capital.jpg",
-    alt: "A financial district skyline at night across dark water",
+    img: "/img/ig-sidelit.jpg",
+    pos: "object-[50%_30%]",
+    alt: "Kalpesh Kinariwala arriving at an evening event",
     href: "/contact/capital",
-    cta: "Request a briefing",
   },
   {
     n: "03",
@@ -82,10 +82,10 @@ export const CHAPTERS: Chapter[] = [
     entity: "HOP Events, UAE",
     headline: "India’s leading artists, produced at arena scale.",
     proof: "A sold-out Etihad Arena with Arijit Singh and A.R. Rahman.",
-    img: "/img/ig-arena.jpg",
-    alt: "A HOP Events concert, seen from the back of the arena",
+    img: "/img/ig-podium.jpg",
+    pos: "object-[50%_28%]",
+    alt: "Kalpesh Kinariwala speaking at Shows of India 2026",
     href: "/#hop",
-    cta: "What I’m building now",
   },
 ];
 
@@ -157,7 +157,7 @@ export const IDEAS: Piece[] = [
     category: "The Widest",
     date: null,
     dek: "Height is fragile — one market, one cycle, one point of failure. Width is a platform that survives any single storm.",
-    img: "/img/pantheon.jpg",
+    img: "/img/ig-smile.jpg",
   },
 ];
 
@@ -199,7 +199,7 @@ export const DOORS: Door[] = [
     offers: ["Track record summary", "Allocation approach", "Co-investment briefing"],
     cta: "Request a briefing",
     field: "Fund / institution",
-    img: "/img/ch-capital.jpg",
+    img: "/img/ig-sidelit.jpg",
   },
   {
     n: "02",
@@ -212,7 +212,7 @@ export const DOORS: Door[] = [
     offers: ["Co-productions", "Touring", "Venue partnerships"],
     cta: "Start a conversation",
     field: "Artist / company / venue",
-    img: "/img/ig-arena.jpg",
+    img: "/img/ig-podium-2.jpg",
   },
   {
     n: "03",
@@ -225,7 +225,7 @@ export const DOORS: Door[] = [
     offers: ["Leadership roles", "Platform operators", "Advisory seats"],
     cta: "Introduce yourself",
     field: "Current role",
-    img: "/img/ig-console.jpg",
+    img: "/img/ig-ground.jpg",
   },
   {
     n: "04",
@@ -238,7 +238,7 @@ export const DOORS: Door[] = [
     offers: ["Biography", "Media kit", "Interview requests"],
     cta: "Request the media kit",
     field: "Publication",
-    img: "/img/ig-podium.jpg",
+    img: "/img/ig-portrait.jpg",
     href: "/press", // brief §3: press goes to the press & media kit page
     page: { href: "/press", label: "Biography and fact sheet" },
   },

@@ -14,10 +14,10 @@ export default function ContactPage() {
     <Shell>
       <main>
         <PageHero
-          label="Contact"
-          word="Let’s talk"
+          word="Enquiries"
+          bg={{ src: "/img/ig-portrait.jpg", pos: "object-[50%_20%]" }}
           script="pick your door."
-          intro="Tell me what you are here for. Each note goes straight to the people who handle it: capital, HOP partnerships, careers, press, and everything else."
+          intro="Every note reaches the office of Kalpesh Kinariwala and goes straight to the people who handle it: capital, HOP partnerships, careers, press, and everything else."
         />
         <Doors page />
       </main>

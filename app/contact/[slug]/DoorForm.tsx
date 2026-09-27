@@ -36,12 +36,12 @@ export default function DoorForm({ label, desk, field, cta, topics }: Props) {
     <form onSubmit={submit} className="flex flex-col gap-7">
       <fieldset>
         <legend className="text-[15px] text-stone">About</legend>
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
           {topics.map((t) => (
             <label
               key={t}
-              className={`cursor-pointer rounded-full border px-4 py-2.5 text-[15px] transition-colors duration-300 has-[:focus-visible]:outline has-[:focus-visible]:outline-gold ${
-                topic === t ? "border-gold bg-gold text-ink" : "border-white/20 text-bone/80 hover:border-gold"
+              className={`cursor-pointer py-1 text-[16px] transition-colors duration-300 has-[:focus-visible]:outline has-[:focus-visible]:outline-gold ${
+                topic === t ? "text-gold-soft underline decoration-gold underline-offset-[6px]" : "text-bone/60 hover:text-bone"
               }`}
             >
               <input type="radio" name="topic" value={t} checked={topic === t} onChange={() => setTopic(t)} className="sr-only" />
@@ -66,11 +66,11 @@ export default function DoorForm({ label, desk, field, cta, topics }: Props) {
       </label>
       <label className="block text-[15px] text-stone">
         A few lines
-        <textarea name="message" rows={3} className={`${input} resize-none`} placeholder="What should we know?" />
+        <textarea name="message" rows={3} className={`${input} resize-none`} placeholder="Your note" />
       </label>
       <button
         type="submit"
-        className="mt-2 inline-flex h-14 w-fit items-center rounded-full bg-gold px-8 text-[16px] font-medium text-ink transition-colors duration-500 hover:bg-bone"
+        className="link-line serif mt-4 w-fit text-[clamp(28px,2.4vw,40px)] leading-none text-gold-soft transition-colors duration-500 hover:text-bone"
       >
         {cta} →
       </button>

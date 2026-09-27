@@ -12,7 +12,7 @@ const RECOGNISED = ["Entrepreneur Middle East", "Forbes Middle East", "Shows of 
 function Card({ c }: { c: Chapter }) {
   const body = (
     <>
-      <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-[20px]">
+      <div data-reveal className="relative aspect-[4/5] overflow-hidden">
         <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-smoke">
           <Image
             src={c.img}
@@ -22,10 +22,8 @@ function Card({ c }: { c: Chapter }) {
             className={`object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105 ${c.pos ?? ""}`}
           />
         </div>
-        <div className="absolute inset-0 z-[3] bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
-        <span className="eyebrow absolute left-4 top-4 z-[3] rounded-full bg-ink/60 px-3 py-1.5 text-[10px] text-gold-soft backdrop-blur-sm">
-          {c.since}
-        </span>
+        <div className="absolute inset-0 z-[3] bg-[linear-gradient(to_bottom,rgb(5_5_5/.55),transparent_28%,transparent_55%,rgb(5_5_5/.88))]" />
+        <span className="serif absolute right-5 top-4 z-[3] text-[24px] text-gold-soft">{c.since}</span>
         <p className="absolute bottom-4 left-5 right-5 z-[3] text-[clamp(34px,2.8vw,48px)] font-black uppercase leading-[0.86] tracking-[-0.01em] text-bone [font-stretch:62%]">
           {c.sector}
         </p>
@@ -33,11 +31,6 @@ function Card({ c }: { c: Chapter }) {
       <p className="eyebrow mt-6 text-[10px] text-bone/70">{c.entity}</p>
       <p className="serif mt-3 text-[clamp(24px,1.9vw,32px)] leading-[1.08]">{c.headline}</p>
       <p className="mt-4 text-[15px] leading-[1.55] text-gold-soft">{c.proof}</p>
-      {c.cta && (
-        <span className="mt-4 inline-flex items-center gap-2 text-[14px] text-bone/80 transition-colors group-hover:text-gold-soft">
-          {c.cta} <span aria-hidden>→</span>
-        </span>
-      )}
     </>
   );
   return c.href ? (
@@ -56,7 +49,7 @@ export default function Proof() {
     <Sheet id="work" theme="dark" wash="violet" className="bg-violet text-bone">
       <div className={`${WRAP} ${PAD}`}>
         <h2 aria-label="The same move, four times." className="relative">
-          <span aria-hidden className="script script-outline absolute left-[1%] top-[2%] z-[2] -rotate-[7deg] text-[clamp(40px,6vw,112px)] text-gold-soft [--outline:var(--violet)]">
+          <span aria-hidden className="script script-outline absolute left-[1%] top-[2%] z-[2] -rotate-[7deg] text-[clamp(32px,6vw,112px)] text-gold-soft [--outline:var(--violet)]">
             the same move,
           </span>
           <Giant as="span" n={10} max={24} stretch={1.3} stretchSm={1.6} className="text-right">
@@ -64,9 +57,9 @@ export default function Proof() {
           </Giant>
         </h2>
 
-        <ul className="mt-28 grid gap-x-8 gap-y-20 md:mt-40 md:grid-cols-2 xl:grid-cols-4">
+        <ul className="-mx-6 mt-20 flex snap-x snap-mandatory scroll-px-6 gap-5 overflow-x-auto px-6 pb-2 [scrollbar-width:none] md:mx-0 md:mt-40 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-20 md:overflow-visible md:px-0 xl:grid-cols-4">
           {CHAPTERS.map((c) => (
-            <li key={c.n}>
+            <li key={c.n} className="w-[78vw] max-w-[340px] shrink-0 snap-start md:w-auto md:max-w-none">
               <Card c={c} />
             </li>
           ))}

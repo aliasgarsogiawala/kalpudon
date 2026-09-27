@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import { Archivo, Instrument_Serif } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "./_components/data";
 import "./globals.css";
-
-// One variable file does both jobs: ultra-condensed caps for the giant words (wdth 62) and the body text.
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-  axes: ["wdth"],
-});
 
 const instrument = Instrument_Serif({
   variable: "--font-instrument",
@@ -37,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} ${instrument.variable} antialiased`}>
+    <html lang="en" className={`${instrument.variable} antialiased`}>
       <body>
         <noscript>
           <style>{`[data-fade],[data-split],[data-giant],.hero-intro{opacity:1!important;transform:none!important}.loader{display:none!important}`}</style>

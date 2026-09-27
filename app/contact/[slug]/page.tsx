@@ -75,14 +75,11 @@ export default async function DoorPage({ params }: PageProps<"/contact/[slug]">)
 
           <div id="write" className="bg-ink px-5 pb-16 pt-12 text-bone md:px-10 lg:col-span-7 lg:flex lg:flex-col lg:justify-center lg:px-16 lg:py-14">
             <div className="w-full max-w-[720px]">
-              <p data-fade className="eyebrow text-gold">
-                Write to the {door.desk} desk
-              </p>
-              <h2 data-split className="serif mt-5 text-[clamp(40px,3.8vw,64px)] leading-[0.95]">
-                Tell us what you need.
+              <h2 data-split className="serif text-[clamp(40px,3.8vw,64px)] leading-[0.95]">
+                A note to the {door.desk} desk.
               </h2>
               <p data-fade className="mt-4 max-w-[460px] text-[16px] leading-[1.65] text-stone">
-                This note goes only to the people who handle {door.desk} enquiries.
+                It goes only to the people in his office who handle {door.desk} enquiries.
               </p>
               <div data-fade className="mt-10">
                 <DoorForm label={door.label} desk={door.desk} field={door.field} cta={door.cta} topics={door.offers} />
@@ -93,7 +90,7 @@ export default async function DoorPage({ params }: PageProps<"/contact/[slug]">)
 
         <section data-theme="dark" className="bg-ink text-bone">
           <div className={`${WRAP} py-24 md:py-40`}>
-            <h2 data-fade className="eyebrow text-stone">
+            <h2 data-fade className="text-[15px] text-stone">
               Not the right door?
             </h2>
             <Directory doors={others} className="mt-6" />

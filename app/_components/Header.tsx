@@ -213,14 +213,7 @@ export default function Header() {
         <div className="nav-capsule flex h-[60px] items-center justify-between gap-6 rounded-full px-2 md:pl-3 lg:h-[64px] lg:pr-2.5">
           <Link href={home ? "#top" : "/"} onClick={close} className="flex items-center gap-3" aria-label="Kalpesh Kinariwala, home">
             <Monogram progress={ring} />
-            <span className="leading-none">
-              <span className={`block text-[20px] text-bone md:text-[22px] ${condensed}`}>Kalpesh Kinariwala</span>
-              <span className="nav-tag">
-                <span className="min-h-0 overflow-hidden">
-                  <span className="mt-1 block text-[12px] text-stone">Platform builder, Dubai</span>
-                </span>
-              </span>
-            </span>
+            <span className={`text-[20px] leading-none text-bone md:text-[22px] ${condensed}`}>Kalpesh Kinariwala</span>
           </Link>
 
           <div className="flex items-center gap-3">
@@ -257,12 +250,9 @@ export default function Header() {
               }}
               aria-expanded={doors}
               aria-controls="header-doors"
-              className="group hidden h-11 items-center gap-3 rounded-full bg-gold pl-5 pr-1.5 text-[14px] font-medium text-ink transition-colors duration-500 hover:bg-gold-soft lg:flex"
+              className={`hidden h-10 items-center px-5 text-[14px] transition-colors duration-300 hover:text-gold-soft lg:flex ${doors ? "text-gold-soft" : "text-bone/60"}`}
             >
               Contact
-              <span className="grid size-8 place-items-center rounded-full bg-ink text-gold-soft">
-                <Arrow className={`transition-transform duration-500 ${doors ? "rotate-90" : "group-hover:translate-x-0.5"}`} />
-              </span>
             </button>
 
             <button
@@ -306,32 +296,25 @@ export default function Header() {
             ))}
           </ul>
 
-          <p className="eyebrow menu-in mt-12 text-stone" style={{ animationDelay: "380ms" }}>
-            Contact — choose your door
+          <p className="menu-in mt-12 text-[14px] text-stone" style={{ animationDelay: "380ms" }}>
+            Enquiries
           </p>
-          <ul className="menu-in mt-3 grid gap-2" style={{ animationDelay: "440ms" }}>
+          <ul className="menu-in mt-2" style={{ animationDelay: "440ms" }}>
             {DOORS.map((d) => (
               <li key={d.slug}>
-                <Link
-                  href={doorHref(d)}
-                  onClick={close}
-                  className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5"
-                >
-                  <span>
-                    <span className="block text-[17px] text-bone">{d.label}</span>
-                    <span className="block text-[13px] text-stone">{d.who}</span>
-                  </span>
-                  <Arrow className="text-gold" />
+                <Link href={doorHref(d)} onClick={close} className="block py-2.5">
+                  <span className="block text-[20px] text-bone">{d.label}</span>
+                  <span className="block text-[13px] text-stone">{d.who}</span>
                 </Link>
               </li>
             ))}
           </ul>
 
-          <ul className="menu-in mt-10 flex gap-3 text-[14px]" style={{ animationDelay: "500ms" }}>
+          <ul className="menu-in mt-10 flex gap-6 text-[15px]" style={{ animationDelay: "500ms" }}>
             {ELSEWHERE.map((l) => (
               <li key={l.label}>
-                <a href={l.href} target="_blank" rel="noreferrer" className="inline-flex h-10 items-center rounded-full border border-white/15 px-4 text-bone/80">
-                  {l.label} ↗
+                <a href={l.href} target="_blank" rel="noreferrer" className="link-line text-bone/80">
+                  {l.label}
                 </a>
               </li>
             ))}

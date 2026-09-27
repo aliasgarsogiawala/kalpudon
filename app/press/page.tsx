@@ -24,14 +24,14 @@ export default function PressPage() {
     <Shell>
       <main>
         <PageHero
-          label="Press"
           word="Press"
+          bg={{ src: "/img/ig-sidelit.jpg", pos: "object-[50%_22%]" }}
           script="& media."
           intro="Biography, facts and approved photography. For interviews and the full media kit, write to the press desk."
           aside={
             <Link
               href="/contact/press"
-              className="mt-7 inline-flex h-12 items-center gap-3 rounded-full border border-gold/60 px-6 text-[15px] text-bone transition-colors duration-500 hover:border-gold hover:bg-gold hover:text-ink"
+              className="link-line mt-7 inline-block text-[17px] text-gold-soft"
             >
               Request the media kit →
             </Link>

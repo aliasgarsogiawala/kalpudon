@@ -13,10 +13,10 @@ const NAMES = ["Arijit Singh", "A.R. Rahman", "Rishab Sharma", "Etihad Arena", "
 
 // Mosaic slots for the four production stills, in PRODUCTIONS order: one tall frame beside three.
 const SLOTS = [
-  "aspect-[4/5] md:col-span-5 md:row-span-2 md:aspect-auto",
-  "aspect-[16/10] md:col-span-7 md:aspect-auto",
-  "aspect-[4/3] md:col-span-4 md:aspect-auto",
-  "aspect-[4/3] md:col-span-3 md:aspect-auto",
+  "row-span-2 md:col-span-5 md:row-span-2",
+  "aspect-[4/5] md:col-span-7 md:aspect-auto",
+  "aspect-[4/5] md:col-span-4 md:aspect-auto",
+  "col-span-2 aspect-[16/9] md:col-span-3 md:aspect-auto",
 ];
 
 const condensed = "font-black uppercase tracking-[-0.01em] [font-stretch:62%]";
@@ -46,10 +46,21 @@ export default function Hop() {
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/70" />
 
           <div className={`${WRAP} relative z-[1] flex min-h-[100svh] flex-col pb-20 pt-[132px] md:pb-28 md:pt-[200px]`}>
-            <p data-fade className="eyebrow text-gold">What I’m building now</p>
+            {/* Him, at the centre of it: on stage at Shows of India. The giant words cross the podium, never his face. */}
+            <figure data-fade className="relative mx-auto w-[72%] max-w-[340px] rotate-[2deg] md:mr-[3%] md:mt-auto md:w-[clamp(240px,25vw,420px)] md:max-w-none">
+              <div className="relative aspect-[4/5] overflow-hidden bg-coal shadow-[0_50px_100px_-30px_rgba(0,0,0,.85)]">
+                <Image
+                  src="/img/ig-podium-2.jpg"
+                  alt="Kalpesh Kinariwala on stage at Shows of India 2026"
+                  fill
+                  sizes="(min-width:768px) 26vw, 72vw"
+                  className="object-cover object-[50%_22%]"
+                />
+              </div>
+            </figure>
 
-            <h2 aria-label="The present tense" className="relative mt-auto pt-16">
-              <span aria-hidden className="script script-outline absolute left-[0.5%] top-[4%] z-[2] -rotate-[8deg] text-[clamp(48px,7vw,132px)] text-gold-soft">
+            <h2 aria-label="The present tense" className="relative z-[2] mt-10 md:-mt-[12vw]">
+              <span aria-hidden className="script script-outline absolute left-[0.5%] top-[4%] z-[2] -rotate-[8deg] text-[clamp(36px,7vw,132px)] text-gold-soft">
                 the
               </span>
               <Giant as="span" n={13} max={26} stretch={1.3} stretchSm={1.6}>
@@ -61,8 +72,8 @@ export default function Hop() {
               className="mt-20 md:mt-32"
               left={
                 <p data-fade className="max-w-[44ch] text-[18px] leading-[1.65] text-bone/85">
-                  Pantheon is what I am building now: art, culture, real estate — and HOP, which leads it. Live
-                  entertainment is the most fragmented market I have entered. HOP puts artists, promoters, venues and
+                  Pantheon is what he is building now: art, culture, real estate — and HOP, which leads it. Live
+                  entertainment is the most fragmented market he has entered. HOP puts artists, promoters, venues and
                   audiences in the same room, on a network and a production record built show by show.
                 </p>
               }
@@ -113,7 +124,7 @@ export default function Hop() {
                     the planet.”
                   </blockquote>
                   <figcaption data-fade className="mt-8 text-[15px] text-stone">
-                    On HOP, at Shows of India 2026
+                    Kalpesh Kinariwala, on HOP, at Shows of India 2026
                   </figcaption>
                 </figure>
               }
@@ -139,7 +150,7 @@ export default function Hop() {
                 Produced end to end.
               </p>
             </div>
-            <ul className="mt-14 grid gap-4 md:mt-20 md:grid-cols-12 md:grid-rows-[repeat(2,clamp(220px,23vw,400px))] md:gap-5">
+            <ul className="mt-14 grid grid-cols-2 gap-3 md:mt-20 md:grid-cols-12 md:grid-rows-[repeat(2,clamp(220px,23vw,400px))] md:gap-5">
               {PRODUCTIONS.map((p, i) => (
                 <li key={p.t} className={`${SLOTS[i]} relative`}>
                   <figure className="absolute inset-0">
@@ -157,20 +168,12 @@ export default function Hop() {
         </div>
 
         {/* Partner path */}
-        <Link
-          href="/contact/hop"
-          className={`${WRAP} group flex items-center justify-between gap-6 py-24 md:py-40`}
-        >
-          <span className="min-w-0 flex-1">
-            <span className="block text-[15px] text-gold">For artists, promoters and venues</span>
-            <span className="mt-5 block transition-colors duration-500 group-hover:text-gold-soft">
-              <Giant as="span" n={16} max={16}>
-                Partner with HOP
-              </Giant>
-            </span>
-          </span>
-          <span className="grid size-16 shrink-0 place-items-center rounded-full border border-gold/50 text-[26px] text-gold transition-colors duration-500 group-hover:bg-gold group-hover:text-ink md:size-28 md:text-[34px]">
-            →
+        <Link href="/contact/hop" className={`${WRAP} group block py-24 md:py-40`}>
+          <span className="block text-[15px] text-gold">For artists, promoters and venues</span>
+          <span className="mt-5 block transition-colors duration-500 group-hover:text-gold-soft">
+            <Giant as="span" n={16} max={16}>
+              Partner with HOP
+            </Giant>
           </span>
         </Link>
       </div>

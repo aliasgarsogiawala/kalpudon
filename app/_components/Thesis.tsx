@@ -13,7 +13,7 @@ export default function Thesis() {
           <Giant as="h2" n={12} max={24} stretch={1.3} stretchSm={1.6}>
             One instinct
           </Giant>
-          <p className="script absolute bottom-[-6%] right-[2%] -rotate-[6deg] text-[clamp(36px,6vw,112px)] text-gold-soft">
+          <p className="script script-outline absolute bottom-[-6%] right-[2%] -rotate-[6deg] text-[clamp(32px,6vw,112px)] text-gold-soft [--outline:var(--plum)]">
             four markets.
           </p>
         </div>
@@ -21,7 +21,7 @@ export default function Thesis() {
         <Split
           className="mt-32 md:mt-52"
           left={
-            <figure className="mx-auto w-[78%] max-w-[440px] lg:mx-0">
+            <figure className="mx-auto w-[84%] max-w-[520px] lg:mx-0">
               <div data-reveal className="relative aspect-[4/5] -rotate-[3deg] bg-bone p-2 shadow-[0_40px_80px_-30px_rgba(0,0,0,.6)]">
                 <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
                   <Image
@@ -38,7 +38,7 @@ export default function Thesis() {
           right={
             <div className="max-w-[620px]">
               <p data-fade className="text-[clamp(24px,2.2vw,36px)] leading-[1.25] tracking-[-0.01em]">
-                I don’t choose industries. I choose fragmented markets — iodine, private capital, real estate and now live entertainment — and run the same instinct through each.
+                He doesn’t choose industries. He chooses fragmented markets — iodine, private capital, real estate and now live entertainment — and runs the same instinct through each.
               </p>
               <ol className="mt-14 space-y-10">
                 {INSTINCT.map((s) => (
