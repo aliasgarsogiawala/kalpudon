@@ -16,7 +16,7 @@ export default function ContactPage() {
         <PageHero
           word="Enquiries"
           bg={{ src: "/img/kk-dinner.jpg", pos: "object-[50%_30%]" }}
-          script="pick your door."
+          line="pick your door."
           intro="Every note reaches the office of Kalpesh Kinariwala and goes straight to the people who handle it: capital, HOP partnerships, careers, press, and everything else."
         />
         <Doors page />

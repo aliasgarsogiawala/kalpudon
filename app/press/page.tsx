@@ -2,23 +2,43 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Shell from "../_components/Shell";
-import PageHero, { Wide } from "../_components/PageHero";
+import PageHero from "../_components/PageHero";
+import Giant from "../_components/Giant";
 import { WRAP, WashLayer } from "../_components/Sheet";
 import { PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
 
 export const metadata: Metadata = {
   title: "Press",
-  description: "Biography, fact sheet, recognition and media kit requests for Kalpesh Kinariwala.",
+  description: "Biography, fact sheet, awards and media kit requests for Kalpesh Kinariwala.",
   alternates: { canonical: "/press" },
 };
 
-// Placeholders until approved photography from the brand shoot (brief §9).
-const PHOTOS = [
-  { img: "/img/kk-pantheon-wall.jpg", t: "At Pantheon", pos: "object-[50%_30%]" },
-  { img: "/img/kk-consulate.jpg", t: "In the room", pos: "object-[50%_30%]" },
-  { img: "/img/kk-stage.jpg", t: "On stage", pos: "object-[72%_30%]" },
-];
+// The awards with a photograph of the moment, each captioned with the award, who gave it and the year.
+// Every caption needs sign-off against the approved claims sheet (brief §10).
+const FEATURED = [
+  {
+    who: "The Ultimate Realty Awards",
+    img: "/img/kk-award-stage.jpg",
+    pos: "object-[50%_0%]",
+    alt: "Kalpesh Kinariwala receiving the Affordable Luxury Developer of the Year award for Pantheon Development",
+  },
+  {
+    who: "Construction Week",
+    img: "/img/kk-cover-cw-full.jpg",
+    pos: "object-[50%_22%]",
+    alt: "Kalpesh Kinariwala on the cover of Construction Week's Power 150 issue",
+  },
+  {
+    who: "Shows of India",
+    img: "/img/ig-podium-2.jpg",
+    pos: "object-[50%_30%]",
+    alt: "Kalpesh Kinariwala speaking at Shows of India 2026, Delhi",
+  },
+].map((f) => ({ ...f, ...RECOGNITION.find((r) => r.who === f.who)! }));
+const OTHERS = RECOGNITION.filter((r) => !FEATURED.some((f) => f.who === r.who));
 
+// Three full screens: the opening, the biography with the facts, and the awards. One typeface
+// throughout; weight, size and colour carry the order of importance.
 export default function PressPage() {
   return (
     <Shell>
@@ -26,98 +46,92 @@ export default function PressPage() {
         <PageHero
           word="Press"
           bg={{ src: "/img/kk-cover-gtn.jpg", pos: "object-[50%_28%]" }}
-          script="& media."
-          intro="Biography, facts and approved photography. For interviews and the full media kit, write to the press desk."
+          line="& media."
+          intro="Biography, facts and awards. For interviews and the full media kit, write to the press desk."
           aside={
-            <Link
-              href="/contact/press"
-              className="link-line mt-7 inline-block text-[17px] text-gold-soft"
-            >
+            <Link href="/contact/press" className="t-body link-line mt-6 inline-block text-gold-soft">
               Request the media kit →
             </Link>
           }
-        >
-          <Wide frame={{ src: "/img/kk-arena-watch.jpg", alt: "Kalpesh Kinariwala watching the show from the floor of the arena", caption: "HOP Events — Jasmine Sandlas, live.", pos: "object-[50%_40%]" }} />
-        </PageHero>
+        />
 
+        {/* Biography and fact sheet */}
         <section data-theme="dark" className="relative isolate bg-plum text-bone">
           <WashLayer wash="plum" />
-          <div className={`${WRAP} grid gap-10 py-32 md:py-52 lg:grid-cols-12`}>
-            <div className="lg:col-span-3">
-              <h2 data-fade className="eyebrow text-gold">
-                Biography
-              </h2>
-            </div>
-            <div className="space-y-6 lg:col-span-7">
-              {PRESS_BIO.map((p, i) => (
-                <p
-                  key={i}
-                  data-fade
-                  className={i === 0 ? "serif text-[clamp(30px,2.9vw,50px)] leading-[1.08]" : "text-[17px] leading-[1.75] text-bone/75"}
-                >
-                  {p}
-                </p>
-              ))}
-            </div>
-          </div>
-
-          <div className={`${WRAP} grid gap-10 pb-32 md:pb-52 lg:grid-cols-12`}>
-            <div className="lg:col-span-3">
-              <h2 data-fade className="eyebrow text-gold">
-                Fact sheet
-              </h2>
-            </div>
-            <dl className="lg:col-span-9">
-              {PRESS_FACTS.map((f) => (
-                <div key={f.k} className="relative grid gap-2 py-6 md:grid-cols-12 md:gap-8">
-                  <dt className="text-[15px] font-medium text-bone/60 md:col-span-3">{f.k}</dt>
-                  <dd className="serif text-[clamp(24px,1.9vw,32px)] leading-[1.15] md:col-span-9">{f.v}</dd>
+          <div className={`${WRAP} grid min-h-[100svh] gap-12 py-28 md:py-[8svh] lg:grid-cols-12 lg:items-center lg:gap-x-[4vw]`}>
+            <figure className="mx-auto w-[78%] max-w-[420px] lg:col-span-4 lg:mx-0 lg:w-full">
+              <div data-reveal className="relative aspect-[4/5] -rotate-[2deg] bg-bone p-2 shadow-[0_40px_80px_-30px_rgba(0,0,0,.6)]">
+                <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
+                  <Image
+                    src="/img/ig-portrait.jpg"
+                    alt="Kalpesh Kinariwala, smiling, in a black suit"
+                    fill
+                    sizes="(min-width:1024px) 28vw, 78vw"
+                    className="object-cover object-[50%_25%]"
+                  />
                 </div>
-              ))}
-            </dl>
+              </div>
+            </figure>
+
+            <div className="lg:col-span-8">
+              <h2 className="t-note text-gold-soft">Biography</h2>
+              <p className="t-lead mt-3 max-w-[42ch]">{PRESS_BIO[0]}</p>
+              <div className="mt-5 grid gap-5 md:grid-cols-2 md:gap-8">
+                {PRESS_BIO.slice(1).map((p) => (
+                  <p key={p} className="t-body text-bone/75">
+                    {p}
+                  </p>
+                ))}
+              </div>
+
+              <h2 className="t-note mt-10 text-gold-soft lg:mt-[5svh]">Fact sheet</h2>
+              <dl className="mt-3 border-t border-white/10">
+                {PRESS_FACTS.map((f) => (
+                  <div key={f.k} className="grid gap-1 border-b border-white/10 py-3 md:grid-cols-12 md:items-baseline md:gap-8 lg:py-[1.3svh]">
+                    <dt className="t-note text-bone/55 md:col-span-3">{f.k}</dt>
+                    <dd className="t-body text-bone md:col-span-9">{f.v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </section>
 
+        {/* Awards: the moments with photographs first, then the rest, on the same three columns */}
         <section data-theme="dark" className="relative isolate bg-ink text-bone">
           <WashLayer wash="ink" />
-          <div className={`${WRAP} py-32 md:py-52`}>
-            <h2 data-split className="serif text-[clamp(48px,6vw,110px)] leading-[0.92]">
-              Recognition
-            </h2>
-            <ul className="mt-12">
-              {RECOGNITION.map((r) => (
-                <li key={r.who + r.y} className="relative grid grid-cols-12 items-baseline gap-4 py-6">
-                  <span className="serif col-span-12 text-[clamp(28px,2.4vw,40px)] leading-[1.05] md:col-span-5">{r.who}</span>
-                  <span className="col-span-9 text-[16px] text-bone/70 md:col-span-5">{r.what}</span>
-                  <span className="serif col-span-3 text-right text-[26px] text-gold-soft md:col-span-2">{r.y}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+          <div className={`${WRAP} flex min-h-[100svh] flex-col py-28 md:pb-[5svh] md:pt-[max(100px,12svh)]`}>
+            <Giant as="h2" n={14} max={14}>
+              Awards<span className="accent ml-[0.5em]">and recognition.</span>
+            </Giant>
 
-        <section data-theme="dark" className="bg-coal text-bone">
-          <div className={`${WRAP} py-32 md:py-52`}>
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <h2 data-split className="serif text-[clamp(44px,5vw,92px)] leading-[0.92]">
-                Photography
-              </h2>
-              <p data-fade className="max-w-[360px] text-[16px] leading-relaxed text-stone">
-                High-resolution files come with the media kit. Credit and usage terms are included.
-              </p>
-            </div>
-            <ul className="mt-14 grid gap-14 md:grid-cols-3 md:gap-8">
-              {PHOTOS.map((p) => (
-                <li key={p.t}>
-                  <div data-reveal className="relative aspect-[4/5]">
+            <ul className="mt-12 grid gap-12 md:grid-cols-3 md:gap-x-8 md:gap-y-0 lg:mt-[5svh]">
+              {FEATURED.map((f) => (
+                <li key={f.who} className="md:row-span-3 md:grid md:grid-rows-subgrid">
+                  <div data-reveal className="relative aspect-[4/5] w-full md:aspect-auto md:h-[34svh] md:min-h-[240px]">
                     <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-smoke">
-                      <Image src={p.img} alt={`Kalpesh Kinariwala — ${p.t}`} fill sizes="(min-width:768px) 30vw, 90vw" className={`object-cover ${p.pos}`} />
+                      <Image src={f.img} alt={f.alt} fill sizes="(min-width:768px) 30vw, 90vw" className={`object-cover ${f.pos}`} />
                     </div>
                   </div>
-                  <p className="mt-5 text-[15px] text-bone/80">{p.t}</p>
+                  <p className="t-title mt-5">{f.what}</p>
+                  <p className="t-note mt-1 text-bone/60">
+                    {f.who}, {f.y}
+                  </p>
                 </li>
               ))}
             </ul>
+
+            <ul className="mt-14 grid gap-6 border-t border-white/10 pt-6 md:grid-cols-3 md:gap-8 lg:mt-auto">
+              {OTHERS.map((r) => (
+                <li key={r.who + r.y}>
+                  <p className="t-body font-bold">{r.what}</p>
+                  <p className="t-note text-bone/60">
+                    {r.who}, {r.y}
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <p className="t-note mt-6 text-bone/45">High-resolution photographs come with the media kit, with credit and usage terms.</p>
           </div>
         </section>
       </main>

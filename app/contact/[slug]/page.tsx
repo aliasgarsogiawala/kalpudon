@@ -75,10 +75,10 @@ export default async function DoorPage({ params }: PageProps<"/contact/[slug]">)
 
           <div id="write" className="bg-ink px-5 pb-16 pt-12 text-bone md:px-10 lg:col-span-7 lg:flex lg:flex-col lg:justify-center lg:px-16 lg:py-14">
             <div className="w-full max-w-[720px]">
-              <h2 data-split className="serif text-[clamp(40px,3.8vw,64px)] leading-[0.95]">
+              <h2 data-split className="t-statement">
                 A note to the {door.desk} desk.
               </h2>
-              <p data-fade className="mt-4 max-w-[460px] text-[16px] leading-[1.65] text-stone">
+              <p data-fade className="t-body mt-4 max-w-[460px] text-stone">
                 It goes only to the people in his office who handle {door.desk} enquiries.
               </p>
               <div data-fade className="mt-10">

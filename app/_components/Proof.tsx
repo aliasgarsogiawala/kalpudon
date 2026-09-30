@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Giant from "./Giant";
-import Sheet, { PAD, WRAP } from "./Sheet";
+import Sheet, { WRAP } from "./Sheet";
 import { CHAPTERS, RECOGNITION, type Chapter } from "./data";
 
 // Only the names a visitor would recognise; the full record lives on the press page.
@@ -9,74 +9,79 @@ const RECOGNISED = ["Entrepreneur Middle East", "Forbes Middle East", "Shows of 
   (who) => RECOGNITION.find((r) => r.who === who)!,
 );
 
+// From laptops up the four cards share rows (subgrid), so each card's name, line and figure start on
+// the same line as its neighbours', however many lines the one before runs to.
+const ROWS = "lg:row-span-4 lg:grid lg:grid-rows-subgrid";
+
+// The photographs are cropped to one framing (his head the same size, at the same height), so the
+// four read as a set; the box follows the screen's height so the section fits in one screen.
 function Card({ c }: { c: Chapter }) {
   const body = (
     <>
-      <div data-reveal className="relative aspect-[4/5] overflow-hidden">
+      <div data-reveal className="relative aspect-square w-full overflow-hidden lg:max-h-[30svh]">
         <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-smoke">
           <Image
             src={c.img}
             alt={c.alt}
             fill
-            sizes="(min-width:1280px) 22vw, (min-width:768px) 44vw, 90vw"
-            className={`object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105 ${c.pos ?? ""}`}
+            sizes="(min-width:1024px) 22vw, (min-width:768px) 44vw, 78vw"
+            className="object-cover object-[50%_20%] transition-transform duration-[1.4s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105"
           />
         </div>
-        <div className="absolute inset-0 z-[3] bg-[linear-gradient(to_bottom,rgb(5_5_5/.55),transparent_28%,transparent_55%,rgb(5_5_5/.88))]" />
-        <span className="serif absolute right-5 top-4 z-[3] text-[24px] text-gold-soft">{c.since}</span>
-        <p className="absolute bottom-4 left-5 right-5 z-[3] text-[clamp(34px,2.8vw,48px)] display leading-[0.9] text-bone">
-          {c.sector}
+        <div className="absolute inset-0 z-[3] bg-[linear-gradient(to_bottom,rgb(5_5_5/.45),transparent_26%,transparent_52%,rgb(5_5_5/.85))]" />
+        <span className="t-note absolute right-4 top-3 z-[3] text-gold-soft">{c.since}</span>
+        <p className="t-title absolute bottom-3 left-4 right-4 z-[3] text-bone">
+          {c.sector.split(" ").map((word) => (
+            <span key={word} className="block">
+              {word}
+            </span>
+          ))}
         </p>
       </div>
-      <p className="eyebrow mt-6 text-[10px] text-bone/70">{c.entity}</p>
-      <p className="serif mt-3 text-[clamp(24px,1.9vw,32px)] leading-[1.08]">{c.headline}</p>
-      <p className="mt-4 text-[15px] leading-[1.55] text-gold-soft">{c.proof}</p>
+      <p className="t-note mt-5 text-bone/60">{c.entity}</p>
+      <p className="t-lead mt-2">{c.headline}</p>
+      <p className="t-body mt-3 text-gold-soft">{c.proof}</p>
     </>
   );
   return c.href ? (
-    <Link href={c.href.startsWith("/#") ? c.href.slice(1) : c.href} className="group block">
+    <Link href={c.href.startsWith("/#") ? c.href.slice(1) : c.href} className={`group block ${ROWS}`}>
       {body}
     </Link>
   ) : (
-    <div className="group">{body}</div>
+    <div className={`group ${ROWS}`}>{body}</div>
   );
 }
 
 // Brief §5.3: the four businesses as evidence of one instinct — "the same move, four times", not a
 // portfolio. Equal weight, so real estate reads as one proof point among four, never the headline.
+// From laptops up it is one full screen: the line across the top, the four cards, and who has
+// recognised the work along the foot, lined up under the cards.
 export default function Proof() {
   return (
     <Sheet id="work" theme="dark" wash="violet" className="bg-violet text-bone">
-      <div className={`${WRAP} ${PAD}`}>
-        <h2 aria-label="The same move, four times." className="relative">
-          <span aria-hidden className="script script-outline absolute -top-[0.7em] left-[1%] z-[2] -rotate-[7deg] text-[clamp(32px,6vw,112px)] text-gold-soft [--outline:var(--violet)]">
-            the same move,
-          </span>
-          <Giant as="span" n={10} max={24} className="text-right">
-            Four times
-          </Giant>
-        </h2>
+      <div className={`${WRAP} flex min-h-[100svh] flex-col pb-28 pt-[132px] md:pb-40 md:pt-[180px] lg:pb-[4svh] lg:pt-[max(100px,12svh)]`}>
+        <Giant as="h2" n={14} max={14}>
+          <span className="accent mr-[0.5em]">the same move,</span>Four times
+        </Giant>
 
-        <ul className="-mx-6 mt-20 flex snap-x snap-mandatory scroll-px-6 gap-5 overflow-x-auto px-6 pb-2 [scrollbar-width:none] md:mx-0 md:mt-40 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-20 md:overflow-visible md:px-0 xl:grid-cols-4">
+        <ul className="-mx-6 mt-20 flex snap-x snap-mandatory scroll-px-6 gap-5 overflow-x-auto px-6 pb-2 [scrollbar-width:none] md:mx-0 md:mt-28 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-16 md:overflow-visible md:px-0 lg:mt-[5svh] lg:grid-cols-4 lg:gap-y-0">
           {CHAPTERS.map((c) => (
-            <li key={c.n} className="w-[78vw] max-w-[340px] shrink-0 snap-start md:w-auto md:max-w-none">
+            <li key={c.n} className={`w-[78vw] max-w-[340px] shrink-0 snap-start md:w-auto md:max-w-none ${ROWS}`}>
               <Card c={c} />
             </li>
           ))}
         </ul>
 
-        <div className="mt-32 grid gap-8 md:mt-48 lg:grid-cols-12 lg:items-baseline">
-          <p className="eyebrow text-bone/60 lg:col-span-3">Recognised by</p>
-          <ul className="grid gap-6 sm:grid-cols-3 lg:col-span-9">
-            {RECOGNISED.map((r) => (
-              <li key={r.who} data-fade>
-                <p className="serif text-[clamp(26px,2.2vw,36px)] leading-[1.02]">{r.who}</p>
-                <p className="mt-2 text-[14px] text-bone/60">
-                  {r.what}, {r.y}
-                </p>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-24 grid gap-6 sm:grid-cols-2 md:mt-32 lg:mt-auto lg:grid-cols-4 lg:items-baseline lg:gap-x-8 lg:pt-[4svh]">
+          <p className="t-note text-bone/60">Recognised by</p>
+          {RECOGNISED.map((r) => (
+            <div key={r.who}>
+              <p className="t-body font-bold text-bone">{r.who}</p>
+              <p className="t-note text-bone/60">
+                {r.what}, {r.y}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </Sheet>

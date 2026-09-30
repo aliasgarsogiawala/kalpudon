@@ -37,7 +37,6 @@
   --color-aubergine: var(--aubergine);
   --color-violet: var(--violet);
   --color-amethyst: var(--amethyst);
-  --font-serif: var(--font-instrument), "Times New Roman", serif;
   --font-sans: var(--font-haas);
 }
 
@@ -101,45 +100,74 @@ html.lenis body {
     letter-spacing: -0.045em;
   }
 
-  /* The voice: an editorial serif for statements, and in italic the handwritten layer over the giant words */
-  .serif {
-    font-family: var(--font-instrument), "Times New Roman", serif;
+  /* One scale for the words around the giant ones. Statements and titles share a size, leading and
+     tracking and differ only in weight; body copy and notes each have one size. Sizes follow the
+     screen's height as well as its width, so a section always fits in one screen. */
+  .t-lead,
+  .t-title {
+    font-family: var(--font-haas);
+    font-size: clamp(20px, min(1.75vw, 3svh), 30px);
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+  }
+  .t-lead {
     font-weight: 400;
-    letter-spacing: -0.012em;
-    line-height: 0.98;
   }
-  .serif em,
-  em.serif {
-    font-style: italic;
+  .t-title {
+    font-weight: 700;
   }
-  .script {
-    font-family: var(--font-instrument), "Times New Roman", serif;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: -0.01em;
-    white-space: nowrap;
-    pointer-events: none;
+  .t-body {
+    font-family: var(--font-haas);
+    font-size: clamp(15px, min(1.1vw, 1.95svh), 17px);
+    line-height: 1.55;
+    letter-spacing: -0.005em;
   }
-  /* Keeps a script word legible where it crosses the giant letters */
-  .script-outline {
-    text-shadow:
-      0 0 1px var(--outline, var(--ink)),
-      2px 0 0 var(--outline, var(--ink)),
-      -2px 0 0 var(--outline, var(--ink)),
-      0 2px 0 var(--outline, var(--ink)),
-      0 -2px 0 var(--outline, var(--ink)),
-      2px 2px 0 var(--outline, var(--ink)),
-      -2px -2px 0 var(--outline, var(--ink)),
-      2px -2px 0 var(--outline, var(--ink)),
-      -2px 2px 0 var(--outline, var(--ink));
+  .t-note {
+    font-family: var(--font-haas);
+    font-size: 14px;
+    line-height: 1.45;
+    letter-spacing: 0;
   }
 
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 600;
+  /* Large statements (quotes, the closing line): the same grotesk, one step below the giant words */
+  .t-statement {
+    font-family: var(--font-haas);
+    font-weight: 400;
+    font-size: clamp(32px, min(3.6vw, 6.4svh), 72px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+  /* One typeface, no italics and no tilt: emphasis is a lighter weight and gold, never a slant */
+  :is(.t-statement, .t-lead, .t-title, .t-accent, .accent) em {
+    font-style: normal;
+    font-weight: 300;
+  }
+  /* The second voice beside a giant word, set inside <Giant> so the fitting counts it: a third of the
+     giant's size, light, gold, sitting on the same baseline */
+  .accent {
+    font-size: 0.3em;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--gold-soft);
+  }
+  /* Phones: the giant word has the width to itself and the line sits on its own row, large enough to read */
+  @media (max-width: 767px) {
+    .accent {
+      display: block;
+      font-size: 0.4em;
+      line-height: 1.1;
+      margin-inline: 0 !important;
+      padding-block: 0.12em;
+    }
+  }
+  /* The same light gold voice on its own (a signature, a line under a statement) */
+  .t-accent {
+    font-family: var(--font-haas);
+    font-weight: 300;
+    font-size: clamp(28px, min(3vw, 5.2svh), 56px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--gold-soft);
   }
 
   .line-mask {

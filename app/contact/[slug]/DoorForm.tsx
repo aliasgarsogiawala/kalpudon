@@ -22,10 +22,10 @@ export default function DoorForm({ label, desk, field, cta, topics }: Props) {
   if (sent) {
     return (
       <div className="fade-in" role="status">
-        <p className="serif text-[clamp(52px,5vw,88px)] leading-none">
+        <p className="t-statement">
           Received<em className="text-gold-soft">.</em>
         </p>
-        <p className="mt-5 max-w-[420px] text-[17px] leading-[1.6] text-stone">
+        <p className="t-body mt-5 max-w-[420px] text-stone">
           Your note has gone to the people who handle {desk} enquiries.
         </p>
       </div>
@@ -70,7 +70,7 @@ export default function DoorForm({ label, desk, field, cta, topics }: Props) {
       </label>
       <button
         type="submit"
-        className="link-line serif mt-4 w-fit text-[clamp(28px,2.4vw,40px)] leading-none text-gold-soft transition-colors duration-500 hover:text-bone"
+        className="t-title link-line mt-4 w-fit text-gold-soft transition-colors duration-500 hover:text-bone"
       >
         {cta} →
       </button>

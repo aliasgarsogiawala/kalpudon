@@ -44,24 +44,23 @@ export type Chapter = {
 export const CHAPTERS: Chapter[] = [
   {
     n: "01",
-    sector: "Iodine",
+    sector: "Mining Chemical",
     since: "2001",
     entity: "Pantheon Group",
     headline: "A hundred square feet and two thousand borrowed dollars.",
     proof: "By 2008, the world’s leading distributor of iodine.",
-    img: "/img/ig-smile.jpg",
-    pos: "object-[50%_20%]",
-    alt: "Kalpesh Kinariwala, smiling, in a white jacket",
+    img: "/img/kk-proof-mining.jpg",
+    alt: "Kalpesh Kinariwala at dinner with two friends",
   },
   {
     n: "02",
-    sector: "Private capital",
+    sector: "Capital Market",
     since: "Ongoing",
     entity: "Private mandates", // TODO: confirm fund names and dates with client
     headline: "Returns are an output. The floor is the only thing you control.",
     proof: "Track record and allocation approach, on request.", // TODO: approved description of the fund
-    img: "/img/kk-consulate.jpg",
-    alt: "Kalpesh Kinariwala at an official meeting, the Indian flag behind him",
+    img: "/img/kk-proof-capital.jpg",
+    alt: "Kalpesh Kinariwala with a business partner",
     href: "/contact/capital",
   },
   {
@@ -71,8 +70,8 @@ export const CHAPTERS: Chapter[] = [
     entity: "Pantheon Development, Dubai",
     headline: "Affordable luxury, delivered on schedule.",
     proof: "1,000+ homes handed over in Jumeirah Village Circle.",
-    img: "/img/kk-pantheon-wall.jpg",
-    alt: "Kalpesh Kinariwala with a guest at the Pantheon wall",
+    img: "/img/kk-proof-estate.jpg",
+    alt: "Kalpesh Kinariwala at the Pantheon wall",
   },
   {
     n: "04",
@@ -81,8 +80,7 @@ export const CHAPTERS: Chapter[] = [
     entity: "HOP Events, UAE",
     headline: "India’s leading artists, produced at arena scale.",
     proof: "A sold-out Etihad Arena with Arijit Singh and A.R. Rahman.",
-    img: "/img/kk-stage.jpg",
-    pos: "object-[72%_30%]",
+    img: "/img/kk-proof-live.jpg",
     alt: "Kalpesh Kinariwala on stage at a concert",
     href: "/#hop",
   },
@@ -124,8 +122,6 @@ export type Piece = {
   category: Pillar;
   date: string | null;
   dek: string;
-  img: string;
-  pos?: string;
 };
 
 export const IDEAS: Piece[] = [
@@ -137,8 +133,6 @@ export const IDEAS: Piece[] = [
     category: "Manage Risk",
     date: null,
     dek: "Returns are an output. The only lever you actually hold is how much you can afford to lose — and how early you decide it.",
-    img: "/img/ig-podium-2.jpg",
-    pos: "object-[50%_30%]",
   },
   {
     slug: "inspect-what-you-expect",
@@ -148,8 +142,6 @@ export const IDEAS: Piece[] = [
     category: "Building People",
     date: null,
     dek: "Trust scales when it is checked. Why inspection belongs on the calendar, not in the crisis.",
-    img: "/img/ig-lamp.jpg",
-    pos: "object-[50%_30%]",
   },
   {
     slug: "the-widest-not-the-tallest",
@@ -159,8 +151,6 @@ export const IDEAS: Piece[] = [
     category: "The Widest",
     date: null,
     dek: "Height is fragile — one market, one cycle, one point of failure. Width is a platform that survives any single storm.",
-    img: "/img/ig-podium.jpg",
-    pos: "object-[50%_25%]",
   },
 ];
 
@@ -169,6 +159,7 @@ export const RECOGNITION = [
   { who: "Entrepreneur Middle East", what: "The 100 NRIs", y: "2026" },
   { who: "Shows of India", what: "Anchor sponsor, HOP Events", y: "2026" },
   { who: "Forbes Middle East", what: "Most Impactful Real Estate Leaders", y: "2026" },
+  { who: "Construction Week", what: "The Power 150", y: "2026" }, // from the cover; year from when he posted it
   { who: "The Ultimate Realty Awards", what: "Developer of the Year — Affordable Luxury", y: "2025" },
   { who: "UAE Government", what: "Golden Visa", y: "2021" },
 ];
@@ -203,8 +194,8 @@ export const DOORS: Door[] = [
     offers: ["Track record summary", "Allocation approach", "Co-investment briefing"],
     cta: "Request a briefing",
     field: "Fund / institution",
-    img: "/img/kk-handshake.jpg",
-    pos: "object-[68%_30%]",
+    img: "/img/kk-cover-cw.jpg",
+    pos: "object-[55%_30%]",
   },
   {
     n: "02",
@@ -217,8 +208,8 @@ export const DOORS: Door[] = [
     offers: ["Co-productions", "Touring", "Venue partnerships"],
     cta: "Start a conversation",
     field: "Artist / company / venue",
-    img: "/img/kk-stage-2.jpg",
-    pos: "object-[75%_30%]",
+    img: "/img/kk-profile.jpg",
+    pos: "object-[50%_30%]",
   },
   {
     n: "03",
@@ -245,8 +236,8 @@ export const DOORS: Door[] = [
     offers: ["Biography", "Media kit", "Interview requests"],
     cta: "Request the media kit",
     field: "Publication",
-    img: "/img/kk-cover-cw.jpg",
-    pos: "object-[55%_30%]",
+    img: "/img/kk-gtn-portrait.jpg",
+    pos: "object-[50%_25%]",
     href: "/press", // brief §3: press goes to the press & media kit page
     page: { href: "/press", label: "Biography and fact sheet" },
   },
@@ -261,8 +252,8 @@ export const DOORS: Door[] = [
     offers: ["Speaking & panels", "Introductions", "Notes on the ideas"],
     cta: "Send a note",
     field: "Organisation (optional)",
-    img: "/img/kk-book.jpg",
-    pos: "object-[50%_30%]",
+    img: "/img/kk-consulate.jpg",
+    pos: "object-[45%_30%]",
     page: { href: "/ideas", label: "Read the ideas" },
   },
 ];

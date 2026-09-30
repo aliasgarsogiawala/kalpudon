@@ -61,7 +61,7 @@ function DoorPanel({ onPick }: { onPick: () => void }) {
     >
       <div className="grid grid-cols-12 gap-10 p-10">
         <div className="col-span-7">
-          <p className="eyebrow text-stone">What brings you here?</p>
+          <p className="t-note text-stone">What brings you here?</p>
           <ul className="mt-5">
             {DOORS.map((door, i) => (
               <li key={door.slug}>
