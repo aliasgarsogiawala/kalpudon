@@ -20,11 +20,11 @@ export default function Legacy() {
                 <div data-reveal className="relative aspect-[4/5] rotate-[3deg] bg-bone p-1.5 shadow-[0_40px_80px_-30px_rgba(0,0,0,.8)]">
                   <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
                     <Image
-                      src="/img/kk-confetti.jpg"
-                      alt="Kalpesh Kinariwala smiling up at falling confetti"
+                      src="/img/kk-dinner.jpg"
+                      alt="Kalpesh Kinariwala at dinner with two friends"
                       fill
                       sizes="(min-width:1024px) 20vw, 60vw"
-                      className="object-cover object-[50%_30%]"
+                      className="object-cover object-[50%_35%]"
                     />
                   </div>
                 </div>

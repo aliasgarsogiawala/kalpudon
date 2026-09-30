@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 // Placeholders until approved photography from the brand shoot (brief §9).
 const PHOTOS = [
-  { img: "/img/ig-founder.jpg", t: "Portrait, Pantheon", pos: "object-[50%_30%]" },
-  { img: "/img/kk-crowd.jpg", t: "In the room", pos: "object-[27%_35%]" },
+  { img: "/img/kk-pantheon-wall.jpg", t: "At Pantheon", pos: "object-[50%_30%]" },
+  { img: "/img/kk-consulate.jpg", t: "In the room", pos: "object-[50%_30%]" },
   { img: "/img/kk-stage.jpg", t: "On stage", pos: "object-[72%_30%]" },
 ];
 
@@ -25,7 +25,7 @@ export default function PressPage() {
       <main>
         <PageHero
           word="Press"
-          bg={{ src: "/img/ig-sidelit.jpg", pos: "object-[50%_22%]" }}
+          bg={{ src: "/img/kk-cover-gtn.jpg", pos: "object-[50%_28%]" }}
           script="& media."
           intro="Biography, facts and approved photography. For interviews and the full media kit, write to the press desk."
           aside={
@@ -37,7 +37,7 @@ export default function PressPage() {
             </Link>
           }
         >
-          <Wide frame={{ src: "/img/ig-panel.jpg", alt: "A HOP Events panel discussion at Shows of India 2026", caption: "Shows of India 2026 — panel discussion, presented by HOP Events.", pos: "object-[50%_45%]" }} />
+          <Wide frame={{ src: "/img/kk-arena-watch.jpg", alt: "Kalpesh Kinariwala watching the show from the floor of the arena", caption: "HOP Events — Jasmine Sandlas, live.", pos: "object-[50%_40%]" }} />
         </PageHero>
 
         <section data-theme="dark" className="relative isolate bg-plum text-bone">

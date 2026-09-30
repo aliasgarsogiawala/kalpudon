@@ -3,17 +3,53 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap, ScrollTrigger, SplitText, onReady, reducedMotion } from "./gsap";
-import Giant, { fitGiants } from "./Giant";
-import Sheet, { WRAP } from "./Sheet";
+import Sheet from "./Sheet";
 
-// A cover, not a landing page: the man under a spotlight, his first name set behind him like a masthead
-// and his surname written across him, both in white. One line carries the positioning (brief §5.1); nothing else competes.
+// The box of the character at `at` (negative counts from the end), wherever SplitText has put it.
+function glyph(el: HTMLElement, at: number) {
+  const chars: [Text, number][] = [];
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null)
+    for (let i = 0; i < node.data.length; i++) if (node.data[i].trim()) chars.push([node, i]);
+  const [node, i] = chars[at < 0 ? chars.length + at : at];
+  const range = document.createRange();
+  range.setStart(node, i);
+  range.setEnd(node, i + 1);
+  return { ch: node.data[i], box: range.getBoundingClientRect() };
+}
+
+// Where a character's ink starts or ends. The DOM only knows each letter's advance box, so the side
+// bearing comes from the font itself, measured on a canvas.
+function inkX(el: HTMLElement, at: number, edge: "start" | "end") {
+  const { ch, box } = glyph(el, at);
+  const cs = getComputedStyle(el);
+  const ctx = document.createElement("canvas").getContext("2d")!;
+  ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+  const m = ctx.measureText(ch);
+  return edge === "start" ? box.left - m.actualBoundingBoxLeft : box.left + m.actualBoundingBoxRight;
+}
+
+// Sizes and places a line so its letters run exactly from x `from` to x `to`.
+function fitInk(el: HTMLElement, from: number, to: number) {
+  el.style.marginLeft = "0px";
+  const left = el.getBoundingClientRect().left;
+  const a = inkX(el, 0, "start") - left;
+  const b = inkX(el, -1, "end") - left;
+  const k = (to - from) / (b - a);
+  el.style.fontSize = `${parseFloat(getComputedStyle(el).fontSize) * k}px`;
+  el.style.marginLeft = `${from - left - a * k}px`;
+}
+
+// A cover, not a landing page: the man under a spotlight in front of his name. His first name runs the
+// header's full measure, from the edge of the monogram to the end of the last link, and his surname sits
+// under its last three letters in light gold. Nothing else competes.
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = root.current!.closest("section")!;
     const q = gsap.utils.selector(section);
+    const first = () => q(".hero-first")[0] as HTMLElement;
 
     // Depth on scroll: the masthead lifts away faster than the man, who holds the frame longest.
     const ctx = gsap.context(() => {
@@ -21,52 +57,53 @@ export default function Hero() {
       gsap
         .timeline({ scrollTrigger: { trigger: section, start: "top top", end: "bottom top", scrub: true } })
         .to(q(".hero-mast"), { yPercent: -45, opacity: 0.15, ease: "none" }, 0)
-        .to(q(".hero-figure"), { yPercent: 6, ease: "none" }, 0)
-        .to(q(".hero-script, .hero-line"), { yPercent: -60, ease: "none" }, 0);
+        .to(q(".hero-figure"), { yPercent: 6, ease: "none" }, 0);
     }, section);
+
+    // Header marks the name aligns to ([data-edge]): whichever are showing at this width.
+    const fitMast = () => {
+      const edges = [...document.querySelectorAll("header [data-edge]")]
+        .map((e) => e.getBoundingClientRect())
+        .filter((r) => r.width);
+      if (!edges.length) return;
+      const to = Math.max(...edges.map((r) => r.right));
+      fitInk(first(), Math.min(...edges.map((r) => r.left)), to);
+      fitInk(q(".hero-surname")[0] as HTMLElement, inkX(first(), -3, "start"), to);
+    };
 
     // His head sits over the "p": its tail drops below the line, and he covers it wherever the name lands.
     const placeHead = () => {
-      const mast = q(".hero-mast .giant-in")[0] as HTMLElement | undefined;
-      if (!mast) return;
-      const walker = document.createTreeWalker(mast, NodeFilter.SHOW_TEXT);
-      for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null) {
-        const i = node.data.indexOf("p");
-        if (i < 0) continue;
-        const range = document.createRange();
-        range.setStart(node, i);
-        range.setEnd(node, i + 1);
-        const p = range.getBoundingClientRect();
-        const frame = section.getBoundingClientRect();
-        section.style.setProperty("--head-x", `${p.left + p.width * 0.36 - (frame.left + frame.width / 2)}px`);
-        return;
-      }
+      const p = glyph(first(), first().textContent!.indexOf("p")).box;
+      const frame = section.getBoundingClientRect();
+      section.style.setProperty("--head-x", `${p.left + p.width * 0.36 - (frame.left + frame.width / 2)}px`);
     };
+
     const onResize = () => requestAnimationFrame(() => {
-      fitGiants(section);
+      fitMast();
       placeHead();
     });
     window.addEventListener("resize", onResize);
 
-    let split: SplitText | undefined;
+    const splits: SplitText[] = [];
     const intro = gsap.context(() => {}, section);
     let cancelled = false;
     const off = onReady(() =>
       document.fonts.ready.then(() => {
         if (cancelled) return;
-        fitGiants(section);
+        // Split before measuring, so the letters are fitted where they will actually sit.
+        const motion = !reducedMotion();
+        if (motion) splits.push(...q(".hero-first, .hero-surname").map((el) => SplitText.create(el, { type: "chars" })));
+        fitMast();
         placeHead();
         intro.add(() => {
           gsap.set(q(".hero-intro"), { opacity: 1 });
-          if (reducedMotion()) return;
-          split = SplitText.create(q(".hero-mast .giant-in"), { type: "chars" });
+          if (!motion) return;
           gsap
             .timeline()
             .from(q(".hero-light"), { opacity: 0, duration: 2.2, ease: "power2.out" }, 0)
-            .from(split.chars, { yPercent: 40, opacity: 0, duration: 1.4, stagger: 0.05, ease: "expo.out" }, 0.1)
+            .from(splits[0].chars, { yPercent: 40, opacity: 0, duration: 1.4, stagger: 0.05, ease: "expo.out" }, 0.1)
             .from(q(".hero-figure-in"), { yPercent: 8, opacity: 0, duration: 1.6, ease: "expo.out" }, 0.35)
-            .from(q(".hero-script"), { opacity: 0, x: -24, duration: 1.3, ease: "power3.out" }, 0.9)
-            .from(q(".hero-line"), { opacity: 0, y: 14, duration: 1.2, ease: "power3.out" }, 1.15);
+            .from(splits[1].chars, { yPercent: 50, opacity: 0, duration: 1.2, stagger: 0.035, ease: "expo.out" }, 0.8);
         });
         ScrollTrigger.refresh();
       }),
@@ -77,18 +114,18 @@ export default function Hero() {
       window.removeEventListener("resize", onResize);
       off();
       intro.revert();
-      split?.revert();
+      splits.forEach((s) => s.revert());
       ctx.revert();
     };
   }, []);
 
   return (
     <Sheet id="top" theme="dark" className="relative h-[100svh] min-h-[640px] overflow-hidden bg-ink">
-      {/* Phones stack the same cover in flow (name, the man, his surname across the jacket, the line); from
-          tablets up each piece is placed over the frame. --fw keeps his shoulders inside a phone screen. */}
+      {/* Phones stack the same cover in flow (the name, then the man); from tablets up the name is set over
+          the frame. --fw keeps his shoulders inside a phone screen. */}
       <div
         ref={root}
-        className="hero-intro absolute inset-0 flex flex-col pt-[92px] opacity-0 [--fw:min(108vw,480px,calc((100svh_-_250px)_*_0.787))] md:block md:pt-0"
+        className="hero-intro absolute inset-0 flex flex-col pt-[92px] opacity-0 [--fw:min(108vw,480px,calc((100svh_-_220px)_*_0.787))] md:block md:pt-0"
       >
         {/* The spotlight: a beam from above and warm light pooling behind him */}
         <div aria-hidden className="hero-light absolute inset-0">
@@ -96,14 +133,13 @@ export default function Hero() {
           <div className="absolute left-1/2 top-0 h-full w-[140%] -translate-x-1/2 bg-[conic-gradient(from_180deg_at_50%_-8%,transparent_164deg,rgb(239_211_148/.1)_174deg,rgb(239_211_148/.16)_180deg,rgb(239_211_148/.1)_186deg,transparent_196deg)] md:w-full" />
         </div>
 
-        {/* The masthead, behind him */}
+        {/* The masthead, behind him. Sizes here are only a first guess; fitMast() sets them from the header. */}
         <h1
           aria-label="Kalpesh Kinariwala"
-          className={`hero-mast ${WRAP} relative text-white md:absolute md:inset-x-0 md:top-[104px] short:top-[92px]`}
+          className="hero-mast relative text-white md:absolute md:inset-x-0 md:top-[104px] short:top-[92px]"
         >
-          <Giant as="span" n={7} max={40} className="text-center">
-            Kalpesh
-          </Giant>
+          <span className="hero-first giant text-[min(26vw,48svh)]">Kalpesh</span>
+          <span className="hero-surname giant text-[8.2vw] text-gold-soft">Kinariwala</span>
         </h1>
 
         {/* The man, in front of it */}
@@ -119,19 +155,6 @@ export default function Hero() {
             />
           </div>
         </div>
-
-        {/* His surname, written across him */}
-        <p
-          aria-hidden
-          className="hero-script script relative z-[2] -mt-[calc(var(--fw)*0.4)] ml-6 self-start text-[clamp(52px,15vw,72px)] text-white [text-shadow:0_6px_40px_rgb(0_0_0/.55)] md:absolute md:bottom-[14%] md:left-1/2 md:ml-0 md:mt-0 md:-translate-x-[88%] md:text-[clamp(60px,8.4vw,150px)]"
-        >
-          Kinariwala
-        </p>
-
-        {/* The positioning, in one line */}
-        <p className="hero-line serif relative z-[2] mr-6 mt-4 max-w-[11ch] self-end text-right text-[24px] leading-[1.05] text-bone md:absolute md:bottom-[17%] md:right-[max(6vw,calc(50%-600px))] md:mr-0 md:mt-0 md:text-[clamp(30px,2.6vw,46px)]">
-          The widest, <em className="text-gold-soft">not the tallest.</em>
-        </p>
 
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-[22%] bg-gradient-to-t from-ink via-ink/60 to-transparent" />
         <div aria-hidden className="grain absolute inset-0" />

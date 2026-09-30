@@ -35,7 +35,7 @@ export default function Reveals() {
 
       ctx = gsap.context(() => {
         gsap.utils.toArray<HTMLElement>("[data-giant]").forEach((el) => {
-          if (el.closest(".hero-mast, footer")) return; // the hero runs its own entrance; the footer signature just sits
+          if (el.closest("footer")) return; // the footer signature just sits
           const s = SplitText.create(el.querySelector(".giant-in")!, { type: "lines,chars", mask: "lines", linesClass: "line" });
           splits.push(s);
           gsap.from(s.chars, {

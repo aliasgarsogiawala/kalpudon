@@ -19,7 +19,7 @@ export default function IdeasPage() {
       <main>
         <PageHero
           word="Ideas"
-          bg={{ src: "/img/ig-note.jpg", pos: "object-[50%_35%]" }}
+          bg={{ src: "/img/kk-book.jpg", pos: "object-[50%_30%]" }}
           script="written after they worked."
           intro="Essays and talks, filed under the five things he keeps coming back to."
         >

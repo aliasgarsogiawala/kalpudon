@@ -60,9 +60,8 @@ export const CHAPTERS: Chapter[] = [
     entity: "Private mandates", // TODO: confirm fund names and dates with client
     headline: "Returns are an output. The floor is the only thing you control.",
     proof: "Track record and allocation approach, on request.", // TODO: approved description of the fund
-    img: "/img/kk-lounge.jpg",
-    pos: "object-[38%_30%]",
-    alt: "Kalpesh Kinariwala in conversation backstage",
+    img: "/img/kk-consulate.jpg",
+    alt: "Kalpesh Kinariwala at an official meeting, the Indian flag behind him",
     href: "/contact/capital",
   },
   {
@@ -72,9 +71,8 @@ export const CHAPTERS: Chapter[] = [
     entity: "Pantheon Development, Dubai",
     headline: "Affordable luxury, delivered on schedule.",
     proof: "1,000+ homes handed over in Jumeirah Village Circle.",
-    img: "/img/ig-ground.jpg",
-    pos: "object-[62%_50%]",
-    alt: "Kalpesh Kinariwala presenting a Pantheon Development project",
+    img: "/img/kk-pantheon-wall.jpg",
+    alt: "Kalpesh Kinariwala with a guest at the Pantheon wall",
   },
   {
     n: "04",
@@ -139,8 +137,8 @@ export const IDEAS: Piece[] = [
     category: "Manage Risk",
     date: null,
     dek: "Returns are an output. The only lever you actually hold is how much you can afford to lose — and how early you decide it.",
-    img: "/img/kk-talk.jpg",
-    pos: "object-[45%_30%]",
+    img: "/img/ig-podium-2.jpg",
+    pos: "object-[50%_30%]",
   },
   {
     slug: "inspect-what-you-expect",
@@ -150,8 +148,8 @@ export const IDEAS: Piece[] = [
     category: "Building People",
     date: null,
     dek: "Trust scales when it is checked. Why inspection belongs on the calendar, not in the crisis.",
-    img: "/img/kk-interview.jpg",
-    pos: "object-[28%_30%]",
+    img: "/img/ig-lamp.jpg",
+    pos: "object-[50%_30%]",
   },
   {
     slug: "the-widest-not-the-tallest",
@@ -161,8 +159,8 @@ export const IDEAS: Piece[] = [
     category: "The Widest",
     date: null,
     dek: "Height is fragile — one market, one cycle, one point of failure. Width is a platform that survives any single storm.",
-    img: "/img/kk-crowd.jpg",
-    pos: "object-[26%_35%]",
+    img: "/img/ig-podium.jpg",
+    pos: "object-[50%_25%]",
   },
 ];
 
@@ -205,7 +203,8 @@ export const DOORS: Door[] = [
     offers: ["Track record summary", "Allocation approach", "Co-investment briefing"],
     cta: "Request a briefing",
     field: "Fund / institution",
-    img: "/img/ig-sidelit.jpg",
+    img: "/img/kk-handshake.jpg",
+    pos: "object-[68%_30%]",
   },
   {
     n: "02",
@@ -232,8 +231,8 @@ export const DOORS: Door[] = [
     offers: ["Leadership roles", "Platform operators", "Advisory seats"],
     cta: "Introduce yourself",
     field: "Current role",
-    img: "/img/kk-laugh.jpg",
-    pos: "object-[30%_30%]",
+    img: "/img/kk-office.jpg",
+    pos: "object-[50%_30%]",
   },
   {
     n: "04",
@@ -246,7 +245,8 @@ export const DOORS: Door[] = [
     offers: ["Biography", "Media kit", "Interview requests"],
     cta: "Request the media kit",
     field: "Publication",
-    img: "/img/ig-portrait.jpg",
+    img: "/img/kk-cover-cw.jpg",
+    pos: "object-[55%_30%]",
     href: "/press", // brief §3: press goes to the press & media kit page
     page: { href: "/press", label: "Biography and fact sheet" },
   },
@@ -261,8 +261,8 @@ export const DOORS: Door[] = [
     offers: ["Speaking & panels", "Introductions", "Notes on the ideas"],
     cta: "Send a note",
     field: "Organisation (optional)",
-    img: "/img/kk-guest.jpg",
-    pos: "object-[33%_30%]",
+    img: "/img/kk-book.jpg",
+    pos: "object-[50%_30%]",
     page: { href: "/ideas", label: "Read the ideas" },
   },
 ];

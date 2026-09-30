@@ -21,7 +21,8 @@ function Monogram({ progress }: { progress: React.RefObject<SVGCircleElement | n
   return (
     <span className="relative grid size-11 shrink-0 place-items-center">
       <svg viewBox="0 0 44 44" className="absolute inset-0 -rotate-90" aria-hidden>
-        <circle cx="22" cy="22" r="19" fill="none" stroke="currentColor" strokeOpacity=".18" strokeWidth="1.2" />
+        {/* data-edge: the hero sets his name to run from here to the header's last mark */}
+        <circle data-edge cx="22" cy="22" r="19" fill="none" stroke="currentColor" strokeOpacity=".18" strokeWidth="1.2" />
         <circle
           ref={progress}
           cx="22"
@@ -252,10 +253,11 @@ export default function Header() {
               aria-controls="header-doors"
               className={`hidden h-10 items-center px-5 text-[14px] transition-colors duration-300 hover:text-gold-soft lg:flex ${doors ? "text-gold-soft" : "text-bone/60"}`}
             >
-              Contact
+              <span data-edge>Contact</span>
             </button>
 
             <button
+              data-edge
               onClick={() => {
                 setDoors(false);
                 setMenu((o) => !o);
