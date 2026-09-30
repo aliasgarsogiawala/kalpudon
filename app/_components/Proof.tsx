@@ -2,12 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Giant from "./Giant";
 import Sheet, { WRAP } from "./Sheet";
-import { CHAPTERS, RECOGNITION, type Chapter } from "./data";
-
-// Only the names a visitor would recognise; the full record lives on the press page.
-const RECOGNISED = ["Entrepreneur Middle East", "Forbes Middle East", "Shows of India"].map(
-  (who) => RECOGNITION.find((r) => r.who === who)!,
-);
+import { getContent } from "../_lib/content";
+import { CHAPTERS, type Chapter } from "./data";
 
 // From laptops up the four cards share rows (subgrid), so each card's name, line and figure start on
 // the same line as its neighbours', however many lines the one before runs to.
@@ -56,7 +52,9 @@ function Card({ c }: { c: Chapter }) {
 // portfolio. Equal weight, so real estate reads as one proof point among four, never the headline.
 // From laptops up it is one full screen: the line across the top, the four cards, and who has
 // recognised the work along the foot, lined up under the cards.
-export default function Proof() {
+export default async function Proof() {
+  // Up to three awards the team ticks for the home page in the admin; the full record is on the press page.
+  const recognised = (await getContent()).awards.filter((a) => a.home).slice(0, 3);
   return (
     <Sheet id="work" theme="dark" wash="violet" className="bg-violet text-bone">
       <div className={`${WRAP} flex min-h-[100svh] flex-col pb-28 pt-[132px] md:pb-40 md:pt-[180px] lg:pb-[4svh] lg:pt-[max(100px,12svh)]`}>
@@ -74,8 +72,8 @@ export default function Proof() {
 
         <div className="mt-24 grid gap-6 sm:grid-cols-2 md:mt-32 lg:mt-auto lg:grid-cols-4 lg:items-baseline lg:gap-x-8 lg:pt-[4svh]">
           <p className="t-note text-bone/60">Recognised by</p>
-          {RECOGNISED.map((r) => (
-            <div key={r.who}>
+          {recognised.map((r) => (
+            <div key={r.who + r.y}>
               <p className="t-body font-bold text-bone">{r.who}</p>
               <p className="t-note text-bone/60">
                 {r.what}, {r.y}

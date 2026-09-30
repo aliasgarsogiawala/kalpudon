@@ -5,7 +5,7 @@ import Shell from "../_components/Shell";
 import PageHero from "../_components/PageHero";
 import Giant from "../_components/Giant";
 import { WRAP, WashLayer } from "../_components/Sheet";
-import { PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
+import { FOCUS, getContent } from "../_lib/content";
 
 export const metadata: Metadata = {
   title: "Press",
@@ -13,33 +13,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/press" },
 };
 
-// The awards with a photograph of the moment, each captioned with the award, who gave it and the year.
-// Every caption needs sign-off against the approved claims sheet (brief §10).
-const FEATURED = [
-  {
-    who: "The Ultimate Realty Awards",
-    img: "/img/kk-award-stage.jpg",
-    pos: "object-[50%_0%]",
-    alt: "Kalpesh Kinariwala receiving the Affordable Luxury Developer of the Year award for Pantheon Development",
-  },
-  {
-    who: "Construction Week",
-    img: "/img/kk-cover-cw-full.jpg",
-    pos: "object-[50%_22%]",
-    alt: "Kalpesh Kinariwala on the cover of Construction Week's Power 150 issue",
-  },
-  {
-    who: "Shows of India",
-    img: "/img/ig-podium-2.jpg",
-    pos: "object-[50%_30%]",
-    alt: "Kalpesh Kinariwala speaking at Shows of India 2026, Delhi",
-  },
-].map((f) => ({ ...f, ...RECOGNITION.find((r) => r.who === f.who)! }));
-const OTHERS = RECOGNITION.filter((r) => !FEATURED.some((f) => f.who === r.who));
-
 // Three full screens: the opening, the biography with the facts, and the awards. One typeface
 // throughout; weight, size and colour carry the order of importance.
-export default function PressPage() {
+export default async function PressPage() {
+  const { press, awards } = await getContent();
+  // Awards with a photograph lead the section; the rest follow on the same three columns
+  const featured = awards.filter((a) => a.featured && a.img);
+  const others = awards.filter((a) => !(a.featured && a.img));
   return (
     <Shell>
       <main>
@@ -75,9 +55,9 @@ export default function PressPage() {
 
             <div className="lg:col-span-8">
               <h2 className="t-note text-gold-soft">Biography</h2>
-              <p className="t-lead mt-3 max-w-[42ch]">{PRESS_BIO[0]}</p>
+              <p className="t-lead mt-3 max-w-[42ch]">{press.bio[0]}</p>
               <div className="mt-5 grid gap-5 md:grid-cols-2 md:gap-8">
-                {PRESS_BIO.slice(1).map((p) => (
+                {press.bio.slice(1).map((p) => (
                   <p key={p} className="t-body text-bone/75">
                     {p}
                   </p>
@@ -86,13 +66,28 @@ export default function PressPage() {
 
               <h2 className="t-note mt-10 text-gold-soft lg:mt-[5svh]">Fact sheet</h2>
               <dl className="mt-3 border-t border-white/10">
-                {PRESS_FACTS.map((f) => (
+                {press.facts.map((f) => (
                   <div key={f.k} className="grid gap-1 border-b border-white/10 py-3 md:grid-cols-12 md:items-baseline md:gap-8 lg:py-[1.3svh]">
                     <dt className="t-note text-bone/55 md:col-span-3">{f.k}</dt>
                     <dd className="t-body text-bone md:col-span-9">{f.v}</dd>
                   </div>
                 ))}
               </dl>
+
+              {press.kit.length > 0 && (
+                <>
+                  <h2 className="t-note mt-10 text-gold-soft lg:mt-[5svh]">Media kit</h2>
+                  <ul className="mt-3 flex flex-wrap gap-x-8 gap-y-2">
+                    {press.kit.map((f) => (
+                      <li key={f.url}>
+                        <a href={f.url} target="_blank" rel="noreferrer" download className="t-body link-line text-gold-soft">
+                          {f.label} ↓
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </div>
           </div>
         </section>
@@ -105,12 +100,13 @@ export default function PressPage() {
               Awards<span className="accent ml-[0.5em]">and recognition.</span>
             </Giant>
 
+            {featured.length > 0 && (
             <ul className="mt-12 grid gap-12 md:grid-cols-3 md:gap-x-8 md:gap-y-0 lg:mt-[5svh]">
-              {FEATURED.map((f) => (
-                <li key={f.who} className="md:row-span-3 md:grid md:grid-rows-subgrid">
+              {featured.map((f) => (
+                <li key={f.who + f.what} className="md:row-span-3 md:grid md:grid-rows-subgrid md:[&:nth-child(n+4)]:mt-14">
                   <div data-reveal className="relative aspect-[4/5] w-full md:aspect-auto md:h-[34svh] md:min-h-[240px]">
                     <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-smoke">
-                      <Image src={f.img} alt={f.alt} fill sizes="(min-width:768px) 30vw, 90vw" className={`object-cover ${f.pos}`} />
+                      <Image src={f.img} alt={f.alt} fill sizes="(min-width:768px) 30vw, 90vw" className={`object-cover ${FOCUS[f.focus]}`} />
                     </div>
                   </div>
                   <p className="t-title mt-5">{f.what}</p>
@@ -120,9 +116,10 @@ export default function PressPage() {
                 </li>
               ))}
             </ul>
+            )}
 
             <ul className="mt-14 grid gap-6 border-t border-white/10 pt-6 md:grid-cols-3 md:gap-8 lg:mt-auto">
-              {OTHERS.map((r) => (
+              {others.map((r) => (
                 <li key={r.who + r.y}>
                   <p className="t-body font-bold">{r.what}</p>
                   <p className="t-note text-bone/60">

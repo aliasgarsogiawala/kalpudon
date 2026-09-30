@@ -187,7 +187,8 @@ export default function Header() {
     };
   }, [menu]);
 
-  const isOn = (href: string) => (href.startsWith("/#") ? active === href : path.startsWith(href));
+  // On the home page a link is current while its section is in view; elsewhere, on its own page.
+  const isOn = (href: string) => active === href || (!href.startsWith("/#") && path.startsWith(href));
   const current = NAV.find((n) => isOn(n.href))?.href ?? null;
   const target = hover ?? current;
 

@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Giant from "./Giant";
 import Sheet, { WRAP } from "./Sheet";
-import { IDEAS } from "./data";
+import { getContent } from "../_lib/content";
 
 // Brief §5.5: his frameworks, stated plainly — the teaching layer, and what press will quote.
 // The same shape as the thesis: one full screen, the heading across the top, him at the podium
 // filling the height, and the three ideas beside him as rows on one grid, each opening the hub.
-export default function Ideas() {
+export default async function Ideas() {
+  const ideas = (await getContent()).ideas.slice(0, 3);
   return (
     <Sheet id="ideas" theme="dark" wash="aubergine" className="bg-aubergine text-bone lg:h-[100svh] lg:min-h-[680px]">
       <div className={`${WRAP} flex flex-col pb-28 pt-[132px] md:pb-40 md:pt-[180px] lg:h-full lg:pb-[6svh] lg:pt-[max(100px,13svh)]`}>
@@ -32,9 +33,9 @@ export default function Ideas() {
 
           <div className="flex min-w-0 flex-1 flex-col justify-between gap-10 lg:py-[1svh]">
             <ol data-fade className="border-t border-white/10">
-              {IDEAS.map((idea) => (
+              {ideas.map((idea) => (
                 <li key={idea.slug} className="border-b border-white/10">
-                  <Link href="/ideas" className="group grid gap-2 py-6 md:grid-cols-12 md:items-baseline md:gap-8 lg:py-[2.6svh]">
+                  <Link href={idea.date ? `/ideas/${idea.slug}` : "/ideas"} className="group grid gap-2 py-6 md:grid-cols-12 md:items-baseline md:gap-8 lg:py-[2.6svh]">
                     <span className="t-note text-gold-soft md:col-span-3">{idea.category}</span>
                     <span className="md:col-span-9">
                       <span className="t-title block transition-colors duration-500 group-hover:text-gold-soft">{idea.title}</span>
