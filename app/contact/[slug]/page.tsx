@@ -15,6 +15,10 @@ export function generateStaticParams() {
   return DOORS.map((d) => ({ slug: d.slug }));
 }
 
+// Every door posts to one Formspree form (one inbox); the subject line names the door. Read at build, so a
+// change needs a redeploy.
+const FORMSPREE_FORM = process.env.FORMSPREE_FORM || null;
+
 export async function generateMetadata({ params }: PageProps<"/contact/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const door = DOORS.find((d) => d.slug === slug);
@@ -82,7 +86,14 @@ export default async function DoorPage({ params }: PageProps<"/contact/[slug]">)
                 It goes only to the people in his office who handle {door.desk} enquiries.
               </p>
               <div data-fade className="mt-10">
-                <DoorForm label={door.label} desk={door.desk} field={door.field} cta={door.cta} topics={door.offers} />
+                <DoorForm
+                  label={door.label}
+                  desk={door.desk}
+                  field={door.field}
+                  cta={door.cta}
+                  topics={door.offers}
+                  formId={FORMSPREE_FORM}
+                />
               </div>
             </div>
           </div>
