@@ -72,6 +72,7 @@ export default function Hero() {
     };
 
     // His head sits over the "p": its tail drops below the line, and he covers it wherever the name lands.
+    // (From tablets up, where he stands in front of the name; phones stack him under it, centred.)
     const placeHead = () => {
       const p = glyph(first(), first().textContent!.indexOf("p")).box;
       const frame = section.getBoundingClientRect();
@@ -143,10 +144,10 @@ export default function Hero() {
         </h1>
 
         {/* The man, in front of it */}
-        <div className="hero-figure relative z-[1] mx-auto mt-2 w-[var(--fw)] md:absolute md:inset-x-0 md:bottom-0 md:z-auto md:mt-0 md:flex md:w-auto md:justify-center">
-          <div className="hero-figure-in relative aspect-[792/1006] w-full translate-x-[var(--head-x,0px)] [mask-image:linear-gradient(to_bottom,#000_68%,transparent_97%)] md:aspect-auto md:h-[72svh] md:w-[calc(72svh*0.787)] md:shrink-0 md:translate-y-[9%] md:[mask-image:none]">
+        <div className="hero-figure relative z-[1] mt-2 w-[var(--fw)] self-center md:absolute md:inset-x-0 md:bottom-0 md:z-auto md:mt-0 md:flex md:w-auto md:justify-center">
+          <div className="hero-figure-in relative aspect-[792/1006] w-full md:translate-x-[var(--head-x,0px)] [mask-image:linear-gradient(to_bottom,#000_68%,transparent_97%)] md:aspect-auto md:h-[72svh] md:w-[calc(72svh*0.787)] md:shrink-0 md:translate-y-[9%] md:[mask-image:none]">
             <Image
-              src="/img/hero-cut.png"
+              src="/img/hero-kk.png"
               alt="Kalpesh Kinariwala"
               fill
               preload

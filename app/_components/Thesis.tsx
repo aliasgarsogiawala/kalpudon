@@ -11,8 +11,8 @@ import { INSTINCT } from "./data";
 // photograph cropped him, and they fade in one after another.
 const COLLAGE = [
   {
-    src: "/img/cut-tux.png",
-    ratio: "983/1292",
+    src: "/img/cut-tux-hd.png",
+    ratio: "1511/2000",
     place: "left-[-4%] top-[4%] w-[52%] brightness-[.72] saturate-[.85]",
     fade: { "--fl": "26%", "--fb": "52%" },
     sizes: "(min-width:1024px) 30svh, 48vw",
@@ -20,20 +20,20 @@ const COLLAGE = [
     x: -6,
   },
   {
-    src: "/img/cut-white.png",
-    ratio: "640/1013",
-    place: "right-[-4%] top-0 w-[46%] brightness-[.72] saturate-[.85]",
-    fade: { "--fl": "12%", "--fr": "22%", "--fb": "52%" },
-    sizes: "(min-width:1024px) 26svh, 44vw",
+    src: "/img/cut-black-hd.png",
+    ratio: "2396/1952",
+    place: "right-[-6%] top-[2%] w-[58%] brightness-[.72] saturate-[.85]",
+    fade: { "--fl": "20%", "--fb": "48%" },
+    sizes: "(min-width:1024px) 34svh, 54vw",
     delay: 0.45,
     x: 6,
   },
   {
-    src: "/img/cut-maroon.png",
-    ratio: "1072/1402",
-    place: "bottom-0 left-[15%] w-[70%]",
-    fade: { "--fr": "14%", "--fb": "66%" },
-    sizes: "(min-width:1024px) 40svh, 66vw",
+    src: "/img/cut-white-hd.png",
+    ratio: "1274/2000",
+    place: "bottom-0 left-[20%] w-[60%]",
+    fade: { "--fl": "18%", "--fr": "38%", "--fb": "64%" },
+    sizes: "(min-width:1024px) 36svh, 56vw",
     delay: 0.9,
     x: 0,
   },
@@ -56,7 +56,7 @@ export default function Thesis() {
         figure={
           <figure
             role="img"
-            aria-label="Kalpesh Kinariwala in a maroon blazer, a white jacket and a black dinner suit"
+            aria-label="Kalpesh Kinariwala in a white jacket, a black jacket and a black dinner suit"
             className="relative mx-auto -mb-20 aspect-[4/5] w-full max-w-[460px] md:-mb-28 lg:mx-0 lg:-mb-[6svh] lg:h-[calc(100%+6svh)] lg:w-auto lg:max-w-none lg:shrink-0"
           >
             {COLLAGE.map((c) => (

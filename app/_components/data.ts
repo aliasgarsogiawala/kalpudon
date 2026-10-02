@@ -6,9 +6,10 @@
 // usage rights to be confirmed by the client before launch (brief §9–10); some are event photographers'
 // work and artists on stage may need their own consent. The HOP clip is cut from his Lucky Ali reel at
 // Coca-Cola Arena. kk-*.jpg and hop-*.jpg are from the event photographer's shoot at the Jasmine Sandlas concert
-// (WeTransfer, 2026-09-22); the artist and dancers in hop-*.jpg may need their own consent. hero-cut.png is ig-founder.jpg re-cut for the hero (BiRefNet matte, the old backdrop's gold glow taken off the jacket);
-// the thesis collage's cut-*.png come the same way from ig-portrait.jpg (tux), kk-cover-cw-full.jpg (maroon) and
-// ig-smile.jpg (white). Replace them with proper cut-outs from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
+// (WeTransfer, 2026-09-22); the artist and dancers in hop-*.jpg may need their own consent. The cut-outs (hero-kk.png from ig-founder.jpg, its lower sides faded where the graphic's triangles hid his arms; the thesis collage's cut-*-hd.png from ig-portrait.jpg,
+// ig-smile.jpg and a Pantheon Development Instagram post) are those photographs upscaled 4x with Real-ESRGAN (blended with a plain
+// upscale so skin keeps its texture), matted with BiRefNet, and the hero's old gold backdrop glow taken off the
+// jacket. Replace them with proper cut-outs from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
 
 export const SITE_URL = "https://kalpeshkinariwala.com"; // TODO: confirm the production domain
 
