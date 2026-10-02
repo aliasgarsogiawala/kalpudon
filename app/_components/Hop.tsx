@@ -10,9 +10,9 @@ import Sheet, { Split, WRAP, WashLayer } from "./Sheet";
 import Scene, { ScenePhoto } from "./Scene";
 import { HOP_FACTS, PANTHEON_NOW, PRODUCTIONS } from "./data";
 
-// The film behind the quote: the room at full tilt, cut from the event videographer's "Artist Performance"
-// reel (Jasmine Sandlas concert, WeTransfer 2026-09-22).
-const QUOTE_FILM = "/video/hop-crowd.mp4";
+// The film behind the quote, kept light enough to read as film: him on stage under the UAE flag, then the arena
+// with Pantheon on the screens — cut from the "KK On Stage — Founder Moment" reel (WeTransfer 2026-09-22).
+const QUOTE_FILM = "/video/hop-founder.mp4";
 
 const NAMES = ["Arijit Singh", "A.R. Rahman", "Rishab Sharma", "Etihad Arena", "Sold out"];
 
@@ -90,9 +90,9 @@ export default function Hop() {
           <WashLayer wash="ink" />
           {/* In his words, and the record: one screen, over film of the room (client, 2026-10-02) */}
           <div className="relative overflow-hidden">
-            <LiveVideo src={QUOTE_FILM} poster="/video/hop-crowd.jpg" className="absolute inset-0 size-full object-cover" />
-            <div aria-hidden className="absolute inset-0 bg-ink/65" />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink via-ink/30 to-ink" />
+            <LiveVideo src={QUOTE_FILM} poster="/video/hop-founder.jpg" className="absolute inset-0 size-full object-cover" />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/45 to-ink/60" />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink via-transparent to-ink" />
             <div className={`${WRAP} relative z-[1] flex min-h-[100svh] items-center py-28 md:py-[10svh]`}>
               <Split
                 className="w-full"

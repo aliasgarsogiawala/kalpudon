@@ -43,8 +43,8 @@ export default async function PressPage() {
               <div data-reveal className="relative aspect-[4/5] shadow-[0_50px_100px_-30px_rgba(0,0,0,.85)]">
                 <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
                   <Image
-                    src="/img/solo-bio.jpg"
-                    alt="Kalpesh Kinariwala in conversation backstage"
+                    src="/img/solo-bio-v2.jpg"
+                    alt="Kalpesh Kinariwala"
                     fill
                     sizes="(min-width:1024px) 28vw, 78vw"
                     className="object-cover object-[50%_20%]"

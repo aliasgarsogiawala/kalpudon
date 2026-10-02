@@ -15,7 +15,7 @@ export default function ContactPage() {
       <main>
         <PageHero
           word="Enquiries"
-          photo={{ src: "/img/solo-enquiries.jpg", alt: "Kalpesh Kinariwala", pos: "object-[50%_20%]" }}
+          photo={{ src: "/img/solo-enquiries-v3.jpg", alt: "Kalpesh Kinariwala", pos: "object-[50%_20%]" }}
           line="pick your door."
           intro="Every note reaches the office of Kalpesh Kinariwala and goes straight to the people who handle it: capital, HOP partnerships, careers, press, and everything else."
         />

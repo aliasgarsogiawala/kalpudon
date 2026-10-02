@@ -39,7 +39,7 @@ export default function HopPage() {
         <PageHero
           word="HOP"
           line="at arena scale."
-          photo={{ src: "/img/solo-hop.jpg", alt: "Kalpesh Kinariwala at a HOP night", pos: "object-[50%_20%]" }}
+          photo={{ src: "/img/hop-page.jpg", alt: "Kalpesh Kinariwala at the front of house as the artist performs on a HOP night", pos: "object-[50%_20%]" }}
           intro="Live entertainment is the most fragmented market he has entered. HOP puts artists, promoters, venues and audiences in the same room, on a network and a production record built show by show."
           aside={
             <Link href="/contact/hop" className="t-body link-line mt-6 inline-block text-gold-soft">
