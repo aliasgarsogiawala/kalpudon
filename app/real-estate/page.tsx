@@ -46,8 +46,8 @@ export default function RealEstatePage() {
             }
             figure={
               <ScenePhoto
-                src="/img/re-record.jpg"
-                alt="Kalpesh Kinariwala at a Pantheon Development launch"
+                src="/img/shoot-estate.jpg"
+                alt="Kalpesh Kinariwala at Pantheon Development"
               />
             }
           >

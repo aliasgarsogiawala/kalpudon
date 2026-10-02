@@ -74,8 +74,8 @@ export const CHAPTERS: Chapter[] = [
     entity: "Pantheon Development, Dubai",
     headline: "Affordable luxury, delivered on schedule.",
     proof: "1,000+ homes handed over in Jumeirah Village Circle.",
-    img: "/img/kk-proof-estate-3.jpg",
-    alt: "Kalpesh Kinariwala at The Ultimate Realty Awards, where Pantheon Development was named Affordable Luxury Developer of the Year",
+    img: "/img/shoot-estate-card.jpg",
+    alt: "Kalpesh Kinariwala at Pantheon Development",
   },
   {
     n: "04",
@@ -199,7 +199,7 @@ export const DOORS: Door[] = [
     offers: ["Track record summary", "Allocation approach", "Co-investment briefing"],
     cta: "Request a briefing",
     field: "Fund / institution",
-    img: "/img/door-capital-v3.jpg",
+    img: "/img/shoot-capital.jpg",
     pos: "object-[50%_20%]",
   },
   {
@@ -227,7 +227,7 @@ export const DOORS: Door[] = [
     offers: ["Leadership roles", "Platform operators", "Advisory seats"],
     cta: "Introduce yourself",
     field: "Current role",
-    img: "/img/door-careers-v3.jpg",
+    img: "/img/shoot-careers.jpg",
     pos: "object-[50%_20%]",
   },
   {
@@ -257,8 +257,8 @@ export const DOORS: Door[] = [
     offers: ["Speaking & panels", "Introductions", "Notes on the ideas"],
     cta: "Send a note",
     field: "Organisation (optional)",
-    img: "/img/door-contact-v4.jpg",
-    pos: "object-[50%_5%]",
+    img: "/img/shoot-contact.jpg",
+    pos: "object-[50%_15%]",
     page: { href: "/ideas", label: "Read the ideas" },
   },
 ];
