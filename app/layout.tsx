@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: "Kalpesh Kinariwala",
     title: "Kalpesh Kinariwala — Platform builder",
     description,
-    images: [{ url: "/img/ig-portrait.jpg", width: 1080, height: 1350, alt: "Kalpesh Kinariwala" }],
+    images: [{ url: "/img/kk-gtn-portrait.jpg", width: 1464, height: 1830, alt: "Kalpesh Kinariwala" }],
   },
   twitter: { card: "summary_large_image" },
 };

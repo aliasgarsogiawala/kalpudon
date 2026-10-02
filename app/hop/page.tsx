@@ -18,14 +18,14 @@ export const metadata: Metadata = {
 const door = DOORS.find((d) => d.slug === "hop")!;
 
 // A night from the floor, backstage and on stage: the event shoot (brief §5.4, §7: live events carry
-// the most energy). Every frame is one the home page doesn't use.
+// the most energy). Him alone in every frame, head and torso (client, 2026-10-02), none the home page uses.
 const NIGHT = [
-  { img: "/img/kk-crowd.jpg", t: "In the arena", pos: "object-[27%_35%]" },
-  { img: "/img/kk-stage.jpg", t: "On stage", pos: "object-[72%_30%]" },
-  { img: "/img/kk-lounge.jpg", t: "Backstage", pos: "object-[38%_30%]" },
-  { img: "/img/kk-interview.jpg", t: "Interviews", pos: "object-[28%_30%]" },
-  { img: "/img/kk-guest.jpg", t: "With guests", pos: "object-[33%_30%]" },
-  { img: "/img/kk-laugh.jpg", t: "With the audience", pos: "object-[30%_30%]" },
+  { img: "/img/night-doors.jpg", t: "Before doors" },
+  { img: "/img/night-house.jpg", t: "Front of house" },
+  { img: "/img/night-backstage.jpg", t: "Backstage" },
+  { img: "/img/night-floor.jpg", t: "On the floor" },
+  { img: "/img/night-full.jpg", t: "Full house" },
+  { img: "/img/night-show.jpg", t: "Showtime" },
 ];
 
 const NAMES = ["Arijit Singh", "A.R. Rahman", "Rishab Sharma", "Etihad Arena", "Shows of India"];
@@ -39,7 +39,7 @@ export default function HopPage() {
         <PageHero
           word="HOP"
           line="at arena scale."
-          bg={{ src: "/img/kk-arena-watch.jpg", pos: "object-[50%_45%]" }}
+          photo={{ src: "/img/solo-hop.jpg", alt: "Kalpesh Kinariwala at a HOP night", pos: "object-[50%_20%]" }}
           intro="Live entertainment is the most fragmented market he has entered. HOP puts artists, promoters, venues and audiences in the same room, on a network and a production record built show by show."
           aside={
             <Link href="/contact/hop" className="t-body link-line mt-6 inline-block text-gold-soft">
@@ -58,7 +58,7 @@ export default function HopPage() {
             <p data-fade className="t-lead mt-10 max-w-[40ch] md:mt-[6svh]">
               {door.body}
             </p>
-            <dl className="mt-16 grid gap-10 border-t border-white/10 pt-8 md:mt-auto md:grid-cols-3 md:gap-8">
+            <dl className="mt-16 grid gap-10 border-t border-white/10 pt-8 md:mt-[6svh] md:grid-cols-3 md:gap-8">
               {HOP_FACTS.map((f) => (
                 <div key={f.k} data-fade>
                   <dt className="t-statement gold-glow font-bold">{f.k}</dt>
@@ -96,7 +96,7 @@ export default function HopPage() {
                 <li key={p.img} className="relative aspect-[4/5] md:aspect-auto md:min-h-[180px]">
                   <figure className="absolute inset-0">
                     <div data-reveal={Math.min(i, 3) * 0.1} data-reveal-clip className="absolute inset-0 overflow-hidden bg-coal">
-                      <Image src={p.img} alt={`Kalpesh Kinariwala — ${p.t.toLowerCase()}`} fill sizes="(min-width:768px) 32vw, 48vw" className={`object-cover ${p.pos}`} />
+                      <Image src={p.img} alt={`Kalpesh Kinariwala — ${p.t.toLowerCase()}`} fill sizes="(min-width:768px) 32vw, 48vw" className="object-cover object-top" />
                     </div>
                     <figcaption className="t-note absolute bottom-0 left-0 z-[3] bg-ink/75 px-3 py-1.5 text-bone/85 backdrop-blur-sm">{p.t}</figcaption>
                   </figure>

@@ -144,12 +144,16 @@ html.lenis body {
     font-style: normal;
     font-weight: 300;
   }
-  /* The second voice beside a giant word, set inside <Giant> so the fitting counts it: a third of the
-     giant's size, light, gold, sitting on the same baseline */
+  /* The second voice of a giant word, set inside <Giant> so the fitting counts it: a light gold line on its
+     own row under the title, never beside it (client, 2026-10-02: "make it title and header underneath") */
   .accent {
+    display: block;
     font-size: 0.3em;
     font-weight: 300;
+    line-height: 1.1;
     letter-spacing: -0.02em;
+    margin-inline: 0 !important;
+    padding-block: 0.12em;
   }
   /* Gold set as light, not flat yellow (client, 2026-09-29: "a glowing goldish gradient"): a warm metallic
      fall down each letter and a soft glow around the word. The gradient is laid on every descendant too,
@@ -171,14 +175,10 @@ html.lenis body {
     padding-block: 0.16em;
     margin-block: -0.16em;
   }
-  /* Phones: the giant word has the width to itself and the line sits on its own row, large enough to read */
+  /* Phones: the line a little larger, so it still reads beside a giant word sized for a narrow screen */
   @media (max-width: 767px) {
     .accent {
-      display: block;
       font-size: 0.4em;
-      line-height: 1.1;
-      margin-inline: 0 !important;
-      padding-block: 0.12em;
     }
   }
   /* The same light gold voice on its own (a signature, a line under a statement) */

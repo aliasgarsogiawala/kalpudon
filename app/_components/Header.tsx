@@ -99,7 +99,7 @@ function DoorPanel({ onPick }: { onPick: () => void }) {
                 alt=""
                 fill
                 sizes="34vw"
-                className={`object-cover transition-[opacity,transform] duration-700 ${i === on ? "scale-100 opacity-100" : "scale-105 opacity-0"}`}
+                className={`object-cover object-top transition-[opacity,transform] duration-700 ${i === on ? "scale-100 opacity-100" : "scale-105 opacity-0"}`}
               />
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />

@@ -79,14 +79,9 @@ export type Content = z.infer<typeof ContentSchema>;
 // Photographs the launch awards already had on the press page
 const LAUNCH_PHOTOS: Record<string, Pick<Award, "img" | "alt" | "focus">> = {
   "The Ultimate Realty Awards": {
-    img: "/img/kk-award-stage.jpg",
-    alt: "Kalpesh Kinariwala receiving the Affordable Luxury Developer of the Year award for Pantheon Development",
+    img: "/img/kk-award-solo.jpg",
+    alt: "Kalpesh Kinariwala at The Ultimate Realty Awards, where Pantheon Development was named Affordable Luxury Developer of the Year",
     focus: "top",
-  },
-  "Construction Week": {
-    img: "/img/kk-cover-cw-full.jpg",
-    alt: "Kalpesh Kinariwala on the cover of Construction Week's Power 150 issue",
-    focus: "upper",
   },
   "Shows of India": { img: "/img/ig-podium-2.jpg", alt: "Kalpesh Kinariwala speaking at Shows of India 2026, Delhi", focus: "upper" },
 };
@@ -173,7 +168,7 @@ function parse(data: unknown): Content {
   };
 }
 
-/** What the public pages render. Cached, and refreshed the moment the admin saves. */
+/** What the public pages render. Cached; refreshed the moment the admin saves, and otherwise within a minute. */
 export const getContent = unstable_cache(
   async (): Promise<Content> => {
     try {
@@ -184,8 +179,8 @@ export const getContent = unstable_cache(
       return DEFAULT_CONTENT;
     }
   },
-  ["cms-content", "terminology-v2"],
-  { tags: [TAG], revalidate: 3600 },
+  ["cms-content", "terminology-v2", "photos-2026-10-02b"],
+  { tags: [TAG], revalidate: 60 },
 );
 
 /** The latest saved content, uncached, for the admin. */

@@ -32,7 +32,7 @@ export default function RealEstatePage() {
         <PageHero
           word="Real Estate"
           line="delivered on schedule."
-          bg={{ src: "/img/kk-pantheon-wall.jpg", pos: "object-[40%_30%]" }}
+          photo={{ src: "/img/solo-welcome.jpg", alt: "Kalpesh Kinariwala at a Pantheon art, culture and real estate welcome", pos: "object-[50%_20%]" }}
           intro="Pantheon Development builds affordable luxury in Dubai, on the same instinct he brings to every market: find what is scattered, connect it, and manage the downside first."
         />
 
@@ -46,8 +46,8 @@ export default function RealEstatePage() {
             }
             figure={
               <ScenePhoto
-                src="/img/kk-cover-cw-full.jpg"
-                alt="Kalpesh Kinariwala on the cover of Construction Week, founder of Pantheon Development"
+                src="/img/solo-pantheon.jpg"
+                alt="Kalpesh Kinariwala for Pantheon Elysee Developments"
               />
             }
           >

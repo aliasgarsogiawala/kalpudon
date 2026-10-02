@@ -70,7 +70,7 @@ export default async function Proof() {
           ))}
         </ul>
 
-        <div className="mt-24 grid gap-6 sm:grid-cols-2 md:mt-32 lg:mt-auto lg:grid-cols-4 lg:items-baseline lg:gap-x-8 lg:pt-[4svh]">
+        <div className="mt-24 grid gap-6 sm:grid-cols-2 md:mt-24 lg:mt-[6svh] lg:grid-cols-4 lg:items-baseline lg:gap-x-8">
           <p className="t-note text-bone/60">Recognised by</p>
           {recognised.map((r) => (
             <div key={r.who + r.y}>

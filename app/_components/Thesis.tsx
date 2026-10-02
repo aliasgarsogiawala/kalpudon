@@ -11,10 +11,10 @@ import { INSTINCT } from "./data";
 // photograph cropped him, and they fade in one after another.
 const COLLAGE = [
   {
-    src: "/img/cut-tux-hd.png",
-    ratio: "1511/2000",
-    place: "left-[-4%] top-[4%] w-[52%] brightness-[.72] saturate-[.85]",
-    fade: { "--fl": "26%", "--fb": "52%" },
+    src: "/img/cut-note-hd.png",
+    ratio: "1280/1600",
+    place: "left-[-2%] top-[6%] w-[44%] brightness-[.72] saturate-[.85]",
+    fade: { "--fl": "14%", "--fr": "16%", "--fb": "50%" },
     sizes: "(min-width:1024px) 30svh, 48vw",
     delay: 0,
     x: -6,
@@ -47,7 +47,7 @@ export default function Thesis() {
   return (
     <Sheet id="story" theme="dark" wash="plum" className="bg-plum text-bone">
       <Scene
-        backdrop={<Backdrop src="/img/ig-portrait.jpg" pos="object-[50%_30%]" soft />}
+        backdrop={<Backdrop src="/img/ig-smile.jpg" pos="object-[50%_92%]" soft />}
         heading={
           <Giant as="h2" n={16} max={20}>
             One instinct<span className="accent ml-[0.5em]">four markets.</span>
@@ -56,7 +56,7 @@ export default function Thesis() {
         figure={
           <figure
             role="img"
-            aria-label="Kalpesh Kinariwala in a white jacket, a black jacket and a black dinner suit"
+            aria-label="Kalpesh Kinariwala in a white jacket, a black jacket and a striped shirt"
             className="relative mx-auto -mb-20 aspect-[4/5] w-full max-w-[460px] md:-mb-28 lg:mx-0 lg:-mb-[6svh] lg:h-[calc(100%+6svh)] lg:w-auto lg:max-w-none lg:shrink-0"
           >
             {COLLAGE.map((c) => (

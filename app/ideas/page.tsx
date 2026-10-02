@@ -20,7 +20,7 @@ export default async function IdeasPage() {
       <main>
         <PageHero
           word="Ideas"
-          bg={{ src: "/img/kk-book-bg.jpg", pos: "object-[70%_30%]" }}
+          photo={{ src: "/img/solo-ground.jpg", alt: "Kalpesh Kinariwala presenting a Pantheon project", pos: "object-[50%_30%]" }}
           line="written after they worked."
           intro="Essays and talks, filed under the five things he keeps coming back to."
         />

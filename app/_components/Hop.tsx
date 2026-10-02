@@ -10,6 +10,10 @@ import Sheet, { Split, WRAP, WashLayer } from "./Sheet";
 import Scene, { ScenePhoto } from "./Scene";
 import { HOP_FACTS, PANTHEON_NOW, PRODUCTIONS } from "./data";
 
+// The film behind the quote: the room at full tilt, cut from the event videographer's "Artist Performance"
+// reel (Jasmine Sandlas concert, WeTransfer 2026-09-22).
+const QUOTE_FILM = "/video/hop-crowd.mp4";
+
 const NAMES = ["Arijit Singh", "A.R. Rahman", "Rishab Sharma", "Etihad Arena", "Sold out"];
 
 // Mosaic slots for the four production stills, in PRODUCTIONS order: one tall frame beside three.
@@ -46,7 +50,7 @@ export default function Hop() {
               <span className="accent mr-[0.4em]">the</span>Present tense
             </Giant>
           }
-          figure={<ScenePhoto src="/img/kk-arena-watch.jpg" alt="Kalpesh Kinariwala watching the show from the floor of the arena" />}
+          figure={<ScenePhoto src="/img/kk-hop-now.jpg" alt="Kalpesh Kinariwala on the arena floor at a HOP night" pos="object-[50%_20%]" />}
         >
           <p data-fade className="t-lead max-w-[40ch] text-bone">
             Pantheon is what he is building now: art, culture, real estate — and HOP, which leads it. Live
@@ -84,33 +88,38 @@ export default function Hop() {
 
         <div className="relative">
           <WashLayer wash="ink" />
-          {/* In his words, and the record: one screen */}
-          <div className={`${WRAP} flex min-h-[100svh] items-center py-28 md:py-[10svh]`}>
-            <Split
-              className="w-full"
-              left={
-                <figure>
-                  <blockquote data-scrub-words className="t-statement">
-                    “India is producing some of the most streamed, most loved, and most culturally significant artists on
-                    the planet.”
-                  </blockquote>
-                  <figcaption data-fade className="t-note mt-8 text-stone">
-                    Kalpesh Kinariwala, on HOP, at Shows of India 2026
-                  </figcaption>
-                </figure>
-              }
-              right={
-                <dl>
-                  {HOP_FACTS.map((f, i) => (
-                    <div key={f.k} data-fade className={i ? "border-t border-white/10 pt-8 mt-8" : ""}>
-                      <dt className="t-statement gold-glow font-bold">{f.k}</dt>
-                      <dd className="t-body mt-2 text-bone">{f.v}</dd>
-                      <dd className="t-note mt-1 text-stone">{f.d}</dd>
-                    </div>
-                  ))}
-                </dl>
-              }
-            />
+          {/* In his words, and the record: one screen, over film of the room (client, 2026-10-02) */}
+          <div className="relative overflow-hidden">
+            <LiveVideo src={QUOTE_FILM} poster="/video/hop-crowd.jpg" className="absolute inset-0 size-full object-cover" />
+            <div aria-hidden className="absolute inset-0 bg-ink/65" />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-ink via-ink/30 to-ink" />
+            <div className={`${WRAP} relative z-[1] flex min-h-[100svh] items-center py-28 md:py-[10svh]`}>
+              <Split
+                className="w-full"
+                left={
+                  <figure>
+                    <blockquote data-scrub-words className="t-statement">
+                      “India is producing some of the most streamed, most loved, and most culturally significant artists on
+                      the planet.”
+                    </blockquote>
+                    <figcaption data-fade className="t-note mt-8 text-stone">
+                      Kalpesh Kinariwala, on HOP, at Shows of India 2026
+                    </figcaption>
+                  </figure>
+                }
+                right={
+                  <dl>
+                    {HOP_FACTS.map((f, i) => (
+                      <div key={f.k} data-fade className={i ? "border-t border-white/10 pt-8 mt-8" : ""}>
+                        <dt className="t-statement gold-glow font-bold">{f.k}</dt>
+                        <dd className="t-body mt-2 text-bone">{f.v}</dd>
+                        <dd className="t-note mt-1 text-stone">{f.d}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                }
+              />
+            </div>
           </div>
 
           {/* Productions, and the way in for partners: one screen */}
@@ -138,7 +147,7 @@ export default function Hop() {
               ))}
             </ul>
 
-            <Link href="/contact/hop" className="group mt-16 block md:mt-auto md:pt-[5svh]">
+            <Link href="/contact/hop" className="group mt-16 block md:mt-[6svh]">
               <span className="t-body block text-gold-soft">For artists, promoters and venues</span>
               <span className="mt-3 block transition-colors duration-500 group-hover:text-gold-soft">
                 <Giant as="span" n={16} max={16}>

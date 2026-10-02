@@ -6,7 +6,7 @@
 // usage rights to be confirmed by the client before launch (brief §9–10); some are event photographers'
 // work and artists on stage may need their own consent. The HOP clip is cut from his Lucky Ali reel at
 // Coca-Cola Arena. kk-*.jpg and hop-*.jpg are from the event photographer's shoot at the Jasmine Sandlas concert
-// (WeTransfer, 2026-09-22); the artist and dancers in hop-*.jpg may need their own consent. The cut-outs (hero-kk.png from ig-founder.jpg, its lower sides faded where the graphic's triangles hid his arms; the thesis collage's cut-*-hd.png from ig-portrait.jpg,
+// (WeTransfer, 2026-09-22); the artist and dancers in hop-*.jpg may need their own consent. The cut-outs (hero-kk.png from ig-founder.jpg, its lower sides faded where the graphic's triangles hid his arms; the thesis collage's cut-*-hd.png from ig-note.jpg,
 // ig-smile.jpg and a Pantheon Development Instagram post) are those photographs upscaled 4x with Real-ESRGAN (blended with a plain
 // upscale so skin keeps its texture), matted with BiRefNet, and the hero's old gold backdrop glow taken off the
 // jacket. Replace them with proper cut-outs from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
@@ -53,8 +53,8 @@ export const CHAPTERS: Chapter[] = [
     entity: "Pantheon Group",
     headline: "A hundred square feet and two thousand borrowed dollars.",
     proof: "By 2008, the world’s leading mining chemical distributor.",
-    img: "/img/kk-proof-mining.jpg",
-    alt: "Kalpesh Kinariwala at dinner with two friends",
+    img: "/img/solo-partner.jpg",
+    alt: "Kalpesh Kinariwala at the Pantheon wall",
   },
   {
     n: "02",
@@ -74,8 +74,8 @@ export const CHAPTERS: Chapter[] = [
     entity: "Pantheon Development, Dubai",
     headline: "Affordable luxury, delivered on schedule.",
     proof: "1,000+ homes handed over in Jumeirah Village Circle.",
-    img: "/img/kk-proof-estate.jpg",
-    alt: "Kalpesh Kinariwala at the Pantheon wall",
+    img: "/img/kk-proof-estate-2.jpg",
+    alt: "Kalpesh Kinariwala under the Pantheon art, culture and real estate banner",
   },
   {
     n: "04",
@@ -199,8 +199,8 @@ export const DOORS: Door[] = [
     offers: ["Track record summary", "Allocation approach", "Co-investment briefing"],
     cta: "Request a briefing",
     field: "Fund / institution",
-    img: "/img/kk-cover-cw.jpg",
-    pos: "object-[55%_30%]",
+    img: "/img/door-capital.jpg",
+    pos: "object-[50%_20%]",
   },
   {
     n: "02",
@@ -213,8 +213,8 @@ export const DOORS: Door[] = [
     offers: ["Co-productions", "Touring", "Venue partnerships"],
     cta: "Start a conversation",
     field: "Artist / company / venue",
-    img: "/img/kk-profile.jpg",
-    pos: "object-[50%_30%]",
+    img: "/img/door-hop.jpg",
+    pos: "object-[50%_20%]",
   },
   {
     n: "03",
@@ -227,8 +227,8 @@ export const DOORS: Door[] = [
     offers: ["Leadership roles", "Platform operators", "Advisory seats"],
     cta: "Introduce yourself",
     field: "Current role",
-    img: "/img/kk-office.jpg",
-    pos: "object-[50%_30%]",
+    img: "/img/door-careers.jpg",
+    pos: "object-[50%_20%]",
   },
   {
     n: "04",
@@ -241,8 +241,8 @@ export const DOORS: Door[] = [
     offers: ["Biography", "Media kit", "Interview requests"],
     cta: "Request the media kit",
     field: "Publication",
-    img: "/img/kk-gtn-portrait.jpg",
-    pos: "object-[50%_25%]",
+    img: "/img/solo-press.jpg",
+    pos: "object-[50%_20%]",
     href: "/press", // brief §3: press goes to the press & media kit page
     page: { href: "/press", label: "Biography and fact sheet" },
   },
@@ -257,8 +257,8 @@ export const DOORS: Door[] = [
     offers: ["Speaking & panels", "Introductions", "Notes on the ideas"],
     cta: "Send a note",
     field: "Organisation (optional)",
-    img: "/img/kk-consulate.jpg",
-    pos: "object-[45%_30%]",
+    img: "/img/door-contact.jpg",
+    pos: "object-[50%_20%]",
     page: { href: "/ideas", label: "Read the ideas" },
   },
 ];

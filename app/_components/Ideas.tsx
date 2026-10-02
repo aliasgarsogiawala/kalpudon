@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Giant from "./Giant";
 import Sheet from "./Sheet";
-import Scene, { Backdrop, ScenePhoto } from "./Scene";
+import Scene, { ScenePhoto } from "./Scene";
 import { getContent } from "../_lib/content";
 
 // Brief §5.5: his frameworks, stated plainly — the teaching layer, and what press will quote.
@@ -12,7 +12,6 @@ export default async function Ideas() {
   return (
     <Sheet id="ideas" theme="dark" wash="aubergine" className="bg-aubergine text-bone">
       <Scene
-        backdrop={<Backdrop src="/img/ig-podium-2.jpg" pos="object-[50%_30%]" soft />}
         heading={
           <Giant as="h2" n={13} max={16}>
             Ideas<span className="accent ml-[0.5em]">written after they worked.</span>

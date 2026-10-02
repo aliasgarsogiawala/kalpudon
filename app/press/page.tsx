@@ -25,7 +25,7 @@ export default async function PressPage() {
       <main>
         <PageHero
           word="Press"
-          bg={{ src: "/img/kk-cover-gtn.jpg", pos: "object-[50%_28%]" }}
+          photo={{ src: "/img/kk-cover-gtn.jpg", alt: "Kalpesh Kinariwala on the cover of GTN’s Founders issue", pos: "object-top" }}
           line="& media."
           intro="Biography, facts and awards. For interviews and the full media kit, write to the press desk."
           aside={
@@ -43,11 +43,11 @@ export default async function PressPage() {
               <div data-reveal className="relative aspect-[4/5] shadow-[0_50px_100px_-30px_rgba(0,0,0,.85)]">
                 <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
                   <Image
-                    src="/img/kk-interview.jpg"
-                    alt="Kalpesh Kinariwala speaking during an interview"
+                    src="/img/solo-bio.jpg"
+                    alt="Kalpesh Kinariwala in conversation backstage"
                     fill
                     sizes="(min-width:1024px) 28vw, 78vw"
-                    className="object-cover object-[15%_55%]"
+                    className="object-cover object-[50%_20%]"
                   />
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default async function PressPage() {
             </ul>
             )}
 
-            <ul className="mt-14 grid gap-6 border-t border-white/10 pt-6 md:grid-cols-3 md:gap-8 lg:mt-auto">
+            <ul className="mt-14 grid gap-6 border-t border-white/10 pt-6 md:grid-cols-3 md:gap-8 lg:mt-[6svh]">
               {others.map((r) => (
                 <li key={r.who + r.y}>
                   <p className="t-body font-bold">{r.what}</p>

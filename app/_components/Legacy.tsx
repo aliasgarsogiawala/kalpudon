@@ -1,5 +1,5 @@
 import Sheet from "./Sheet";
-import Scene, { Backdrop, ScenePhoto } from "./Scene";
+import Scene, { ScenePhoto } from "./Scene";
 
 // Brief §5.6: the human close, in his register — warmth to balance the authority, so he reads as a
 // person, not a machine. The HOP opening's shape (Scene.tsx) without a heading: his words on the left,
@@ -8,8 +8,7 @@ export default function Legacy() {
   return (
     <Sheet theme="dark" wash="ink" className="bg-ink text-bone">
       <Scene
-        backdrop={<Backdrop src="/img/kk-book.jpg" pos="object-[50%_40%]" soft />}
-        figure={<ScenePhoto src="/img/kk-book-bg.jpg" alt="Kalpesh Kinariwala with a friend, holding a book" pos="object-[60%_40%]" />}
+        figure={<ScenePhoto src="/img/kk-legacy.jpg" alt="Kalpesh Kinariwala, smiling, at a HOP night" pos="object-[50%_20%]" />}
       >
         <blockquote data-scrub-words className="t-statement max-w-[18ch]">
           Build things that make more people better off. <em className="gold-glow">Be a good human being, and connect with people with an open heart.</em>

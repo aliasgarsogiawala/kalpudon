@@ -42,8 +42,8 @@ export default async function DoorPage({ params }: PageProps<"/contact/[slug]">)
         {/* Split: the door beside its photograph, the form next to it. The door holds still while the form scrolls. */}
         <section data-theme="dark" className="grid bg-ink pt-16 lg:min-h-[100svh] lg:grid-cols-12">
           <div className="relative overflow-hidden bg-coal px-5 pb-12 pt-10 text-bone md:px-10 lg:sticky lg:top-16 lg:col-span-5 lg:flex lg:h-[calc(100svh-64px)] lg:flex-col lg:self-start lg:pb-14 lg:pt-12">
-            <div className="absolute inset-0 opacity-35">
-              <Image src={door.img} alt="" fill preload sizes="(min-width:1024px) 42vw, 100vw" className="object-cover" />
+            <div className="absolute inset-0 opacity-55">
+              <Image src={door.img} alt="" fill preload sizes="(min-width:1024px) 42vw, 100vw" className={`object-cover ${door.pos ?? "object-[50%_25%]"}`} />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-coal via-coal/70 to-coal/40" />
 

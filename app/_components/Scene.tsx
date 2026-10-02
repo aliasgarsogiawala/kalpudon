@@ -33,7 +33,7 @@ export default function Scene({
       <div className={`${WRAP} relative z-[1] flex flex-col pb-20 pt-[132px] md:pb-28 md:pt-[180px] lg:h-[100svh] lg:min-h-[680px] lg:pb-[6svh] lg:pt-[max(100px,13svh)]`}>
         {heading}
         <div className={`flex flex-col gap-14 lg:min-h-0 lg:flex-1 lg:flex-row lg:gap-[6vw] ${heading ? "mt-14 lg:mt-[6svh]" : ""}`}>
-          <div className="flex min-w-0 flex-1 flex-col justify-between gap-12 lg:py-[1svh]">{children}</div>
+          <div className="flex min-w-0 flex-1 flex-col gap-10 lg:gap-[5svh] lg:py-[1svh]">{children}</div>
           {figure}
         </div>
       </div>
