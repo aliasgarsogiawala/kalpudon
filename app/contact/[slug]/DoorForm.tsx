@@ -14,7 +14,9 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
   const [error, setError] = useState<string | null>(null);
   const [topic, setTopic] = useState(topics[0]);
 
-  // Delivered through Formspree, which emails every door's notes to his office; the subject names the door.
+  // Delivered through Formspree, which emails every door's notes to his office and keeps each one in its
+  // Submissions log. Every note carries the same named fields, so whichever door it came through is plain:
+  // Enquiry (the door), About (the topic picked), Name, email, the door's own question, Message and Page.
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -23,11 +25,13 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
       setError(FAILED);
       return;
     }
+    const data = new FormData(e.currentTarget);
+    data.set("Page", window.location.href);
     setStatus("sending");
     try {
       const res = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",
-        body: new FormData(e.currentTarget),
+        body: data,
         headers: { Accept: "application/json" },
       });
       if (!res.ok) {
@@ -39,7 +43,7 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
         setStatus("idle");
         return;
       }
-      track("door_submit", { door: label, topic });
+      track("door_submit", { door: label, about: topic });
       setStatus("sent");
     } catch {
       setError(FAILED);
@@ -65,9 +69,10 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-7">
-      {/* Formspree: the email subject, and a honeypot that only bots fill in. */}
-      <input type="hidden" name="_subject" value={`${label} — ${topic}`} />
+      {/* Formspree: the email subject and a honeypot that only bots fill in; then the door it came through. */}
+      <input type="hidden" name="_subject" value={`${label} enquiry — ${topic}`} />
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
+      <input type="hidden" name="Enquiry" value={label} />
       <fieldset>
         <legend className="text-[15px] text-stone">About</legend>
         <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
@@ -78,7 +83,7 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
                 topic === t ? "text-gold-soft underline decoration-gold underline-offset-[6px]" : "text-bone/60 hover:text-bone"
               }`}
             >
-              <input type="radio" name="topic" value={t} checked={topic === t} onChange={() => setTopic(t)} className="sr-only" />
+              <input type="radio" name="About" value={t} checked={topic === t} onChange={() => setTopic(t)} className="sr-only" />
               {t}
             </label>
           ))}
@@ -87,7 +92,7 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
       <div className="grid gap-7 md:grid-cols-2">
         <label className="block text-[15px] text-stone">
           Full name
-          <input required name="name" autoComplete="name" className={input} placeholder="Your name" />
+          <input required name="Name" autoComplete="name" className={input} placeholder="Your name" />
         </label>
         <label className="block text-[15px] text-stone">
           Email
@@ -101,7 +106,7 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
       </label>
       <label className="block text-[15px] text-stone">
         A few lines
-        <textarea name="message" rows={3} className={`${input} resize-none`} placeholder="Your note" />
+        <textarea name="Message" rows={3} className={`${input} resize-none`} placeholder="Your note" />
       </label>
       <button
         type="submit"
