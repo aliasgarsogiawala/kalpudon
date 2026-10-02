@@ -146,7 +146,7 @@ export default function Hero() {
         <div className="hero-figure relative z-[1] mx-auto mt-2 w-[var(--fw)] md:absolute md:inset-x-0 md:bottom-0 md:z-auto md:mt-0 md:flex md:w-auto md:justify-center">
           <div className="hero-figure-in relative aspect-[792/1006] w-full translate-x-[var(--head-x,0px)] [mask-image:linear-gradient(to_bottom,#000_68%,transparent_97%)] md:aspect-auto md:h-[72svh] md:w-[calc(72svh*0.787)] md:shrink-0 md:translate-y-[9%] md:[mask-image:none]">
             <Image
-              src="/img/cut-founder.png"
+              src="/img/hero-cut.png"
               alt="Kalpesh Kinariwala"
               fill
               preload
