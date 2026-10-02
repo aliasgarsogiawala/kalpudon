@@ -40,7 +40,7 @@ export default async function PressPage() {
           <WashLayer wash="plum" />
           <div className={`${WRAP} grid min-h-[100svh] gap-12 py-28 md:py-[8svh] lg:grid-cols-12 lg:items-center lg:gap-x-[4vw]`}>
             <figure className="mx-auto w-[78%] max-w-[420px] lg:col-span-4 lg:mx-0 lg:w-full">
-              <div data-reveal className="relative aspect-[4/5] -rotate-[2deg] bg-bone p-2 shadow-[0_40px_80px_-30px_rgba(0,0,0,.6)]">
+              <div data-reveal className="relative aspect-[4/5] shadow-[0_50px_100px_-30px_rgba(0,0,0,.85)]">
                 <div data-reveal-clip className="relative h-full w-full overflow-hidden bg-smoke">
                   <Image
                     src="/img/kk-interview.jpg"

@@ -7,14 +7,17 @@
 // work and artists on stage may need their own consent. The HOP clip is cut from his Lucky Ali reel at
 // Coca-Cola Arena. kk-*.jpg and hop-*.jpg are from the event photographer's shoot at the Jasmine Sandlas concert
 // (WeTransfer, 2026-09-22); the artist and dancers in hop-*.jpg may need their own consent. hero-cut.png is ig-founder.jpg re-cut for the hero (BiRefNet matte, the old backdrop's gold glow taken off the jacket);
-// replace it with a proper cut-out from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
+// the thesis collage's cut-*.png come the same way from ig-portrait.jpg (tux), kk-cover-cw-full.jpg (maroon) and
+// ig-smile.jpg (white). Replace them with proper cut-outs from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
 
 export const SITE_URL = "https://kalpeshkinariwala.com"; // TODO: confirm the production domain
 
-// Primary navigation follows the sitemap (brief §4): HOP, Ideas and Press, with Contact as the button that
-// opens the five audience doors. Everything else is a section of the home page.
+// Primary navigation, as the client set it (2026-09-29): Art & Culture (HOP and the Pantheon arts, whose page
+// is /hop), Real Estate, Ideas and Press, with Contact as the button that opens the five audience doors.
+// Everything else is a section of the home page.
 export const NAV = [
-  { href: "/hop", id: "hop", label: "HOP" },
+  { href: "/hop", id: "hop", label: "Art & Culture" },
+  { href: "/real-estate", label: "Real Estate" },
   { href: "/ideas", label: "Ideas" },
   { href: "/press", label: "Press" },
 ] as const;

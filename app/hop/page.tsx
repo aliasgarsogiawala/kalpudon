@@ -61,7 +61,7 @@ export default function HopPage() {
             <dl className="mt-16 grid gap-10 border-t border-white/10 pt-8 md:mt-auto md:grid-cols-3 md:gap-8">
               {HOP_FACTS.map((f) => (
                 <div key={f.k} data-fade>
-                  <dt className="t-statement font-bold text-gold-soft">{f.k}</dt>
+                  <dt className="t-statement gold-glow font-bold">{f.k}</dt>
                   <dd className="t-body mt-2 text-bone">{f.v}</dd>
                   <dd className="t-note mt-1 text-stone">{f.d}</dd>
                 </div>
@@ -89,7 +89,7 @@ export default function HopPage() {
           <WashLayer wash="ink" />
           <div className={`${WRAP} flex min-h-[100svh] flex-col py-28 md:pb-[6svh] md:pt-[max(100px,12svh)]`}>
             <h2 className="t-statement">
-              Behind the night <em className="text-gold-soft">with Jasmine Sandlas, live.</em>
+              Behind the night <em className="gold-glow">with Jasmine Sandlas, live.</em>
             </h2>
             <ul className="mt-10 grid grid-cols-2 gap-3 md:mt-[4svh] md:flex-1 md:grid-cols-3 md:grid-rows-2 md:gap-5">
               {NIGHT.map((p, i) => (

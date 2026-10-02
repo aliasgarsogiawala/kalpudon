@@ -150,7 +150,26 @@ html.lenis body {
     font-size: 0.3em;
     font-weight: 300;
     letter-spacing: -0.02em;
-    color: var(--gold-soft);
+  }
+  /* Gold set as light, not flat yellow (client, 2026-09-29: "a glowing goldish gradient"): a warm metallic
+     fall down each letter and a soft glow around the word. The gradient is laid on every descendant too,
+     so it holds on letters that SplitText has split out and is animating. */
+  :is(.accent, .t-accent, .gold-glow),
+  :is(.accent, .t-accent, .gold-glow) * {
+    background-image: linear-gradient(180deg, #fff2cc 0%, #f0cf86 38%, #d6a44e 74%, #b7842f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  :is(.accent, .t-accent, .gold-glow) {
+    filter: drop-shadow(0 0 0.2em rgb(232 186 98 / 0.32));
+  }
+  /* A gradient only fills its box, and the giant words' tight leading leaves descenders outside the letter
+     boxes SplitText makes: give them room to paint without moving anything */
+  :is(.accent, .t-accent, .gold-glow) * {
+    padding-block: 0.16em;
+    margin-block: -0.16em;
   }
   /* Phones: the giant word has the width to itself and the line sits on its own row, large enough to read */
   @media (max-width: 767px) {
@@ -169,7 +188,6 @@ html.lenis body {
     font-size: clamp(28px, min(3vw, 5.2svh), 56px);
     line-height: 1;
     letter-spacing: -0.02em;
-    color: var(--gold-soft);
   }
 
   .line-mask {
@@ -303,6 +321,23 @@ html.lenis body {
   z-index: 40;
   background: rgb(0 0 0 / calc(var(--shade, 0) * 0.6));
   pointer-events: none;
+}
+
+/* A cut-out of him that melts into its scene: away at the foot and in from whichever side the photograph
+   cropped him on (--fl, --fr: how far the fade reaches; --fb: where the foot starts to go), so no edge of
+   the cut shows */
+.cutout {
+  --fl: 0%;
+  --fr: 0%;
+  --fb: 62%;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 var(--fl), #000 calc(100% - var(--fr)), transparent),
+    linear-gradient(to bottom, #000 var(--fb), transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 var(--fl), #000 calc(100% - var(--fr)), transparent),
+    linear-gradient(to bottom, #000 var(--fb), transparent 98%);
+  mask-composite: intersect;
 }
 
 /* Gradient washes: light falling across black and purple, with gold catching at the edges.

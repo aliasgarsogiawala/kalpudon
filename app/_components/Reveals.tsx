@@ -13,6 +13,8 @@ const COVER: Record<string, string> = { paper: "bg-paper", gold: "bg-gold" };
 //   data-card3d       a print turned in space settles flat as its section passes
 //   data-parallax     element drifts against the scroll (value = strength)
 //   data-scrub-words  words brighten as the reader scrolls through them
+//   data-cutout       a cut-out of him fades in slowly (value = delay in seconds), drifting in from the
+//                     side data-cutout-x gives (xPercent, default 6)
 //   data-reveal       a photograph develops: a cover lifts off its [data-reveal-clip] frame while the image
 //                     settles from a slight zoom (value = delay in seconds). data-reveal-tone="paper" or
 //                     "gold" matches the cover to a light sheet.
@@ -70,6 +72,17 @@ export default function Reveals() {
         });
 
 
+
+        gsap.utils.toArray<HTMLElement>("[data-cutout]").forEach((el) => {
+          gsap.from(el, {
+            opacity: 0,
+            xPercent: Number(el.dataset.cutoutX ?? 6),
+            duration: 2.8,
+            delay: Number(el.dataset.cutout || 0),
+            ease: "power2.out",
+            scrollTrigger: { trigger: el.parentElement, start: "top 80%", once: true },
+          });
+        });
 
         gsap.utils.toArray<HTMLElement>("[data-card3d]").forEach((el) => {
           gsap.fromTo(

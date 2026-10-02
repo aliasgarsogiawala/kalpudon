@@ -139,7 +139,7 @@ export default function Hero() {
           className="hero-mast relative text-white md:absolute md:inset-x-0 md:top-[104px] short:top-[92px]"
         >
           <span className="hero-first giant text-[min(26vw,48svh)]">Kalpesh</span>
-          <span className="hero-surname giant relative z-[2] text-[8.2vw] text-gold-soft md:z-auto">Kinariwala</span>
+          <span className="hero-surname giant gold-glow relative z-[2] text-[8.2vw] md:z-auto">Kinariwala</span>
         </h1>
 
         {/* The man, in front of it */}

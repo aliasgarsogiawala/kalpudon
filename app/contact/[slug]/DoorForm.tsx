@@ -54,7 +54,7 @@ export default function DoorForm({ label, desk, field, cta, topics, formId }: Pr
     return (
       <div className="fade-in" role="status">
         <p className="t-statement">
-          Received<em className="text-gold-soft">.</em>
+          Received<em className="gold-glow">.</em>
         </p>
         <p className="t-body mt-5 max-w-[420px] text-stone">
           Your note has gone to the people who handle {desk} enquiries.

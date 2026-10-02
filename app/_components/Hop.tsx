@@ -7,6 +7,7 @@ import { gsap, reducedMotion } from "./gsap";
 import Giant from "./Giant";
 import LiveVideo from "./LiveVideo";
 import Sheet, { Split, WRAP, WashLayer } from "./Sheet";
+import Scene, { ScenePhoto } from "./Scene";
 import { HOP_FACTS, PANTHEON_NOW, PRODUCTIONS } from "./data";
 
 const NAMES = ["Arijit Singh", "A.R. Rahman", "Rishab Sharma", "Etihad Arena", "Sold out"];
@@ -37,51 +38,31 @@ export default function Hop() {
   return (
     <Sheet id="hop" theme="dark" className="bg-ink text-bone">
       <div ref={root}>
-        {/* Opening: the room itself, one full screen. The thesis's shape, mirrored: the heading across the
-            top, the statement and what Pantheon is building on the left, him in the arena on the right. */}
-        <div className="relative overflow-hidden">
-          <LiveVideo src="/video/hop-live.mp4" poster="/video/hop-live.jpg" className="absolute inset-0 size-full object-cover" />
-          <div className="absolute inset-0 bg-ink/55" />
-          <div className="absolute inset-0 bg-violet/40 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/75" />
-
-          <div className={`${WRAP} relative z-[1] flex flex-col pb-20 pt-[132px] md:pb-28 md:pt-[180px] lg:h-[100svh] lg:min-h-[680px] lg:pb-[6svh] lg:pt-[max(100px,13svh)]`}>
+        {/* Opening: the room itself, one full screen — the shape every chapter now shares (Scene.tsx). */}
+        <Scene
+          backdrop={<LiveVideo src="/video/hop-live.mp4" poster="/video/hop-live.jpg" className="absolute inset-0 size-full object-cover" />}
+          heading={
             <Giant as="h2" n={14} max={16}>
               <span className="accent mr-[0.4em]">the</span>Present tense
             </Giant>
-
-            <div className="mt-14 flex flex-col gap-14 lg:mt-[6svh] lg:min-h-0 lg:flex-1 lg:flex-row lg:gap-[6vw]">
-              <div className="flex min-w-0 flex-1 flex-col justify-between gap-12 lg:py-[1svh]">
-                <p data-fade className="t-lead max-w-[40ch] text-bone">
-                  Pantheon is what he is building now: art, culture, real estate — and HOP, which leads it. Live
-                  entertainment is the most fragmented market he has entered. HOP puts artists, promoters, venues and
-                  audiences in the same room, on a network and a production record built show by show.
-                </p>
-                <ul data-fade className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/15 pt-6 sm:grid-cols-4">
-                  {PANTHEON_NOW.map((p) => (
-                    <li key={p.name} className={p.lead ? "text-bone" : "text-bone/55"}>
-                      <p className="t-title">{p.name}</p>
-                      {p.lead && <p className="t-note mt-1 text-gold-soft">Leading</p>}
-                      {p.what && <p className="t-note mt-1">{p.what}</p>}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <figure data-fade className="mx-auto w-[78%] max-w-[420px] lg:mx-0 lg:aspect-[4/5] lg:h-full lg:w-auto lg:max-w-none lg:shrink-0">
-                <div className="relative aspect-[4/5] rotate-[2deg] overflow-hidden bg-coal shadow-[0_50px_100px_-30px_rgba(0,0,0,.85)] lg:aspect-auto lg:h-full">
-                  <Image
-                    src="/img/kk-arena-watch.jpg"
-                    alt="Kalpesh Kinariwala watching the show from the floor of the arena"
-                    fill
-                    sizes="(min-width:1024px) 40svh, 78vw"
-                    className="object-cover object-[50%_50%]"
-                  />
-                </div>
-              </figure>
-            </div>
-          </div>
-        </div>
+          }
+          figure={<ScenePhoto src="/img/kk-arena-watch.jpg" alt="Kalpesh Kinariwala watching the show from the floor of the arena" />}
+        >
+          <p data-fade className="t-lead max-w-[40ch] text-bone">
+            Pantheon is what he is building now: art, culture, real estate — and HOP, which leads it. Live
+            entertainment is the most fragmented market he has entered. HOP puts artists, promoters, venues and
+            audiences in the same room, on a network and a production record built show by show.
+          </p>
+          <ul data-fade className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/15 pt-6 sm:grid-cols-4">
+            {PANTHEON_NOW.map((p) => (
+              <li key={p.name} className={p.lead ? "text-bone" : "text-bone/55"}>
+                <p className="t-title">{p.name}</p>
+                {p.lead && <p className="t-note mt-1 text-gold-soft">Leading</p>}
+                {p.what && <p className="t-note mt-1">{p.what}</p>}
+              </li>
+            ))}
+          </ul>
+        </Scene>
 
         {/* The names on the marquee */}
         <div aria-label={NAMES.join(", ")} role="img" className="overflow-hidden bg-coal py-10 md:py-16">
@@ -122,7 +103,7 @@ export default function Hop() {
                 <dl>
                   {HOP_FACTS.map((f, i) => (
                     <div key={f.k} data-fade className={i ? "border-t border-white/10 pt-8 mt-8" : ""}>
-                      <dt className="t-statement font-bold text-gold-soft">{f.k}</dt>
+                      <dt className="t-statement gold-glow font-bold">{f.k}</dt>
                       <dd className="t-body mt-2 text-bone">{f.v}</dd>
                       <dd className="t-note mt-1 text-stone">{f.d}</dd>
                     </div>
@@ -136,7 +117,7 @@ export default function Hop() {
           <div className={`${WRAP} flex min-h-[100svh] flex-col py-28 md:pb-[6svh] md:pt-[max(100px,12svh)]`}>
             <div className="flex items-end justify-between gap-6">
               <h3 data-split className="t-statement">
-                From one room <em className="text-gold-soft">to an arena.</em>
+                From one room <em className="gold-glow">to an arena.</em>
               </h3>
               <p data-fade className="t-body hidden max-w-[260px] pb-1 text-right text-stone md:block">
                 Produced end to end.

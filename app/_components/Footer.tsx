@@ -25,7 +25,8 @@ const ICONS: Record<string, React.ReactNode> = {
 // The sitemap (brief §4).
 const SITE = [
   { href: "/", label: "Home" },
-  { href: "/#hop", label: "HOP" },
+  { href: "/hop", label: "Art & Culture" },
+  { href: "/real-estate", label: "Real Estate" },
   { href: "/ideas", label: "Ideas" },
   { href: "/press", label: "Press" },
   { href: "/contact", label: "Contact" },

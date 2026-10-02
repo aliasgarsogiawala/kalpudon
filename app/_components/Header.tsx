@@ -296,7 +296,7 @@ export default function Header() {
                   onClick={close}
                   className={`block py-1 ${n.href !== "/" && isOn(n.href) ? "text-gold-soft" : "text-bone"}`}
                 >
-                  <span className={`text-[clamp(56px,16vw,88px)] leading-[0.92] ${condensed}`}>{n.label}</span>
+                  <span className={`text-[clamp(44px,12vw,80px)] leading-[0.92] ${condensed}`}>{n.label}</span>
                 </NavLink>
               </li>
             ))}
