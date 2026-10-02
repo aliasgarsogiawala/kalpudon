@@ -258,28 +258,50 @@ html.lenis body {
   }
 }
 
-/* Sheets: each section is a sheet of colour that slides up over the one before, tilted, and settles
-   (follow.art). Sticky is switched on by Sheets.tsx once it has measured the sheet (--h), so without
-   JavaScript the page simply scrolls. */
+/* Sheets: each section is a sheet of colour that slides up over the one before and settles (follow.art).
+   Sticky is switched on by Sheets.tsx once it has measured the sheet (--h), so without JavaScript the page
+   simply scrolls. As a sheet arrives only its top edge slants (--slant, 1 → 0) and the type on it stays
+   level; the sheet beneath drifts up (--drift) and falls into shadow (--shade). */
 [data-sheet] {
   position: relative;
   isolation: isolate;
+  --slant-rise: 4.4vw;
+}
+@media (min-width: 768px) {
+  [data-sheet] {
+    --slant-rise: 7vw;
+  }
 }
 .is-sheet {
   position: sticky;
   top: min(0px, calc(100svh - var(--h, 100svh)));
-  box-shadow: 0 -30px 70px -30px rgb(0 0 0 / 0.55);
+  translate: 0 calc(var(--drift, 0) * -8svh);
+  /* The left corner leads and the right one trails; the shape runs past the foot so its colour shows */
+  clip-path: polygon(
+    0 0,
+    100% calc(var(--slant, 0) * var(--slant-rise)),
+    100% calc(100% + 12svh),
+    0 calc(100% + 12svh)
+  );
 }
-/* Colour runs past the edges so a tilted sheet never shows a gap at its sides */
+/* Colour runs past the foot, so a sheet drifting up never opens a gap beneath it */
 .is-sheet::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: -15vw;
-  right: -15vw;
-  bottom: -12svh;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12svh;
   z-index: -1;
   background: inherit;
+  pointer-events: none;
+}
+.is-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  background: rgb(0 0 0 / calc(var(--shade, 0) * 0.6));
   pointer-events: none;
 }
 

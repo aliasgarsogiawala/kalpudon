@@ -213,10 +213,11 @@ export default function Header() {
     >
       <div className="relative mx-auto max-w-[1600px]">
         <div className="nav-capsule flex h-[60px] items-center justify-between gap-3 rounded-full px-2 md:gap-6 md:pl-3 lg:h-[64px] lg:pr-2.5">
+          {/* His name is the hero's; beside the monogram the header carries the line the client chose. */}
           <Link href={home ? "#top" : "/"} onClick={close} className="flex items-center gap-3" aria-label="Kalpesh Kinariwala, home">
             <Monogram progress={ring} />
             <span className={`text-[18px] leading-none text-bone min-[360px]:text-[20px] md:text-[22px] ${condensed}`}>
-              Kalpesh Kinariwala
+              Disruptive Leader
             </span>
           </Link>
 
