@@ -257,8 +257,8 @@ export const DOORS: Door[] = [
     offers: ["Speaking & panels", "Introductions", "Notes on the ideas"],
     cta: "Send a note",
     field: "Organisation (optional)",
-    img: "/img/door-contact-v3.jpg",
-    pos: "object-[50%_20%]",
+    img: "/img/door-contact-v4.jpg",
+    pos: "object-[50%_5%]",
     page: { href: "/ideas", label: "Read the ideas" },
   },
 ];

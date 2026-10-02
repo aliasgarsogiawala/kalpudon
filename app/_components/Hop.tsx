@@ -50,7 +50,7 @@ export default function Hop() {
               <span className="accent mr-[0.4em]">the</span>Present tense
             </Giant>
           }
-          figure={<ScenePhoto src="/img/kk-hop-now.jpg" alt="Kalpesh Kinariwala on the arena floor at a HOP night" pos="object-[50%_20%]" />}
+          figure={<ScenePhoto src="/img/hop-home.jpg" alt="Kalpesh Kinariwala at the front of house as the dancers take the stage" pos="object-[50%_20%]" />}
         >
           <p data-fade className="t-lead max-w-[40ch] text-bone">
             Pantheon is what he is building now: art, culture, real estate — and HOP, which leads it. Live
