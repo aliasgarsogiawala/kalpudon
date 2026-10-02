@@ -46,6 +46,8 @@
     color: var(--bone);
     scroll-behavior: auto;
     overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   body {
     background: var(--ink);
@@ -346,6 +348,33 @@ html.lenis body {
     transform 0.55s var(--ease-out),
     width 0.55s var(--ease-out),
     opacity 0.3s ease;
+}
+
+/* Keep the fixed chrome clear of camera cut-outs and the home indicator. */
+@supports (padding: max(0px)) {
+  .nav-shell {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+  }
+  @media (min-width: 768px) {
+    .nav-shell {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+      padding-top: max(1rem, env(safe-area-inset-top));
+    }
+  }
+  @media (min-width: 1024px) {
+    .nav-shell {
+      padding-left: max(2.5rem, env(safe-area-inset-left));
+      padding-right: max(2.5rem, env(safe-area-inset-right));
+    }
+  }
+  #site-menu {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+    padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+  }
 }
 @keyframes menuIn {
   from {

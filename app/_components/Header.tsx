@@ -212,10 +212,12 @@ export default function Header() {
       className="nav-shell fixed inset-x-0 top-0 z-50 px-3 pt-3 text-bone md:px-6 md:pt-4 lg:px-10"
     >
       <div className="relative mx-auto max-w-[1600px]">
-        <div className="nav-capsule flex h-[60px] items-center justify-between gap-6 rounded-full px-2 md:pl-3 lg:h-[64px] lg:pr-2.5">
+        <div className="nav-capsule flex h-[60px] items-center justify-between gap-3 rounded-full px-2 md:gap-6 md:pl-3 lg:h-[64px] lg:pr-2.5">
           <Link href={home ? "#top" : "/"} onClick={close} className="flex items-center gap-3" aria-label="Kalpesh Kinariwala, home">
             <Monogram progress={ring} />
-            <span className={`text-[20px] leading-none text-bone md:text-[22px] ${condensed}`}>Kalpesh Kinariwala</span>
+            <span className={`text-[18px] leading-none text-bone min-[360px]:text-[20px] md:text-[22px] ${condensed}`}>
+              Kalpesh Kinariwala
+            </span>
           </Link>
 
           <div className="flex items-center gap-3">

@@ -139,11 +139,11 @@ export default function Hero() {
           className="hero-mast relative text-white md:absolute md:inset-x-0 md:top-[104px] short:top-[92px]"
         >
           <span className="hero-first giant text-[min(26vw,48svh)]">Kalpesh</span>
-          <span className="hero-surname giant text-[8.2vw] text-gold-soft">Kinariwala</span>
+          <span className="hero-surname giant relative z-[2] text-[8.2vw] text-gold-soft md:z-auto">Kinariwala</span>
         </h1>
 
         {/* The man, in front of it */}
-        <div className="hero-figure relative mx-auto -mt-[calc(var(--fw)*0.03)] w-[var(--fw)] md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:flex md:w-auto md:justify-center">
+        <div className="hero-figure relative z-[1] mx-auto mt-2 w-[var(--fw)] md:absolute md:inset-x-0 md:bottom-0 md:z-auto md:mt-0 md:flex md:w-auto md:justify-center">
           <div className="hero-figure-in relative aspect-[792/1006] w-full translate-x-[var(--head-x,0px)] [mask-image:linear-gradient(to_bottom,#000_68%,transparent_97%)] md:aspect-auto md:h-[72svh] md:w-[calc(72svh*0.787)] md:shrink-0 md:translate-y-[9%] md:[mask-image:none]">
             <Image
               src="/img/cut-founder.png"

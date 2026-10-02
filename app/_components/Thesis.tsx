@@ -33,7 +33,7 @@ export default function Thesis() {
 
           <div className="flex max-w-[820px] flex-col justify-between gap-12 lg:py-[1svh]">
             <p data-fade className="t-lead max-w-[620px]">
-              He doesn’t choose industries. He chooses fragmented markets — iodine, private capital, real estate and now live entertainment — and runs the same instinct through each.
+              He doesn’t choose industries. He chooses fragmented markets — mining chemicals, capital markets, real estate and now live entertainment — and runs the same instinct through each.
             </p>
             <ol data-fade className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:gap-y-[4svh]">
               {INSTINCT.map((s) => (

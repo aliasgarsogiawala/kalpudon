@@ -4,7 +4,7 @@ import { SITE_URL } from "./_components/data";
 import "./globals.css";
 
 const description =
-  "Kalpesh Kinariwala is a Dubai-based platform builder across iodine, private capital, real estate and live entertainment (HOP Events).";
+  "Kalpesh Kinariwala is a Dubai-based platform builder across mining chemicals, capital markets, real estate and live entertainment (HOP Events).";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

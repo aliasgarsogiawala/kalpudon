@@ -146,9 +146,31 @@ async function readLatest(): Promise<Version | null> {
 
 function parse(data: unknown): Content {
   const parsed = ContentSchema.safeParse(data);
-  if (parsed.success) return parsed.data;
-  console.error("[cms] stored content failed validation; showing the defaults", parsed.error.issues.slice(0, 5));
-  return DEFAULT_CONTENT;
+  if (!parsed.success) {
+    console.error("[cms] stored content failed validation; showing the defaults", parsed.error.issues.slice(0, 5));
+    return DEFAULT_CONTENT;
+  }
+
+  // Saved content from before the terminology update still uses the old sector names. Normalize it
+  // at the content boundary so the public site and admin editor agree; the next save persists it.
+  const currentTerms = (value: string) =>
+    value
+      .replace(/world(?:’|')s leading distributor of iodine/gi, "world’s leading mining chemical distributor")
+      .replace(/\biodine distribution\b/gi, "mining chemical distribution")
+      .replace(/\biodine\b/gi, "mining chemicals")
+      .replace(/\bprivate capital\b/gi, "capital markets");
+
+  return {
+    ...parsed.data,
+    press: {
+      ...parsed.data.press,
+      bio: parsed.data.press.bio.map(currentTerms),
+      facts: parsed.data.press.facts.map((fact) => ({
+        k: /^private capital$/i.test(fact.k) ? "Capital market" : currentTerms(fact.k),
+        v: currentTerms(fact.v),
+      })),
+    },
+  };
 }
 
 /** What the public pages render. Cached, and refreshed the moment the admin saves. */
@@ -162,7 +184,7 @@ export const getContent = unstable_cache(
       return DEFAULT_CONTENT;
     }
   },
-  ["cms-content"],
+  ["cms-content", "terminology-v2"],
   { tags: [TAG], revalidate: 3600 },
 );
 

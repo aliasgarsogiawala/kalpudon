@@ -48,7 +48,7 @@ export const CHAPTERS: Chapter[] = [
     since: "2001",
     entity: "Pantheon Group",
     headline: "A hundred square feet and two thousand borrowed dollars.",
-    proof: "By 2008, the world’s leading distributor of iodine.",
+    proof: "By 2008, the world’s leading mining chemical distributor.",
     img: "/img/kk-proof-mining.jpg",
     alt: "Kalpesh Kinariwala at dinner with two friends",
   },
@@ -262,17 +262,17 @@ export const DOORS: Door[] = [
 // Press page (brief §4). Every line here needs sign-off against the approved claims sheet (§10).
 // Launch defaults: the team edits the biography and fact sheet in /admin.
 export const PRESS_BIO = [
-  "Kalpesh Kinariwala is a Dubai-based founder who builds platforms in fragmented markets — iodine, private capital, real estate and live entertainment.",
-  "He started Pantheon Group in 2001 from a hundred-square-foot office with US$2,000 of borrowed money. By 2008 it was the world’s leading distributor of iodine. In 2016 he founded Pantheon Development in Dubai, which has handed over more than 1,000 homes in Jumeirah Village Circle.",
+  "Kalpesh Kinariwala is a Dubai-based founder who builds platforms in fragmented markets — mining chemicals, capital markets, real estate and live entertainment.",
+  "He started Pantheon Group in 2001 from a hundred-square-foot office with US$2,000 of borrowed money. By 2008 it was the world’s leading mining chemical distributor. In 2016 he founded Pantheon Development in Dubai, which has handed over more than 1,000 homes in Jumeirah Village Circle.",
   "His current focus is HOP Events, which produces arena-scale shows with India’s leading artists — including a sold-out Etihad Arena with Arijit Singh and A.R. Rahman — and was anchor sponsor of Shows of India 2026.",
 ];
 
 export const PRESS_FACTS = [
   { k: "Based", v: "Dubai, United Arab Emirates" },
-  { k: "First company", v: "Pantheon Group, 2001 — iodine distribution" },
+  { k: "First company", v: "Pantheon Group, 2001 — mining chemical distribution" },
   { k: "Real estate", v: "Pantheon Development, 2016 — 1,000+ homes handed over in JVC" },
   { k: "Live entertainment", v: "HOP Events — sold-out Etihad Arena; anchor sponsor, Shows of India 2026" },
-  { k: "Private capital", v: "Details on request" }, // TODO: approved description of the fund
+  { k: "Capital market", v: "Details on request" }, // TODO: approved description of the fund
 ];
 
 export const ELSEWHERE = [

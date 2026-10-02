@@ -15,7 +15,7 @@ const person = {
   name: "Kalpesh Kinariwala",
   url: SITE_URL,
   jobTitle: "Founder",
-  description: "Platform builder across iodine, private capital, real estate and live entertainment.",
+  description: "Platform builder across mining chemicals, capital markets, real estate and live entertainment.",
   homeLocation: { "@type": "Place", name: "Dubai, United Arab Emirates" },
   sameAs: ["https://www.instagram.com/kalpesh.kinariwala/", "https://www.linkedin.com/in/kalpeshkinariwala/"],
 };
