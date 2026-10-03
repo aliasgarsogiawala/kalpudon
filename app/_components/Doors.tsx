@@ -58,14 +58,14 @@ function DoorCards() {
             href={doorHref(d)}
             className="group relative flex h-full min-h-[230px] flex-col overflow-hidden bg-coal p-4 text-bone sm:min-h-[340px] sm:p-6 lg:min-h-[420px]"
           >
-            {/* A gold sketch for each door (client, 2026-10-03), lit from behind like the drawings it follows */}
-            <span aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_32%,rgb(184_138_66/.16),transparent_72%)]" />
+            {/* A gold sketch for each door (client, 2026-10-03), lit from behind like the drawings it follows. It sits
+                in the flow above the words, so the two never overlap at any width. */}
+            <span aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_45%_at_50%_28%,rgb(184_138_66/.16),transparent_72%)]" />
             <DoorSketch
               kind={d.slug}
-              className="absolute left-1/2 top-[6%] w-[78%] max-w-[230px] -translate-x-1/2 transition-transform duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.04]"
+              className="relative mx-auto w-full max-w-[190px] transition-transform duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.04] sm:max-w-[260px]"
             />
-            <span className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/90" />
-            <span className="relative mt-auto">
+            <span className="relative mt-auto pt-4 sm:pt-6">
               <span className={`block text-[26px] leading-[0.88] sm:text-[clamp(34px,2.6vw,44px)] ${condensed}`}>{d.label}</span>
               <span className="mt-2 block text-[13px] leading-snug text-gold-soft sm:mt-3 sm:text-[14px]">{d.who}</span>
               <span className="mt-4 hidden text-[13px] leading-[1.6] text-bone/65 sm:block">
