@@ -1,5 +1,5 @@
 """Gold line drawings for the five contact doors (app/_components/DoorSketch.tsx), in the hand of the client's
-architectural sketches: front elevations with a receding, hatched side for depth, inked like a pen — every stroke
+architectural sketches: front elevations with a receding, hatched side for depth (Careers is Pantheon's Omya Residences), inked like a pen — every stroke
 wobbles slightly, overshoots its corners and is overdrawn by a fainter second pass; terraces carry scribbled
 planting. Seeded, so the output is the same every run.
 
@@ -105,7 +105,7 @@ class Pen:
             x = cx + self.r.uniform(-w / 2, w / 2)
             self.fine.append(self._poly(self._wob([(x, cy), (x + self.r.uniform(-2, 2), cy - h * self.r.uniform(0.6, 1))], 0.5)))
 
-    def svg(self, name, dy=0):
+    def svg(self, name, dy=0, extra=""):
         def group(paths, sw, op):
             return f'<g stroke-width="{sw}" opacity="{op}"><path d="{" ".join(paths)}"/></g>'
 
@@ -116,7 +116,7 @@ class Pen:
         )
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}">
 <defs><linearGradient id="g" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#f7dfa0"/><stop offset=".5" stop-color="#d9a84f"/><stop offset="1" stop-color="#9c6c28"/></linearGradient></defs>
-<g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round"{f' transform="translate(0 {dy})"' if dy else ""}>{body}</g></svg>"""
+<g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round"{f' transform="translate(0 {dy})"' if dy else ""}>{body}</g>{extra}</svg>"""
         open(f"{OUT}/{name}.svg", "w").write(svg)
         print(name, len(self.main) + len(self.fine) + len(self.faint), "strokes", round(len(svg) / 1024), "KB")
 
@@ -186,51 +186,137 @@ def capital():
     pen.svg("capital", dy=-30)
 
 
-# ------------------------------------------------------------------ Careers: a terraced tower with planting
+# ------------------------------------------------------------------ Careers: Omya Residences, a Pantheon tower
+def palm(pen, x, base, h, lean=0.0, r=None):
+    """A palm: a gently curved trunk and a starburst of fronds that rise, then droop, leaflets ticked along each."""
+    r = r or pen.r
+    top = (x + lean, base - h)
+    pen.curve([(x + lean * t * t + math.sin(t * 3) * 0.6, base - h * t) for t in [i / 8 for i in range(9)]], "fine")
+    angles = [-math.pi * f for f in (0.06, 0.24, 0.42, 0.58, 0.76, 0.94)] + [math.pi * 0.12, math.pi * 0.88]
+    for a in angles:
+        a += r.uniform(-0.1, 0.1)
+        L = h * r.uniform(0.3, 0.4)
+        droop = 0.55 if math.sin(a) < 0 else 0.25
+        pts = [(top[0] + math.cos(a) * L * t, top[1] + math.sin(a) * L * t + droop * L * t * t) for t in [i / 6 for i in range(7)]]
+        pen.curve(pts, "fine")
+        for i in range(2, 6):
+            (px, py), (qx, qy) = pts[i], pts[i + 1]
+            dx, dy = qx - px, qy - py
+            n = math.hypot(dx, dy) or 1
+            nx, ny = -dy / n, dx / n
+            k = 2.4 * (1 - i / 7)
+            for sgn in (1, -1):
+                pen.line((px, py), (px + (dx / n * 0.6 + nx * sgn) * k, py + (dy / n * 0.6 + ny * sgn) * k + 0.6), "fine", over=False)
+
+
+def slab(pen, x0, x1, y, t=3.2, cap_left=True, cap_right=False):
+    """A floor slab seen edge-on: a thin band, its ends rounded where the balconies curve round the corner."""
+    rl = t / 2 if cap_left else 0
+    rr = t / 2 if cap_right else 0
+    pen.line((x0 + rl, y - t), (x1 - rr, y - t))
+    pen.line((x0 + rl, y), (x1 - rr, y))
+    if cap_left:
+        pen.curve(arc(x0 + rl, y - t / 2, rl + 1.6, t / 2, math.pi * 0.5, math.pi * 1.5, 10))
+    if cap_right:
+        pen.curve(arc(x1 - rr, y - t / 2, rr + 1.6, t / 2, -math.pi * 0.5, math.pi * 0.5, 10))
+
+
 def careers():
-    pen = Pen(202)
-    r = random.Random(9)
-    y, x0, w = 352, 136, 128
-    for i in range(8):
-        h = 26
-        off = r.choice([-14, -8, 0, 8, 14])
-        sx, sw = x0 + off, w + r.choice([0, 10, 18])
-        # slab
-        rect(pen, sx - 6, y - 6, sw + 12, 6)
-        side(pen, sx + sw + 6, y - 6, y, 1.0, hatch=True)
-        pen.line((sx - 6 + D[0], y - 6 + D[1]), (sx + sw + 6 + D[0], y - 6 + D[1]))
-        # storey: glazing and mullions
-        top = y - 6 - h
-        rect(pen, sx + 6, top, sw - 12, h, "fine")
-        for k in range(1, 6):
-            xx = sx + 6 + k * (sw - 12) / 6
-            pen.line((xx, top), (xx, y - 6), "fine", over=False)
-        pen.hatch([(sx + sw - 22, top), (sx + sw - 6, top), (sx + sw - 6, y - 6), (sx + sw - 22, y - 6)], angle=-75, gap=3)
-        side(pen, sx + sw - 6, top, y - 6, 0.8, hatch=True)
-        # balustrade and planting on the slab edge
-        for xx in range(int(sx - 4), int(sx + sw + 6), 6):
-            pen.line((xx, y - 6), (xx, y - 12), "fine", over=False)
-        pen.line((sx - 6, y - 12), (sx + sw + 6, y - 12), "fine")
-        for _ in range(r.randint(2, 3)):
-            pen.scribble(sx + r.uniform(0, sw), y - 12, r.uniform(14, 26), r.uniform(8, 16), 16)
-        # trailing vines down the face
-        if r.random() < 0.6:
-            vx = sx + r.uniform(10, sw - 10)
-            pen.curve([(vx + math.sin(t * 2) * 2.5, y - 6 + t * 6) for t in [i / 3 for i in range(10)]], "fine")
-        y = top
-    # roof terrace and pergola
-    rect(pen, x0 - 4, y - 6, w + 8, 6)
-    for k in range(6):
-        xx = x0 + k * w / 5
-        pen.line((xx, y - 6), (xx, y - 26), "fine")
-    pen.line((x0, y - 26), (x0 + w, y - 26), "fine")
-    pen.scribble(x0 + w / 2, y - 6, w * 0.8, 24, 40)
-    # podium, trees and ground
-    for x, hh in ((70, 70), (100, 52), (320, 64), (350, 48)):
-        pen.line((x, 360), (x, 360 - hh * 0.4), "fine")
-        pen.scribble(x, 360 - hh * 0.35, 30, hh * 0.65, 30)
-    pen.line((20, 360), (380, 360), "fine")
-    pen.svg("careers")
+    """Pantheon's Omya Residences (client, 2026-10-03: "use one of our projects - Voxa or Omya"), from the project
+    render: a rounded left wing under a slatted roof canopy, a double-height glass penthouse, a taller right wing
+    under a ribbed crown, a recessed glass joint between them, and a finned podium with palms on its deck."""
+    pen = Pen(212)
+    r = random.Random(14)
+    G = 374  # ground
+    P = 318  # podium roof / tower base
+    FL = 17.2  # floor to floor
+
+    # Left wing (x 60-123: up to the canopy) and middle (x 123-221: up to the glass penthouse)
+    left_top, mid_top = 145, 163
+    for i in range(11):
+        y = P - i * FL
+        if y < left_top - 1:
+            break
+        x1 = 221 if y >= mid_top - 1 else 123
+        slab(pen, 58, x1, y)
+        if i == 0:
+            continue
+        # glass balustrade a few units above each slab, and the glazing behind
+        pen.line((64, y - FL + 9), (x1, y - FL + 9), "fine", over=False)
+        for x in range(72, int(x1), 21):
+            pen.line((x + 3, y - FL + 1), (x + 3, y - 3.4), "fine", over=False)
+        # a few balcony plants
+        for _ in range(r.randint(0, 2)):
+            pen.scribble(r.uniform(72, x1 - 6), y - 3.4, r.uniform(6, 10), r.uniform(4, 6), 6)
+    # the slatted canopy over the left wing: a long rounded roof and raked slats beneath it
+    slab(pen, 54, 128, 105, t=4.5, cap_left=True, cap_right=True)
+    for x in range(60, 124, 7):
+        pen.line((x, 109.5), (x + 9, left_top - 3), "fine", over=False)
+    pen.line((58, left_top - 3), (124, left_top - 3), "fine")
+    pen.scribble(98, left_top - 4, 22, 8, 12)
+    # the double-height glass penthouse
+    rect(pen, 123, 113, 98, mid_top - 113 - 3)
+    for x in range(135, 221, 12):
+        pen.line((x, 116), (x, mid_top - 4), "fine", over=False)
+    pen.line((123, 137), (221, 137), "fine")
+    pen.hatch([(150, 116), (176, 116), (160, 160), (134, 160)], angle=-58, gap=4.5, density=0.7)
+    slab(pen, 120, 224, 113, t=3.4, cap_left=False)
+
+    # The recessed glass joint between the wings, in shadow
+    pen.line((221, 120), (221, P)); pen.line((238, 120), (238, P))
+    pen.hatch([(221, 120), (238, 120), (238, P), (221, P)], angle=-84, gap=3.2)
+
+    # Right wing (x 238-330) under its ribbed crown, with vertical fins and rounded balcony nubs
+    crown_top, crown_bot = 100, 127
+    rect(pen, 238, crown_top, 92, crown_bot - crown_top)
+    for x in range(242, 330, 4):
+        pen.line((x, crown_top + 2), (x, crown_top + 13), "fine", over=False)
+    pen.line((238, crown_top + 14), (330, crown_top + 14), "fine")
+    for i in range(12):
+        y = P - i * FL
+        if y < crown_bot - 1:
+            break
+        slab(pen, 238, 330, y, cap_left=False, cap_right=True)
+        if i == 0:
+            continue
+        pen.line((238, y - FL + 9), (330, y - FL + 9), "fine", over=False)
+        if i % 2 == 0:
+            pen.scribble(r.uniform(266, 280), y - 3.4, 9, 5, 7)
+    for x in (238, 262, 286, 308, 330):
+        pen.line((x, crown_bot), (x, P), "fine" if x not in (238, 330) else "main")
+    # depth: the right wing's receding side, hatched
+    side(pen, 330, crown_top, P, 1.0, hatch=True)
+    pen.line((238, crown_top), (238 + D[0], crown_top + D[1]))
+    pen.line((238 + D[0], crown_top + D[1]), (330 + D[0], crown_top + D[1]))
+
+    # Podium: a top band, then dense vertical fins, the name across them
+    rect(pen, 70, P, 272, 9)
+    side(pen, 342, P, G, 0.8, hatch=True)
+    for x in range(74, 340, 5):
+        if 168 < x < 246:
+            pen.line((x, P + 11), (x, 340), "fine", over=False)
+            pen.line((x, 358), (x, G), "fine", over=False)
+        else:
+            pen.line((x, P + 11), (x, G), "fine", over=False)
+    # palms and planting on the podium deck
+    for x, h, lean in ((98, 34, -3), (176, 30, 2), (272, 32, 3), (318, 36, -2)):
+        palm(pen, x, P, h, lean, r)
+    for x in range(84, 330, 26):
+        pen.scribble(x + r.uniform(-4, 4), P, 16, 6, 8)
+    # ground, hedges and street trees
+    pen.line((14, G), (388, G), "fine")
+    for x in range(80, 340, 22):
+        pen.scribble(x + r.uniform(-5, 5), G, 18, 7, 8)
+    palm(pen, 40, G, 70, 4, r)
+    palm(pen, 366, G, 76, -5, r)
+    pen.scribble(22, G, 22, 14, 14)
+    pen.scribble(384, G, 20, 12, 12)
+
+    lettering = (
+        '<text x="206" y="323.5" text-anchor="middle" fill="url(#g)" font-family="Georgia, \'Times New Roman\', serif" '
+        'font-size="13" letter-spacing="2.6">PANTHEON</text>'
+    )
+    pen.svg("careers", dy=-30, extra=lettering)
 
 
 # ------------------------------------------------------------------ Partner with HOP: the stage

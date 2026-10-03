@@ -17,7 +17,7 @@ export default async function Ideas() {
             Ideas<span className="accent ml-[0.5em]">written after they worked.</span>
           </Giant>
         }
-        figure={<ScenePhoto src="/img/ig-podium.jpg" alt="Kalpesh Kinariwala speaking at Shows of India 2026, Delhi" pos="object-[50%_34%]" />}
+        figure={<ScenePhoto src="/img/ideas-keynote.jpg" alt="Kalpesh Kinariwala speaking at a Pantheon event" pos="object-[50%_20%]" />}
       >
         <ol data-fade className="border-t border-white/15">
           {ideas.map((idea) => (

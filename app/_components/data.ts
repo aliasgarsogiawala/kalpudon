@@ -63,8 +63,8 @@ export const CHAPTERS: Chapter[] = [
     entity: "Private mandates", // TODO: confirm fund names and dates with client
     headline: "Returns are an output. The floor is the only thing you control.",
     proof: "Track record and allocation approach, on request.", // TODO: approved description of the fund
-    img: "/img/kk-proof-capital.jpg",
-    alt: "Kalpesh Kinariwala with a business partner",
+    img: "/img/capital-boardroom.jpg",
+    alt: "Kalpesh Kinariwala in the boardroom",
     href: "/contact/capital",
   },
   {
