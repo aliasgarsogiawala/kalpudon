@@ -5,7 +5,7 @@ import PageHero from "../_components/PageHero";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Capital, HOP partnerships, careers, press and general enquiries for Kalpesh Kinariwala.",
+  description: "Capital, real estate JVs, cultural partnerships, media and speaking enquiries for Kalpesh Kinariwala.",
   alternates: { canonical: "/contact" },
 };
 
@@ -17,7 +17,7 @@ export default function ContactPage() {
           word="Enquiries"
           photo={{ src: "/img/solo-enquiries-v3.jpg", alt: "Kalpesh Kinariwala", pos: "object-[50%_20%]" }}
           line="pick your door."
-          intro="Every note reaches the office of Kalpesh Kinariwala and goes straight to the people who handle it: capital, HOP partnerships, careers, press, and everything else."
+          intro="Capital. Real Estate JVs. Cultural Partnerships. Media. Speaking Engagements. Every enquiry is routed directly to the desk that handles it."
         />
         <Doors page />
       </main>

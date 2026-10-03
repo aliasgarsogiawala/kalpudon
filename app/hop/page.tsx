@@ -6,7 +6,7 @@ import PageHero from "../_components/PageHero";
 import Giant from "../_components/Giant";
 import LiveVideo from "../_components/LiveVideo";
 import { WRAP, WashLayer } from "../_components/Sheet";
-import { DOORS, HOP_FACTS } from "../_components/data";
+import { DOORS, HOP_ARTISTS, HOP_FACTS } from "../_components/data";
 
 export const metadata: Metadata = {
   title: "HOP Events",
@@ -28,7 +28,7 @@ const NIGHT = [
   { img: "/img/night-show.jpg", t: "Showtime" },
 ];
 
-const NAMES = ["Arijit Singh", "A.R. Rahman", "Rishab Sharma", "Etihad Arena", "Shows of India"];
+const NAMES = HOP_ARTISTS;
 
 // Brief §4: HOP as a section on the home page and its own page for the people it serves — artists,
 // promoters and venues. Five full screens: the opening, the record, the room, the night, the way in.
@@ -40,7 +40,7 @@ export default function HopPage() {
           word="HOP"
           line="at arena scale."
           photo={{ src: "/img/hop-page.jpg", alt: "Kalpesh Kinariwala at the front of house as the artist performs on a HOP night", pos: "object-[50%_20%]" }}
-          intro="Live entertainment is the most fragmented market he has entered. HOP puts artists, promoters, venues and audiences in the same room, on a network and a production record built show by show."
+          intro="HOP leads the culture vertical and reflects the same instinct that has shaped every chapter before it. In a fragmented live entertainment ecosystem, HOP brings together artists, venues, promoters, brands and audiences through a growing network, production capability and track record built one show at a time."
           aside={
             <Link href="/contact/hop" className="t-body link-line mt-6 inline-block text-gold-soft">
               Partner with HOP →

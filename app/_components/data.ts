@@ -97,6 +97,9 @@ export const PANTHEON_NOW = [
   { name: "Real Estate", what: "Pantheon Development" },
 ];
 
+// The artists HOP has presented, as the client's copy names them (2026-10-03): the marquee and the HOP page.
+export const HOP_ARTISTS = ["Arijit Singh", "A.R. Rahman", "Lucky Ali", "Nancy Ajram", "Rahat Fateh Ali Khan", "Rishab Sharma"];
+
 // Client copy, 2026-10-03.
 export const HOP_FACTS = [
   {

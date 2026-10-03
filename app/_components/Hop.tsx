@@ -8,13 +8,13 @@ import Giant from "./Giant";
 import LiveVideo from "./LiveVideo";
 import Sheet, { Split, WRAP, WashLayer } from "./Sheet";
 import Scene, { ScenePhoto } from "./Scene";
-import { HOP_FACTS, PANTHEON_NOW, PRODUCTIONS } from "./data";
+import { HOP_ARTISTS, HOP_FACTS, PANTHEON_NOW, PRODUCTIONS } from "./data";
 
 // The film behind the quote, kept light enough to read as film: him on stage under the UAE flag, then the arena
 // with Pantheon on the screens — cut from the "KK On Stage — Founder Moment" reel (WeTransfer 2026-09-22).
 const QUOTE_FILM = "/video/hop-founder.mp4";
 
-const NAMES = ["Arijit Singh", "A.R. Rahman", "Rishab Sharma", "Etihad Arena", "Sold out"];
+const NAMES = HOP_ARTISTS;
 
 // Mosaic slots for the four production stills, in PRODUCTIONS order: one tall frame beside three.
 const SLOTS = [
