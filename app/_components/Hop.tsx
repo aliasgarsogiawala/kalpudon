@@ -53,16 +53,16 @@ export default function Hop() {
           figure={<ScenePhoto src="/img/hop-home.jpg" alt="Kalpesh Kinariwala at the front of house as the dancers take the stage" pos="object-[50%_20%]" />}
         >
           <p data-fade className="t-lead max-w-[40ch] text-bone">
-            Pantheon is what he is building now: art, culture, real estate — and HOP, which leads it. Live
-            entertainment is the most fragmented market he has entered. HOP puts artists, promoters, venues and
-            audiences in the same room, on a network and a production record built show by show.
+            Pantheon is what he is building now: Art, Culture and Real Estate. HOP leads the culture vertical and
+            reflects the same instinct that has shaped every chapter before it. In a fragmented live entertainment
+            ecosystem, HOP brings together artists, venues, promoters, brands and audiences through a growing network,
+            production capability and track record built one show at a time.
           </p>
-          <ul data-fade className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/15 pt-6 sm:grid-cols-4">
+          <ul data-fade className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/15 pt-6">
             {PANTHEON_NOW.map((p) => (
-              <li key={p.name} className={p.lead ? "text-bone" : "text-bone/55"}>
+              <li key={p.name} className="text-bone">
                 <p className="t-title">{p.name}</p>
-                {p.lead && <p className="t-note mt-1 text-gold-soft">Leading</p>}
-                {p.what && <p className="t-note mt-1">{p.what}</p>}
+                {p.what && <p className={`t-note mt-1 ${p.lead ? "text-gold-soft" : ""}`}>{p.what}</p>}
               </li>
             ))}
           </ul>

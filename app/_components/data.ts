@@ -91,17 +91,29 @@ export const CHAPTERS: Chapter[] = [
 ];
 
 // Brief §5.4: Pantheon today, with live events leading.
+// Client copy, 2026-10-03: two verticals, with HOP leading Art & Culture.
 export const PANTHEON_NOW = [
-  { name: "HOP", what: "Live entertainment", lead: true },
-  { name: "Art", what: "" }, // TODO: one-line descriptions for Art and Culture from the client
-  { name: "Culture", what: "" },
+  { name: "Art & Culture", what: "HOP Events", lead: true },
   { name: "Real Estate", what: "Pantheon Development" },
 ];
 
+// Client copy, 2026-10-03.
 export const HOP_FACTS = [
-  { k: "Sold out", v: "Etihad Arena, Abu Dhabi", d: "Arijit Singh · A.R. Rahman · Rishab Sharma" },
-  { k: "Anchor sponsor", v: "Shows of India 2026", d: "India’s live-entertainment industry conclave, Delhi" },
-  { k: "Next", v: "The diaspora circuit", d: "From the UAE into South Asian diaspora hubs" },
+  {
+    k: "The Foundation",
+    v: "Global Artists. Arena Audiences. Regional Reach.",
+    d: "Experiences featuring Arijit Singh, A.R. Rahman, Lucky Ali, Nancy Ajram, Rahat Fateh Ali Khan and Rishab Sharma.",
+  },
+  {
+    k: "The Scale",
+    v: "25 Cities. 75 Venues. 250+ Experiences.",
+    d: "A roadmap to create the world’s most community-focused cultural platforms.",
+  },
+  {
+    k: "The Vision",
+    v: "1 Million Attendees. One Connected Audience.",
+    d: "Building a global network where culture becomes a catalyst for connection, community and belonging.",
+  },
 ];
 
 // HOP productions, from his own channels, until the brand shoot's event footage arrives (brief §9).

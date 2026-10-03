@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import DoorSketch from "./DoorSketch";
 import Giant from "./Giant";
 import Sheet, { PAD, WRAP } from "./Sheet";
 import { DOORS, doorHref, type Door } from "./data";
@@ -58,14 +58,13 @@ function DoorCards() {
             href={doorHref(d)}
             className="group relative flex h-full min-h-[230px] flex-col overflow-hidden bg-coal p-4 text-bone sm:min-h-[340px] sm:p-6 lg:min-h-[420px]"
           >
-            <Image
-              src={d.img}
-              alt=""
-              fill
-              sizes="(min-width:1024px) 20vw, (min-width:640px) 50vw, 100vw"
-              className={`object-cover ${d.pos ?? "object-[50%_25%]"} opacity-70 grayscale-[.25] transition-[opacity,transform,filter] duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-105 group-hover:opacity-90 group-hover:grayscale-0`}
+            {/* A gold sketch for each door (client, 2026-10-03), lit from behind like the drawings it follows */}
+            <span aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_32%,rgb(184_138_66/.16),transparent_72%)]" />
+            <DoorSketch
+              kind={d.slug}
+              className="absolute left-1/2 top-[6%] w-[78%] max-w-[230px] -translate-x-1/2 transition-transform duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.04]"
             />
-            <span className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/20 to-ink/95" />
+            <span className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/90" />
             <span className="relative mt-auto">
               <span className={`block text-[26px] leading-[0.88] sm:text-[clamp(34px,2.6vw,44px)] ${condensed}`}>{d.label}</span>
               <span className="mt-2 block text-[13px] leading-snug text-gold-soft sm:mt-3 sm:text-[14px]">{d.who}</span>
@@ -100,7 +99,8 @@ export default function Doors({ page = false }: { page?: boolean }) {
             </Giant>
           </h2>
           <p data-fade className="max-w-[34ch] text-[clamp(20px,1.6vw,26px)] leading-[1.3] text-bone/80 lg:col-span-4 lg:col-start-9 lg:pb-3">
-            Capital, HOP partnerships, careers, press and speaking — each note goes straight to the desk that handles it.
+            Capital. Real Estate JVs. Cultural Partnerships. Media. Speaking Engagements. Every enquiry is routed
+            directly to the desk that handles it.
           </p>
         </div>
         <div className="mt-12 md:mt-24">
