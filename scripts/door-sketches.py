@@ -105,7 +105,7 @@ class Pen:
             x = cx + self.r.uniform(-w / 2, w / 2)
             self.fine.append(self._poly(self._wob([(x, cy), (x + self.r.uniform(-2, 2), cy - h * self.r.uniform(0.6, 1))], 0.5)))
 
-    def svg(self, name):
+    def svg(self, name, dy=0):
         def group(paths, sw, op):
             return f'<g stroke-width="{sw}" opacity="{op}"><path d="{" ".join(paths)}"/></g>'
 
@@ -116,7 +116,7 @@ class Pen:
         )
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}">
 <defs><linearGradient id="g" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#f7dfa0"/><stop offset=".5" stop-color="#d9a84f"/><stop offset="1" stop-color="#9c6c28"/></linearGradient></defs>
-<g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round">{body}</g></svg>"""
+<g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round"{f' transform="translate(0 {dy})"' if dy else ""}>{body}</g></svg>"""
         open(f"{OUT}/{name}.svg", "w").write(svg)
         print(name, len(self.main) + len(self.fine) + len(self.faint), "strokes", round(len(svg) / 1024), "KB")
 
@@ -140,22 +140,9 @@ def side(pen, x, y0, y1, depth=1.0, hatch=True):
 
 # ------------------------------------------------------------------ Capital: the Pantheon front
 def capital():
+    """The Pantheon's temple front: pediment, eight fluted columns, steps (no dome — client, 2026-10-03)."""
     pen = Pen(101)
     cx = 200
-    roof = lambda x: 182 - (182 - 120) * max(0.0, 1 - abs(x - 200) / 116)
-    pen.clip = lambda x, y: y < roof(x) - 1.5
-    # dome behind: drum, dome, coffer rings, oculus lantern
-    pen.path([(118, 168), (118, 150), (282, 150), (282, 168)])
-    pen.curve(arc(cx, 150, 82, 86, math.pi, 2 * math.pi, 40))
-    for k, f in enumerate([0.84, 0.66, 0.46]):
-        pen.curve(arc(cx, 150, 82 * f, 86 * f, math.pi * 1.06, math.pi * 1.94, 30), "fine")
-    for a in [1.12, 1.25, 1.38, 1.5, 1.62, 1.75, 1.88]:
-        x0, y0 = cx + 82 * math.cos(a * math.pi), 150 + 86 * math.sin(a * math.pi)
-        x1, y1 = cx + 82 * 0.46 * math.cos(a * math.pi), 150 + 86 * 0.46 * math.sin(a * math.pi)
-        pen.line((x0, y0), (x1, y1), "fine", over=False)
-    pen.path([(190, 64), (190, 56), (210, 56), (210, 64)], "fine")
-    pen.hatch([(cx + 30, 72), (cx + 82, 150), (cx + 40, 150)], angle=-68, gap=3.4)
-    pen.clip = None
     # pediment
     L, R, T = 84, 316, 120
     pen.path([(L, 182), (cx, T), (R, 182)])
@@ -167,6 +154,7 @@ def capital():
         pen.line((x, 172), (x + 4, 160 + abs(k) * 2), "fine", over=False)
     side(pen, R + 4, 182, 204, 1.0, hatch=True)
     pen.line((R + 4 + D[0], 182 + D[1]), (cx + D[0], T + D[1]))
+    pen.line((cx, T), (cx + D[0], T + D[1]))  # the ridge, joining the apex to the roof's back edge
     # entablature with dentils
     rect(pen, L - 4, 182, R - L + 8, 22)
     pen.line((L - 4, 190), (R + 4, 190), "fine")
@@ -195,7 +183,7 @@ def capital():
         pen.curve([(x + 14 * math.sin(t) * math.sin(t / 2), 348 - h * 0.25 - t / math.pi * h * 0.75) for t in [i * math.pi / 16 for i in range(17)]], "fine")
         pen.scribble(x, 348 - h * 0.28, 26, h * 0.72, 40)
     pen.line((20, 348), (380, 348), "fine")
-    pen.svg("capital")
+    pen.svg("capital", dy=-30)
 
 
 # ------------------------------------------------------------------ Careers: a terraced tower with planting
