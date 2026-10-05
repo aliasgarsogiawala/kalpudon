@@ -6,6 +6,8 @@ import PageHero from "../_components/PageHero";
 import Giant from "../_components/Giant";
 import Outlet from "../_components/Outlet";
 import { WRAP, WashLayer } from "../_components/Sheet";
+import Scene, { ScenePhoto } from "../_components/Scene";
+import { PHILOSOPHY } from "../_components/data";
 import { FOCUS, getContent } from "../_lib/content";
 
 export const metadata: Metadata = {
@@ -93,6 +95,34 @@ export default async function PressPage() {
           </div>
         </section>
 
+        {/* Leadership philosophy, from the media profile: the three words, the five principles and his line on success */}
+        <section data-theme="dark" className="relative isolate bg-violet text-bone">
+          <WashLayer wash="violet" />
+          <Scene
+            heading={
+              <Giant as="h2" n={10} max={14}>
+                Philosophy<span className="accent">integrity, innovation, impact.</span>
+              </Giant>
+            }
+            figure={<ScenePhoto src="/img/kk-philosophy.jpg" alt="Kalpesh Kinariwala, smiling, in a checked jacket" pos="object-[50%_20%]" />}
+          >
+            <blockquote data-fade className="t-statement max-w-[22ch]">
+              “Success is defined by the ability to build platforms <em className="gold-glow">that outlast.</em>”
+            </blockquote>
+            <ol data-fade className="grid gap-x-10 gap-y-4 border-t border-white/15 pt-6 sm:grid-cols-2">
+              {PHILOSOPHY.map((p, i) => (
+                <li key={p} className="flex gap-4">
+                  <span className="t-note pt-1 text-gold-soft">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="t-body text-bone/85">{p}</span>
+                </li>
+              ))}
+            </ol>
+            <p data-fade className="t-note max-w-[56ch] text-bone/60">
+              Communities are shaped not only by what is built, but by what people experience, create and share together.
+            </p>
+          </Scene>
+        </section>
+
         {/* Awards: the moments with photographs first, then a card for every other award */}
         <section data-theme="dark" className="relative isolate bg-ink text-bone">
           <WashLayer wash="ink" />
@@ -114,11 +144,11 @@ export default async function PressPage() {
                   {f.logo ? (
                     <div className="mt-3 flex items-end gap-4">
                       <Outlet who={f.who} logo={f.logo} />
-                      <p className="t-note text-bone/60">{f.y}</p>
+                      {f.y && <p className="t-note text-bone/60">{f.y}</p>}
                     </div>
                   ) : (
                     <p className="t-note mt-1 text-bone/60">
-                      {f.who}, {f.y}
+                      {[f.who, f.y].filter(Boolean).join(", ")}
                     </p>
                   )}
                 </li>
@@ -138,7 +168,7 @@ export default async function PressPage() {
                   </div>
                   <p className="t-body mt-4 font-bold">{r.what}</p>
                   <p className="t-note mt-1 text-bone/60">
-                    {r.logo ? r.y : `${r.who}, ${r.y}`}
+                    {(r.logo ? [r.y] : [r.who, r.y]).filter(Boolean).join(", ")}
                   </p>
                 </li>
               ))}

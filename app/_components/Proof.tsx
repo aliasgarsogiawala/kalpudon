@@ -77,7 +77,7 @@ export default async function Proof() {
             <div key={r.who + r.y}>
               <Outlet who={r.who} logo={r.logo} />
               <p className="t-note mt-3 text-bone/60">
-                {r.what}, {r.y}
+                {[r.what, r.y].filter(Boolean).join(", ")}
               </p>
             </div>
           ))}

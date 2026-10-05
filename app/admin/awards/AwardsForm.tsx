@@ -28,7 +28,7 @@ export default function AwardsForm({ initial }: { initial: Award[] }) {
           <div className="grid gap-5 sm:grid-cols-[2fr_2fr_1fr]">
             <Text label="Award" placeholder="Developer of the Year" value={a.what} onChange={(v) => edit(i, { what: v })} />
             <Text label="Given by" placeholder="Forbes Middle East" value={a.who} onChange={(v) => edit(i, { who: v })} />
-            <Text label="Year" inputMode="numeric" maxLength={4} value={a.y} onChange={(v) => edit(i, { y: v.replace(/\D/g, "") })} />
+            <Text label="Year (optional)" inputMode="numeric" maxLength={4} value={a.y} onChange={(v) => edit(i, { y: v.replace(/\D/g, "") })} />
           </div>
           <Upload
             label="Logo of the publication (optional)"

@@ -114,6 +114,20 @@ export const MILESTONES = [
   { y: "2026", t: "The year of recognition", d: "Forbes Middle East, Entrepreneur’s 100 NRIs, AsiaOne Global Asian of the Year, Construction Week Power 150." },
 ];
 
+// Pantheon Development's portfolio, delivered or launched, as the achievements document lists it.
+export const DEVELOPMENTS = [
+  "Pantheon Boulevard",
+  "Pantheon Elysée I",
+  "Pantheon Elysée II",
+  "Pantheon Elysée III",
+  "Elysée Heights",
+  "Maison Elysée I & II",
+  "Maison Elysée III",
+  "VOXA",
+  "One RAK Central",
+  "OMYA",
+];
+
 // Brief §5.4: Pantheon today, with live events leading.
 // Client copy, 2026-10-03: two verticals, with HOP leading Art & Culture.
 export const PANTHEON_NOW = [
@@ -206,12 +220,14 @@ export const RECOGNITION = [
   // From the client's achievements document (2026-10-05)
   { who: "AsiaOne", what: "Global Asian of the Year", y: "2026" },
   { who: "Construction Week Property Awards", what: "Realty Personality of the Year", y: "2026" },
-  { who: "Construction Week", what: "The Power 150", y: "2026" }, // from the cover; year from when he posted it
+  { who: "Construction Week", what: "The Power 150 — the Middle East’s most influential construction leaders", y: "2026" }, // from the cover; year from when he posted it
   { who: "Great Place to Work", what: "#2 Best Workplace in Real Estate, Middle East — Pantheon Development", y: "2026" },
   { who: "Finance World", what: "Top 100 Expat Leaders in the UAE", y: "2025" },
   // Award names as KK_MEDIA_PROFILE.pdf gives them (the user chose the PDF where the documents disagreed)
   { who: "The Ultimate Realty Awards", what: "Best Developer — Delivery & Payment Plan", y: "2025" },
   { who: "Arabian Business Real Estate Awards", what: "Developer of the Year — Best Affordable Luxury Property", y: "2019" },
+  { who: "CEO Middle East Awards", what: "International Achievement CEO of the Year", y: "2018" }, // Gulf News, 2021
+  { who: "Property Time", what: "Luxury Developer of the Year — Pantheon Development", y: "" }, // the doc's source; no date given
   { who: "UAE Government", what: "Golden Visa", y: "2021" },
 ];
 
@@ -330,8 +346,19 @@ export const PRESS_BIO = [
   "His current focus is HOP Events, which produces arena-scale shows with India’s leading artists — including a sold-out Etihad Arena with Arijit Singh and A.R. Rahman — and was anchor sponsor of Shows of India 2026.",
 ];
 
+// Leadership philosophy, in the media profile's words (KK_MEDIA_PROFILE.pdf, October 2026).
+export const PHILOSOPHY = [
+  "Build for the long term, not the short term.",
+  "Put stakeholders at the centre of decision-making.",
+  "Match ambition with disciplined execution.",
+  "Create platforms that enable growth for others.",
+  "Pursue scale without compromising trust, quality or integrity.",
+];
+
 export const PRESS_FACTS = [
   { k: "Based", v: "Dubai, United Arab Emirates" },
+  { k: "Roles", v: "Founder & Chairman — Pantheon A.C.R. (2026), HOP Events (2025), Pantheon Development (2016); founder, Pantheon Group (2001)" },
+  { k: "Known as", v: "An affordable luxury real estate pioneer; “the Delivery Man of JVC”" },
   { k: "First company", v: "Pantheon Group, 2001 — mining chemical distribution" },
   { k: "Real estate", v: "Pantheon Development, 2016 — 1,000+ homes handed over in JVC" },
   { k: "Track record", v: "25+ years; 4 companies founded; 10 developments across Dubai and Ras Al Khaimah" },

@@ -5,7 +5,8 @@ import PageHero from "../_components/PageHero";
 import Giant from "../_components/Giant";
 import Scene, { ScenePhoto } from "../_components/Scene";
 import { WashLayer } from "../_components/Sheet";
-import { CHAPTERS } from "../_components/data";
+import Marquee from "../_components/Marquee";
+import { CHAPTERS, DEVELOPMENTS } from "../_components/data";
 
 export const metadata: Metadata = {
   title: "Real Estate",
@@ -22,7 +23,7 @@ const estate = CHAPTERS.find((c) => c.sector === "Real estate")!;
 const RECORD = [
   { k: `Since ${estate.since}`, v: estate.entity },
   { k: "1,000+ homes", v: "Handed over in Jumeirah Village Circle", count: true },
-  { k: "10 developments", v: "Pantheon Boulevard, the Elysée portfolio, VOXA, OMYA and One RAK Central", count: true },
+  { k: "10 developments", v: "Delivered or launched, with thousands more homes in the pipeline", count: true },
   { k: "2 emirates", v: "Dubai, and Ras Al Khaimah — among the first private developers in RAK Central", count: true },
   { k: "On schedule", v: "Known in the industry as “the Delivery Man of JVC”" },
   { k: "#2 workplace", v: "Best Workplace in Real Estate, Middle East 2026 — Great Place to Work", count: true },
@@ -38,6 +39,9 @@ export default function RealEstatePage() {
           photo={{ src: "/img/solo-welcome.jpg", alt: "Kalpesh Kinariwala at a Pantheon art, culture and real estate welcome", pos: "object-[50%_20%]" }}
           intro="Pantheon Development builds affordable luxury in Dubai, on the same instinct he brings to every market: find what is scattered, connect it, and manage the downside first."
         />
+
+        {/* The portfolio by name, running across the screen */}
+        <Marquee names={DEVELOPMENTS} />
 
         <section data-theme="dark" className="relative isolate bg-plum text-bone">
           <WashLayer wash="plum" />

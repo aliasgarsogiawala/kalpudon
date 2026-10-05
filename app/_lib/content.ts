@@ -46,7 +46,7 @@ export const AwardSchema = z
   .object({
     what: text(160).min(1, "Name the award"),
     who: text(120).min(1, "Say who gave it"),
-    y: z.string().trim().regex(/^\d{4}$/, "Year as four digits"),
+    y: z.string().trim().regex(/^(\d{4})?$/, "Year as four digits, or leave it empty"), // empty: no date given
     // The publication's logo; empty shows its name. Missing in content saved before logos existed.
     logo: link.optional(),
     img: link,

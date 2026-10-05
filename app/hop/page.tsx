@@ -58,6 +58,11 @@ export default function HopPage() {
             <p data-fade className="t-lead mt-10 max-w-[40ch] md:mt-[6svh]">
               {door.body}
             </p>
+            {/* The achievements document and media profile (client, 2026-10-05) */}
+            <p data-fade className="t-body mt-4 max-w-[52ch] text-bone/75">
+              Concerts and cultural experiences across the GCC and APAC, and an exclusive UAE and GCC live entertainment
+              partnership with Warner Music.
+            </p>
             <dl className="mt-16 grid gap-10 border-t border-white/10 pt-8 md:mt-[6svh] md:grid-cols-3 md:gap-8">
               {HOP_FACTS.map((f) => (
                 <div key={f.k} data-fade>
@@ -67,6 +72,12 @@ export default function HopPage() {
                 </div>
               ))}
             </dl>
+            <figure data-fade className="mt-16 border-t border-white/10 pt-8 md:mt-[6svh]">
+              <blockquote className="t-statement max-w-[26ch]">
+                “Real estate builds the framework of a city, <em className="gold-glow">but culture gives it a soul.</em>”
+              </blockquote>
+              <figcaption className="t-note mt-4 text-stone">Kalpesh Kinariwala, on Pantheon A.C.R.</figcaption>
+            </figure>
           </div>
         </section>
 
