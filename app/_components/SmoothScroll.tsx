@@ -10,7 +10,7 @@ export default function SmoothScroll() {
     const tick = (t: number) => lenis?.raf(t * 1000);
 
     if (!reducedMotion()) {
-      lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 });
+      lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1 });
       window.__lenis = lenis;
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add(tick);

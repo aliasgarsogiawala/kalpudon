@@ -290,17 +290,36 @@ html.lenis body {
     --slant-rise: 7vw;
   }
 }
+/* Each sheet after the first arrives a little later than the one before lands: the landed sheet holds
+   the screen for --hold of scroll, so its own animations finish before the next one covers it. */
+[data-sheet] + [data-sheet] {
+  margin-top: var(--hold);
+}
+[data-sheet] {
+  --hold: 22svh;
+}
+@media (min-width: 768px) {
+  [data-sheet] {
+    --hold: 30svh;
+  }
+}
 .is-sheet {
   position: sticky;
   top: min(0px, calc(100svh - var(--h, 100svh)));
   translate: 0 calc(var(--drift, 0) * -8svh);
-  /* The left corner leads and the right one trails; the shape runs past the foot so its colour shows */
-  clip-path: polygon(
-    0 0,
-    100% calc(var(--slant, 0) * var(--slant-rise)),
-    100% calc(100% + 12svh),
-    0 calc(100% + 12svh)
-  );
+}
+/* The slanted edge: a fixed wedge of the sheet's colour above its top, left corner leading. It moves with
+   the sheet, so nothing repaints as it travels, and it leaves the screen as the sheet lands, so the edge
+   lands flat. (Sheets.tsx adds it.) */
+.sheet-edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: var(--slant-rise);
+  background: inherit;
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  pointer-events: none;
 }
 /* Colour runs past the foot, so a sheet drifting up never opens a gap beneath it */
 .is-sheet::before {
@@ -319,7 +338,8 @@ html.lenis body {
   position: absolute;
   inset: 0;
   z-index: 40;
-  background: rgb(0 0 0 / calc(var(--shade, 0) * 0.6));
+  background: rgb(0 0 0 / 0.6);
+  opacity: var(--shade, 0);
   pointer-events: none;
 }
 
@@ -399,6 +419,15 @@ html.lenis body {
     inset 0 1px 0 rgb(226 202 152 / 0.12);
   -webkit-backdrop-filter: blur(18px) saturate(1.3);
   backdrop-filter: blur(18px) saturate(1.3);
+}
+/* Phones: a solid capsule instead of the glass blur, which re-blurs the page under it on every scroll frame */
+@media (hover: none) {
+  .nav-shell[data-state="float"] .nav-capsule,
+  .nav-shell[data-open="true"] .nav-capsule {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgb(12 9 18 / 0.92);
+  }
 }
 .nav-pill {
   transition:

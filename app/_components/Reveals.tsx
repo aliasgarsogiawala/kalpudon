@@ -44,10 +44,10 @@ export default function Reveals() {
           splits.push(s);
           gsap.from(s.chars, {
             yPercent: 108,
-            duration: 1.5,
-            stagger: 0.04,
+            duration: 0.95,
+            stagger: 0.022,
             ease: "expo.out",
-            scrollTrigger: { trigger: el, start: "top 85%", once: true },
+            scrollTrigger: { trigger: el, start: "top 95%", once: true },
           });
         });
 
@@ -56,10 +56,10 @@ export default function Reveals() {
           splits.push(s);
           gsap.from(s.lines, {
             yPercent: 135,
-            duration: 1.6,
-            stagger: 0.1,
+            duration: 1,
+            stagger: 0.06,
             ease: "expo.out",
-            scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            scrollTrigger: { trigger: el, start: "top 95%", once: true },
           });
         });
 
@@ -67,9 +67,9 @@ export default function Reveals() {
           gsap.from(el, {
             y: 46,
             opacity: 0,
-            duration: 1.4,
+            duration: 0.85,
             ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 90%", once: true },
+            scrollTrigger: { trigger: el, start: "top 97%", once: true },
           });
         });
 
@@ -84,7 +84,7 @@ export default function Reveals() {
           show(0);
           gsap.to(count, {
             n: target,
-            duration: 2.2,
+            duration: 1.4,
             ease: "power3.out",
             onUpdate: () => show(count.n),
             onComplete: () => void (el.textContent = final),
@@ -105,8 +105,8 @@ export default function Reveals() {
           gsap.from(el, {
             opacity: 0,
             xPercent: Number(el.dataset.cutoutX ?? 6),
-            duration: 2.8,
-            delay: Number(el.dataset.cutout || 0),
+            duration: 1.6,
+            delay: Number(el.dataset.cutout || 0) * 0.5,
             ease: "power2.out",
             scrollTrigger: { trigger: el.parentElement, start: "top 80%", once: true },
           });
@@ -145,9 +145,9 @@ export default function Reveals() {
           frame.appendChild(cover);
           const img = frame.querySelector("img");
           const at = Number(el.dataset.reveal || 0);
-          const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 88%", once: true } });
-          tl.fromTo(cover, { scaleY: 1 }, { scaleY: 0, duration: 1.4, ease: "expo.inOut" }, at);
-          if (img) tl.fromTo(img, { scale: 1.18 }, { scale: 1, duration: 2.2, ease: "expo.out" }, at + 0.15);
+          const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 95%", once: true } });
+          tl.fromTo(cover, { scaleY: 1 }, { scaleY: 0, duration: 0.9, ease: "expo.inOut" }, at);
+          if (img) tl.fromTo(img, { scale: 1.18 }, { scale: 1, duration: 1.4, ease: "expo.out" }, at + 0.1);
         });
 
         gsap.utils.toArray<HTMLElement>("[data-scrub-words]").forEach((el) => {
