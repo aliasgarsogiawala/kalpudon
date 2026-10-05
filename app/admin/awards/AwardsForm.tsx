@@ -5,7 +5,7 @@ import type { Award } from "../../_lib/content";
 import { saveAwards, type Result } from "../actions";
 import { Choice, SaveBar, Text, Tick, Upload, move, quietButtonClass } from "../_fields";
 
-const BLANK: Award = { what: "", who: "", y: String(new Date().getFullYear()), img: "", alt: "", focus: "upper", featured: false, home: false };
+const BLANK: Award = { what: "", who: "", y: String(new Date().getFullYear()), logo: "", img: "", alt: "", focus: "upper", featured: false, home: false };
 
 export default function AwardsForm({ initial }: { initial: Award[] }) {
   const [awards, setAwards] = useState(initial);
@@ -30,6 +30,13 @@ export default function AwardsForm({ initial }: { initial: Award[] }) {
             <Text label="Given by" placeholder="Forbes Middle East" value={a.who} onChange={(v) => edit(i, { who: v })} />
             <Text label="Year" inputMode="numeric" maxLength={4} value={a.y} onChange={(v) => edit(i, { y: v.replace(/\D/g, "") })} />
           </div>
+          <Upload
+            label="Logo of the publication (optional)"
+            hint="A PNG with a transparent background. The site shows it in white; without one, the name shows."
+            accept="image/png,image/webp"
+            value={a.logo ?? ""}
+            onChange={(logo) => edit(i, { logo })}
+          />
           <Upload label="Photograph (optional)" accept="image/jpeg,image/png,image/webp,image/avif" value={a.img} onChange={(img) => edit(i, { img })} />
           {a.img && (
             <div className="grid gap-5 sm:grid-cols-[2fr_1fr]">

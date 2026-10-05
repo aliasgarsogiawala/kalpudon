@@ -2,6 +2,7 @@ import Shell from "./_components/Shell";
 import Hero from "./_components/Hero";
 import Thesis from "./_components/Thesis";
 import Proof from "./_components/Proof";
+import Numbers from "./_components/Numbers";
 import Hop from "./_components/Hop";
 import Ideas from "./_components/Ideas";
 import Legacy from "./_components/Legacy";
@@ -32,6 +33,7 @@ export default function Home() {
         <Hero />
         <Thesis />
         <Proof />
+        <Numbers />
         <Hop />
         <Ideas />
         <Legacy />

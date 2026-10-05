@@ -91,7 +91,7 @@ export function Tick({ label, checked, onChange }: { label: string; checked: boo
   );
 }
 
-const IMAGE = /\.(jpe?g|png|webp|avif)$/i;
+const IMAGE = /\.(jpe?g|png|webp|avif|svg)$/i;
 
 /** Uploads a file to the Blob store from the browser and hands back its link. */
 export function Upload({

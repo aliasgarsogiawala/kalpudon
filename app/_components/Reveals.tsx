@@ -13,6 +13,7 @@ const COVER: Record<string, string> = { paper: "bg-paper", gold: "bg-gold" };
 //   data-card3d       a print turned in space settles flat as its section passes
 //   data-parallax     element drifts against the scroll (value = strength)
 //   data-scrub-words  words brighten as the reader scrolls through them
+//   data-count        a figure ("1,000+", "#2") counts up from zero to itself when it comes into view
 //   data-cutout       a cut-out of him fades in slowly (value = delay in seconds), drifting in from the
 //                     side data-cutout-x gives (xPercent, default 6)
 //   data-reveal       a photograph develops: a cover lifts off its [data-reveal-clip] frame while the image
@@ -71,7 +72,24 @@ export default function Reveals() {
           });
         });
 
-
+        gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
+          // Kept on the element, so a second run (a remount mid-count) never starts from a half-counted figure
+          const final = (el.dataset.countFinal ??= el.textContent ?? "");
+          const m = final.match(/\d[\d,]*/);
+          if (!m) return;
+          const target = Number(m[0].replace(/,/g, ""));
+          const show = (n: number) => (el.textContent = final.replace(m[0], Math.round(n).toLocaleString("en-US")));
+          const count = { n: 0 };
+          show(0);
+          gsap.to(count, {
+            n: target,
+            duration: 2.2,
+            ease: "power3.out",
+            onUpdate: () => show(count.n),
+            onComplete: () => void (el.textContent = final),
+            scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          });
+        });
 
         gsap.utils.toArray<HTMLElement>("[data-cutout]").forEach((el) => {
           gsap.from(el, {

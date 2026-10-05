@@ -4,6 +4,7 @@ import Link from "next/link";
 import Shell from "../_components/Shell";
 import PageHero from "../_components/PageHero";
 import Giant from "../_components/Giant";
+import Outlet from "../_components/Outlet";
 import { WRAP, WashLayer } from "../_components/Sheet";
 import { FOCUS, getContent } from "../_lib/content";
 
@@ -110,20 +111,27 @@ export default async function PressPage() {
                     </div>
                   </div>
                   <p className="t-title mt-5">{f.what}</p>
-                  <p className="t-note mt-1 text-bone/60">
-                    {f.who}, {f.y}
-                  </p>
+                  {f.logo ? (
+                    <div className="mt-3 flex items-end gap-4">
+                      <Outlet who={f.who} logo={f.logo} />
+                      <p className="t-note text-bone/60">{f.y}</p>
+                    </div>
+                  ) : (
+                    <p className="t-note mt-1 text-bone/60">
+                      {f.who}, {f.y}
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
             )}
 
-            <ul className="mt-14 grid gap-6 border-t border-white/10 pt-6 md:grid-cols-3 md:gap-8 lg:mt-[6svh]">
+            <ul className="mt-14 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-3 md:gap-8 lg:mt-[6svh]">
               {others.map((r) => (
                 <li key={r.who + r.y}>
-                  <p className="t-body font-bold">{r.what}</p>
-                  <p className="t-note text-bone/60">
-                    {r.who}, {r.y}
+                  <Outlet who={r.who} logo={r.logo} />
+                  <p className="t-note mt-3 text-bone/60">
+                    {r.what}, {r.y}
                   </p>
                 </li>
               ))}

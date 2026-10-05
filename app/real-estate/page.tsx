@@ -18,11 +18,14 @@ const estate = CHAPTERS.find((c) => c.sector === "Real estate")!;
 
 // The menu's Real Estate (client, 2026-09-29). Brief §2 still holds: real estate is one of the four markets
 // he has built a platform in, never the identity, so the page states the record and nothing grander.
-// Every figure here is the one the home page's proof card carries.
+// Figures from the client's achievements document and media profile (October 2026).
 const RECORD = [
   { k: `Since ${estate.since}`, v: estate.entity },
-  { k: "1,000+ homes", v: "Handed over in Jumeirah Village Circle" },
-  { k: "On schedule", v: "Affordable luxury, delivered when promised" },
+  { k: "1,000+ homes", v: "Handed over in Jumeirah Village Circle", count: true },
+  { k: "10 developments", v: "Pantheon Boulevard, the Elysée portfolio, VOXA, OMYA and One RAK Central", count: true },
+  { k: "2 emirates", v: "Dubai, and Ras Al Khaimah — among the first private developers in RAK Central", count: true },
+  { k: "On schedule", v: "Known in the industry as “the Delivery Man of JVC”" },
+  { k: "#2 workplace", v: "Best Workplace in Real Estate, Middle East 2026 — Great Place to Work", count: true },
 ];
 
 export default function RealEstatePage() {
@@ -58,7 +61,9 @@ export default function RealEstatePage() {
               <dl data-fade className="grid gap-8 border-t border-white/15 pt-6 sm:grid-cols-3">
                 {RECORD.map((r) => (
                   <div key={r.k}>
-                    <dt className="t-title gold-glow">{r.k}</dt>
+                    <dt className="t-title gold-glow" data-count={r.count || undefined}>
+                      {r.k}
+                    </dt>
                     <dd className="t-body mt-2 text-bone/80">{r.v}</dd>
                   </div>
                 ))}

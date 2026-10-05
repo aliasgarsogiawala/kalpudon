@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { del, get, list, put, type ListBlobResultBlob } from "@vercel/blob";
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { z } from "zod";
-import { IDEAS, PILLARS, PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
+import { IDEAS, LOGOS, PILLARS, PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
 
 // The light CMS (brief §6, §8): everything the team edits lives in one JSON document in Vercel Blob.
 // Until the first save from /admin, the site shows the defaults below (the content it launched with).
@@ -47,6 +47,8 @@ export const AwardSchema = z
     what: text(160).min(1, "Name the award"),
     who: text(120).min(1, "Say who gave it"),
     y: z.string().trim().regex(/^\d{4}$/, "Year as four digits"),
+    // The publication's logo; empty shows its name. Missing in content saved before logos existed.
+    logo: link.optional(),
     img: link,
     alt: text(200),
     focus: z.enum(["top", "upper", "center"]),
@@ -80,7 +82,7 @@ export type Content = z.infer<typeof ContentSchema>;
 const LAUNCH_PHOTOS: Record<string, Pick<Award, "img" | "alt" | "focus">> = {
   "The Ultimate Realty Awards": {
     img: "/img/kk-award-solo.jpg",
-    alt: "Kalpesh Kinariwala at The Ultimate Realty Awards, where Pantheon Development was named Affordable Luxury Developer of the Year",
+    alt: "Kalpesh Kinariwala at The Ultimate Realty Awards, where Pantheon Development was named Best Developer for Delivery & Payment Plan",
     focus: "top",
   },
   "Shows of India": { img: "/img/ig-podium-2.jpg", alt: "Kalpesh Kinariwala speaking at Shows of India 2026, Delhi", focus: "upper" },
@@ -103,6 +105,7 @@ export const DEFAULT_CONTENT: Content = {
     what: r.what,
     who: r.who,
     y: r.y,
+    logo: LOGOS[r.who] ?? "",
     img: LAUNCH_PHOTOS[r.who]?.img ?? "",
     alt: LAUNCH_PHOTOS[r.who]?.alt ?? "",
     focus: LAUNCH_PHOTOS[r.who]?.focus ?? "upper",
@@ -157,6 +160,8 @@ function parse(data: unknown): Content {
 
   return {
     ...parsed.data,
+    // Awards saved before logos existed take the publication's logo the site ships with
+    awards: parsed.data.awards.map((a) => ({ ...a, logo: a.logo ?? LOGOS[a.who] ?? "" })),
     press: {
       ...parsed.data.press,
       bio: parsed.data.press.bio.map(currentTerms),

@@ -90,6 +90,17 @@ export const CHAPTERS: Chapter[] = [
   },
 ];
 
+// The record in figures (client, Raj, 2026-10-05: "the website needs a lot more numbers"). Every figure is
+// from the client's own documents: "Kalpesh Kinariwala all time achievements doc" and KK_MEDIA_PROFILE.pdf.
+export const NUMBERS = [
+  { k: "25+", v: "Years building", d: "From a hundred-square-foot office, 2001" },
+  { k: "4", v: "Companies founded", d: "Pantheon Group to Pantheon A.C.R." },
+  { k: "1,000+", v: "Homes delivered", d: "Pantheon Development, Dubai" },
+  { k: "10", v: "Developments", d: "Delivered or launched" },
+  { k: "2", v: "Emirates", d: "Dubai and Ras Al Khaimah" },
+  { k: "#2", v: "Best Workplace", d: "Real Estate, Middle East 2026" },
+];
+
 // Brief §5.4: Pantheon today, with live events leading.
 // Client copy, 2026-10-03: two verticals, with HOP leading Art & Culture.
 export const PANTHEON_NOW = [
@@ -179,10 +190,30 @@ export const RECOGNITION = [
   { who: "Entrepreneur Middle East", what: "The 100 NRIs", y: "2026" },
   { who: "Shows of India", what: "Anchor sponsor, HOP Events", y: "2026" },
   { who: "Forbes Middle East", what: "Most Impactful Real Estate Leaders", y: "2026" },
+  // From the client's achievements document (2026-10-05)
+  { who: "AsiaOne", what: "Global Asian of the Year", y: "2026" },
+  { who: "Construction Week Property Awards", what: "Realty Personality of the Year", y: "2026" },
   { who: "Construction Week", what: "The Power 150", y: "2026" }, // from the cover; year from when he posted it
-  { who: "The Ultimate Realty Awards", what: "Developer of the Year — Affordable Luxury", y: "2025" },
+  { who: "Great Place to Work", what: "#2 Best Workplace in Real Estate, Middle East — Pantheon Development", y: "2026" },
+  { who: "Finance World", what: "Top 100 Expat Leaders in the UAE", y: "2025" },
+  // Award names as KK_MEDIA_PROFILE.pdf gives them (the user chose the PDF where the documents disagreed)
+  { who: "The Ultimate Realty Awards", what: "Best Developer — Delivery & Payment Plan", y: "2025" },
+  { who: "Arabian Business Real Estate Awards", what: "Developer of the Year — Best Affordable Luxury Property", y: "2019" },
   { who: "UAE Government", what: "Golden Visa", y: "2021" },
 ];
+
+// The publications' own logos (public/logo), shown in white beside the awards; the team can swap or add
+// one per award in /admin. The rest (Shows of India, Finance World, Arabian Business, the UAE Government) show
+// their names until the client sends their logos.
+export const LOGOS: Record<string, string> = {
+  "Entrepreneur Middle East": "/logo/entrepreneur-middle-east.svg",
+  "Forbes Middle East": "/logo/forbes-middle-east.svg",
+  "Construction Week": "/logo/construction-week.png",
+  "Construction Week Property Awards": "/logo/construction-week.png",
+  "The Ultimate Realty Awards": "/logo/ultimate-realty-awards.png",
+  AsiaOne: "/logo/asiaone.png",
+  "Great Place to Work": "/logo/great-place-to-work.png", // its lettering only, set on two lines
+};
 
 // Brief §5.7: capital, partner with HOP, careers, press, contact.
 export type Door = {
@@ -290,7 +321,9 @@ export const PRESS_FACTS = [
   { k: "Based", v: "Dubai, United Arab Emirates" },
   { k: "First company", v: "Pantheon Group, 2001 — mining chemical distribution" },
   { k: "Real estate", v: "Pantheon Development, 2016 — 1,000+ homes handed over in JVC" },
+  { k: "Track record", v: "25+ years; 4 companies founded; 10 developments across Dubai and Ras Al Khaimah" },
   { k: "Live entertainment", v: "HOP Events — sold-out Etihad Arena; anchor sponsor, Shows of India 2026" },
+  { k: "Workplace", v: "Pantheon Development — #2 Best Workplace in Real Estate, Middle East 2026 (Great Place to Work)" },
   { k: "Capital market", v: "Details on request" }, // TODO: approved description of the fund
 ];
 

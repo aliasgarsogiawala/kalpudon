@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Giant from "./Giant";
+import Outlet from "./Outlet";
 import Sheet, { WRAP } from "./Sheet";
 import { getContent } from "../_lib/content";
 import { CHAPTERS, type Chapter } from "./data";
@@ -70,12 +71,12 @@ export default async function Proof() {
           ))}
         </ul>
 
-        <div className="mt-24 grid gap-6 sm:grid-cols-2 md:mt-24 lg:mt-[6svh] lg:grid-cols-4 lg:items-baseline lg:gap-x-8">
+        <div className="mt-24 grid gap-8 sm:grid-cols-2 md:mt-24 lg:mt-[6svh] lg:grid-cols-4 lg:items-end lg:gap-x-8">
           <p className="t-note text-bone/60">Recognised by</p>
           {recognised.map((r) => (
             <div key={r.who + r.y}>
-              <p className="t-body font-bold text-bone">{r.who}</p>
-              <p className="t-note text-bone/60">
+              <Outlet who={r.who} logo={r.logo} />
+              <p className="t-note mt-3 text-bone/60">
                 {r.what}, {r.y}
               </p>
             </div>
