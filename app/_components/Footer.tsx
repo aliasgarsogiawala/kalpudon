@@ -28,8 +28,6 @@ const SITE = [
   { href: "/hop", label: "Art & Culture" },
   { href: "/real-estate", label: "Real Estate" },
   { href: "/ideas", label: "Ideas" },
-  { href: "/press", label: "Press" },
-  { href: "/contact", label: "Contact" },
 ];
 
 const link = "transition-opacity duration-300 hover:opacity-60";
@@ -80,7 +78,7 @@ export default function Footer() {
             </ul>
           </nav>
           <p className="text-[13px] leading-relaxed text-bone/55 md:col-span-3 md:text-right">
-            Photography: Kalpesh Kinariwala and HOP Events. Some images are placeholders until the brand shoot.
+            Photography: Kalpesh Kinariwala and HOP Events.
           </p>
         </div>
       </div>

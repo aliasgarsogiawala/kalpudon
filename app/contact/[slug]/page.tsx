@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/contact/[slug]">)
   const door = DOORS.find((d) => d.slug === slug);
   if (!door) return {};
   return {
-    title: `${door.label} — Contact`,
+    title: door.label === "Contact" ? "Get in touch" : `${door.label} — Contact`,
     description: `${door.body} ${door.who}.`,
     alternates: { canonical: `/contact/${door.slug}` },
   };

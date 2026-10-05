@@ -93,7 +93,7 @@ export default async function PressPage() {
           </div>
         </section>
 
-        {/* Awards: the moments with photographs first, then the rest, on the same three columns */}
+        {/* Awards: the moments with photographs first, then a card for every other award */}
         <section data-theme="dark" className="relative isolate bg-ink text-bone">
           <WashLayer wash="ink" />
           <div className={`${WRAP} flex min-h-[100svh] flex-col py-28 md:pb-[5svh] md:pt-[max(100px,12svh)]`}>
@@ -126,12 +126,19 @@ export default async function PressPage() {
             </ul>
             )}
 
-            <ul className="mt-14 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-3 md:gap-8 lg:mt-[6svh]">
+            {/* Every other award on a card of its own: the publication's logo, large, on a dark plate */}
+            <ul className="mt-16 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-8 lg:mt-[7svh] lg:grid-cols-4">
               {others.map((r) => (
-                <li key={r.who + r.y}>
-                  <Outlet who={r.who} logo={r.logo} />
-                  <p className="t-note mt-3 text-bone/60">
-                    {r.what}, {r.y}
+                <li key={r.who + r.what}>
+                  <div
+                    data-fade
+                    className="relative flex aspect-[4/3] items-center justify-center overflow-hidden border border-white/10 bg-gradient-to-b from-gold/[0.09] via-white/[0.02] to-transparent"
+                  >
+                    <Outlet who={r.who} logo={r.logo} plate />
+                  </div>
+                  <p className="t-body mt-4 font-bold">{r.what}</p>
+                  <p className="t-note mt-1 text-bone/60">
+                    {r.logo ? r.y : `${r.who}, ${r.y}`}
                   </p>
                 </li>
               ))}

@@ -13,6 +13,7 @@ const COVER: Record<string, string> = { paper: "bg-paper", gold: "bg-gold" };
 //   data-card3d       a print turned in space settles flat as its section passes
 //   data-parallax     element drifts against the scroll (value = strength)
 //   data-scrub-words  words brighten as the reader scrolls through them
+//   data-draw         a hairline draws itself as its block scrolls through ("x" across, "y" down)
 //   data-count        a figure ("1,000+", "#2") counts up from zero to itself when it comes into view
 //   data-cutout       a cut-out of him fades in slowly (value = delay in seconds), drifting in from the
 //                     side data-cutout-x gives (xPercent, default 6)
@@ -89,6 +90,15 @@ export default function Reveals() {
             onComplete: () => void (el.textContent = final),
             scrollTrigger: { trigger: el, start: "top 90%", once: true },
           });
+        });
+
+        gsap.utils.toArray<HTMLElement>("[data-draw]").forEach((el) => {
+          const axis = el.dataset.draw === "y" ? "scaleY" : "scaleX";
+          gsap.fromTo(
+            el,
+            { [axis]: 0 },
+            { [axis]: 1, ease: "none", scrollTrigger: { trigger: el.parentElement, start: "top 85%", end: "bottom 55%", scrub: true } },
+          );
         });
 
         gsap.utils.toArray<HTMLElement>("[data-cutout]").forEach((el) => {

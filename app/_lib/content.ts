@@ -86,6 +86,11 @@ const LAUNCH_PHOTOS: Record<string, Pick<Award, "img" | "alt" | "focus">> = {
     focus: "top",
   },
   "Shows of India": { img: "/img/ig-podium-2.jpg", alt: "Kalpesh Kinariwala speaking at Shows of India 2026, Delhi", focus: "upper" },
+  AsiaOne: {
+    img: "/img/kk-award-asiaone.jpg",
+    alt: "Kalpesh Kinariwala holding the AsiaOne Global Asian of the Year plaque and trophy",
+    focus: "top",
+  },
 };
 const ON_HOME = ["Entrepreneur Middle East", "Forbes Middle East", "Shows of India"];
 

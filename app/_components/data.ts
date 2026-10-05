@@ -101,6 +101,19 @@ export const NUMBERS = [
   { k: "#2", v: "Best Workplace", d: "Real Estate, Middle East 2026" },
 ];
 
+// Career milestones in order, as the client's achievements document lays them out (2026-10-05). The 2008
+// line is the site's existing claim (Pantheon Group's proof card).
+export const MILESTONES = [
+  { y: "2001", t: "Pantheon Group", d: "Founded from a 100 sq. ft. office with about US$2,000 of borrowed capital." },
+  { y: "2008", t: "A global leader", d: "Pantheon Group becomes the world’s leading mining chemical distributor." },
+  { y: "2016", t: "Pantheon Development", d: "Enters UAE real estate to make luxury living accessible, without compromising quality." },
+  { y: "2019", t: "Arabian Business", d: "Developer of the Year — Best Affordable Luxury Property." },
+  { y: "2024–26", t: "Ras Al Khaimah", d: "Among the first private developers in RAK Central: One RAK Central, VOXA, Elysée Heights." },
+  { y: "2025", t: "HOP Events", d: "Founded. Pantheon Development named Best Developer — Delivery & Payment Plan, and certified a Great Place to Work." },
+  { y: "2026", t: "Pantheon A.C.R.", d: "Art, Culture and Real Estate become one platform; HOP signs an exclusive UAE and GCC partnership with Warner Music." },
+  { y: "2026", t: "The year of recognition", d: "Forbes Middle East, Entrepreneur’s 100 NRIs, AsiaOne Global Asian of the Year, Construction Week Power 150." },
+];
+
 // Brief §5.4: Pantheon today, with live events leading.
 // Client copy, 2026-10-03: two verticals, with HOP leading Art & Culture.
 export const PANTHEON_NOW = [
@@ -287,7 +300,7 @@ export const DOORS: Door[] = [
     offers: ["Biography", "Media kit", "Interview requests"],
     cta: "Request the media kit",
     field: "Publication",
-    img: "/img/door-press-v2.jpg",
+    img: "/img/door-press-v3.jpg",
     pos: "object-[50%_20%]",
     href: "/press", // brief §3: press goes to the press & media kit page
     page: { href: "/press", label: "Biography and fact sheet" },
