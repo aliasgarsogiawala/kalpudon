@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "./_components/data";
 import "./globals.css";
@@ -18,7 +19,10 @@ export const metadata: Metadata = {
     images: [{ url: "/img/kk-gtn-portrait.jpg", width: 1464, height: 1830, alt: "Kalpesh Kinariwala" }],
   },
   twitter: { card: "summary_large_image" },
+  verification: { google: "yG8uKVSGCkqIw8lU8Q-84Br1woHJXMKck-PTBXecEMI" },
 };
+
+const GA_ID = "G-G7C9N26WN2";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -29,6 +33,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
         {children}
         <Analytics />
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+        </Script>
       </body>
     </html>
   );
