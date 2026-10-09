@@ -4,6 +4,7 @@ import { logout } from "./actions";
 const LINKS = [
   { href: "/admin", label: "Overview" },
   { href: "/admin/ideas", label: "Ideas" },
+  { href: "/admin/podcasts", label: "Podcasts" },
   { href: "/admin/press", label: "Press" },
   { href: "/admin/awards", label: "Awards" },
 ];

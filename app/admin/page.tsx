@@ -9,6 +9,7 @@ export default async function AdminHome() {
   const live = content.ideas.filter((i) => i.date).length;
   const cards = [
     { href: "/admin/ideas", title: "Ideas", note: `${live} published, ${content.ideas.length - live} in preparation`, body: "Essays and talks for the Ideas hub. The first three also appear on the home page." },
+    { href: "/admin/podcasts", title: "Podcasts", note: `${content.podcasts.length} episodes`, body: "Podcast and interview episodes from YouTube. The first five also appear on the home page." },
     { href: "/admin/press", title: "Press", note: `${content.press.facts.length} facts, ${content.press.kit.length} media-kit files`, body: "The biography, the fact sheet and the files journalists can download." },
     { href: "/admin/awards", title: "Awards", note: `${content.awards.length} awards`, body: "Awards and recognition for the press page, and the three shown on the home page." },
   ];
@@ -23,7 +24,7 @@ export default async function AdminHome() {
             : "Nothing has been saved yet: the site is showing the content it launched with."}{" "}
           Changes appear on the site as soon as you save.
         </p>
-        <ul className="mt-10 grid gap-4 md:grid-cols-3">
+        <ul className="mt-10 grid gap-4 md:grid-cols-2">
           {cards.map((c) => (
             <li key={c.href}>
               <Link href={c.href} className="block h-full rounded-xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-gold/60">

@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { del, get, list, put, type ListBlobResultBlob } from "@vercel/blob";
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { z } from "zod";
-import { IDEAS, LOGOS, PILLARS, PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
+import { IDEAS, LOGOS, PILLARS, PODCASTS, PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
 
 // The light CMS (brief §6, §8): everything the team edits lives in one JSON document in Vercel Blob.
 // Until the first save from /admin, the site shows the defaults below (the content it launched with).
@@ -63,6 +63,33 @@ export const PressSchema = z.object({
   kit: z.array(z.object({ label: text(120).min(1, "Name the file"), url: link.refine((v) => v !== "", "Upload the file") })).max(30),
 });
 
+/** The YouTube video id in a youtu.be, watch, embed, shorts or live link; null for anything else. */
+export function youtubeId(url: string): string | null {
+  try {
+    const u = new URL(url);
+    const host = u.hostname.replace(/^(www|m)\./, "");
+    const id =
+      host === "youtube.com" || host === "youtube-nocookie.com"
+        ? (u.searchParams.get("v") ?? u.pathname.match(/^\/(?:embed|shorts|live)\/([\w-]+)/)?.[1])
+        : host === "youtu.be"
+          ? u.pathname.slice(1)
+          : null;
+    return id && /^[\w-]{6,20}$/.test(id) ? id : null;
+  } catch {
+    return null;
+  }
+}
+
+export const PodcastSchema = z.object({
+  url: z
+    .string()
+    .trim()
+    .refine((v) => youtubeId(v) !== null, "Paste the episode's YouTube link, e.g. https://youtu.be/…"),
+  title: text(160).min(1, "Add the episode's title"),
+  show: text(120).min(1, "Name the show"),
+  date: z.union([z.literal(""), z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Pick a date")]),
+});
+
 export const ContentSchema = z.object({
   ideas: z
     .array(IdeaSchema)
@@ -70,12 +97,15 @@ export const ContentSchema = z.object({
     .refine((ideas) => new Set(ideas.map((i) => i.slug)).size === ideas.length, "Two ideas share a web address"),
   press: PressSchema,
   awards: z.array(AwardSchema).max(60),
+  // Content saved before podcasts existed has none; it takes the episodes the site launched with
+  podcasts: z.array(PodcastSchema).max(100).default(() => PODCASTS.map((p) => ({ ...p }))),
   savedAt: z.string().optional(),
 });
 
 export type Idea = z.infer<typeof IdeaSchema>;
 export type Award = z.infer<typeof AwardSchema>;
 export type Press = z.infer<typeof PressSchema>;
+export type Podcast = z.infer<typeof PodcastSchema>;
 export type Content = z.infer<typeof ContentSchema>;
 
 // Photographs the launch awards already had on the press page
@@ -117,6 +147,7 @@ export const DEFAULT_CONTENT: Content = {
     featured: r.who in LAUNCH_PHOTOS,
     home: ON_HOME.includes(r.who),
   })),
+  podcasts: PODCASTS.map((p) => ({ ...p })),
 };
 
 const configured = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
@@ -189,7 +220,7 @@ export const getContent = unstable_cache(
       return DEFAULT_CONTENT;
     }
   },
-  ["cms-content", "terminology-v2", "photos-2026-10-02b"],
+  ["cms-content", "terminology-v2", "photos-2026-10-02b", "podcasts-v1"],
   { tags: [TAG], revalidate: 60 },
 );
 

@@ -11,7 +11,7 @@ import { CHAPTERS, DEVELOPMENTS } from "../_components/data";
 export const metadata: Metadata = {
   title: "Real Estate",
   description:
-    "Pantheon Development, Dubai: affordable luxury, delivered on schedule — more than 1,000 homes handed over in Jumeirah Village Circle since 2016.",
+    "Pantheon Development, Dubai: affordable luxury, delivered on schedule — 5,000+ apartments launched and sold to buyers from over 72 countries, AED 4.2 billion in gross development value and 1,000+ apartments delivered since 2016.",
   alternates: { canonical: "/real-estate" },
 };
 
@@ -19,10 +19,13 @@ const estate = CHAPTERS.find((c) => c.sector === "Real estate")!;
 
 // The menu's Real Estate (client, 2026-09-29). Brief §2 still holds: real estate is one of the four markets
 // he has built a platform in, never the identity, so the page states the record and nothing grander.
-// Figures from the client's achievements document and media profile (October 2026).
+// Figures from the client's achievements document and media profile (October 2026), and Raj (2026-10-09).
 const RECORD = [
   { k: `Since ${estate.since}`, v: estate.entity },
-  { k: "1,000+ homes", v: "Handed over in Jumeirah Village Circle", count: true },
+  { k: "5,000+ apartments", v: "Launched and sold", count: true },
+  { k: "72+ countries", v: "Where the buyers come from", count: true },
+  { k: "AED 4.2 billion", v: "Gross development value", count: true },
+  { k: "1,000+ apartments", v: "Delivered, in Jumeirah Village Circle", count: true },
   { k: "10 developments", v: "Delivered or launched, with thousands more homes in the pipeline", count: true },
   { k: "2 emirates", v: "Dubai, and Ras Al Khaimah — among the first private developers in RAK Central", count: true },
   { k: "On schedule", v: "Known in the industry as “the Delivery Man of JVC”" },
@@ -58,8 +61,9 @@ export default function RealEstatePage() {
               />
             }
           >
+            {/* The figures are all in the record below, so the line above it is the promise alone */}
             <p data-fade className="t-lead max-w-[40ch] text-bone">
-              {estate.proof} {estate.headline}
+              {estate.headline}
             </p>
             <div>
               <dl data-fade className="grid gap-8 border-t border-white/15 pt-6 sm:grid-cols-3">

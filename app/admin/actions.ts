@@ -2,7 +2,18 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { AwardSchema, ContentError, IdeaSchema, PressSchema, updateContent, type Award, type Idea, type Press } from "../_lib/content";
+import {
+  AwardSchema,
+  ContentError,
+  IdeaSchema,
+  PodcastSchema,
+  PressSchema,
+  updateContent,
+  type Award,
+  type Idea,
+  type Podcast,
+  type Press,
+} from "../_lib/content";
 import { endSession, isAdmin, passwordMatches, startSession } from "../_lib/session";
 
 export type Result = { ok: boolean; message: string } | null;
@@ -102,6 +113,17 @@ export async function saveAwards(awards: Award[]): Promise<Result> {
     const clean = z.array(AwardSchema).max(60).parse(awards);
     await updateContent((content) => ({ ...content, awards: clean }));
     return { ok: true, message: "Saved. The press page and the home page are updated." };
+  } catch (error) {
+    return failure(error);
+  }
+}
+
+export async function savePodcasts(podcasts: Podcast[]): Promise<Result> {
+  try {
+    await guard();
+    const clean = z.array(PodcastSchema).max(100).parse(podcasts);
+    await updateContent((content) => ({ ...content, podcasts: clean }));
+    return { ok: true, message: "Saved. The podcasts page and the home page are updated." };
   } catch (error) {
     return failure(error);
   }

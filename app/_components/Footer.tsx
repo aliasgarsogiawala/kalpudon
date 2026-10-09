@@ -20,6 +20,12 @@ const ICONS: Record<string, React.ReactNode> = {
       />
     </svg>
   ),
+  YouTube: (
+    <svg viewBox="0 0 24 24" className="size-[22px]" aria-hidden>
+      <rect x="2.5" y="5" width="19" height="14" rx="4.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M10 9v6l5.2-3L10 9Z" fill="currentColor" />
+    </svg>
+  ),
 };
 
 // The sitemap (brief §4).
@@ -28,6 +34,7 @@ const SITE = [
   { href: "/hop", label: "Art & Culture" },
   { href: "/real-estate", label: "Real Estate" },
   { href: "/ideas", label: "Ideas" },
+  { href: "/podcasts", label: "Podcasts" },
 ];
 
 const link = "transition-opacity duration-300 hover:opacity-60";

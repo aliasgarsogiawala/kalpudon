@@ -6,6 +6,7 @@ import Numbers from "./_components/Numbers";
 import Timeline from "./_components/Timeline";
 import Hop from "./_components/Hop";
 import Ideas from "./_components/Ideas";
+import Podcasts from "./_components/Podcasts";
 import Legacy from "./_components/Legacy";
 import Doors from "./_components/Doors";
 import { SITE_URL } from "./_components/data";
@@ -38,6 +39,7 @@ export default function Home() {
         <Timeline />
         <Hop />
         <Ideas />
+        <Podcasts />
         <Legacy />
         <Doors />
       </main>

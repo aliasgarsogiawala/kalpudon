@@ -15,11 +15,13 @@ export const SITE_URL = "https://kalpeshkinariwala.com"; // TODO: confirm the pr
 
 // Primary navigation, as the client set it (2026-09-29): Art & Culture (HOP and the Pantheon arts, whose page
 // is /hop), Real Estate, Ideas and Press, with Contact as the button that opens the five audience doors.
+// Podcasts joined on 2026-10-09 (Raj: a page of its own, and a section on the home page).
 // Everything else is a section of the home page.
 export const NAV = [
   { href: "/hop", id: "hop", label: "Art & Culture" },
   { href: "/real-estate", label: "Real Estate" },
   { href: "/ideas", label: "Ideas" },
+  { href: "/podcasts", label: "Podcasts" },
   { href: "/press", label: "Press" },
 ] as const;
 
@@ -59,10 +61,10 @@ export const CHAPTERS: Chapter[] = [
   {
     n: "02",
     sector: "Capital Market",
-    since: "Ongoing",
-    entity: "Private mandates", // TODO: confirm fund names and dates with client
+    since: "2010",
+    entity: "Hedge fund, India",
     headline: "Returns are an output. The floor is the only thing you control.",
-    proof: "Track record and allocation approach, on request.", // TODO: approved description of the fund
+    proof: "The first company in India to start a long-short algorithmic hedge fund.", // Raj, 2026-10-09
     img: "/img/capital-boardroom.jpg",
     alt: "Kalpesh Kinariwala in the boardroom",
     href: "/contact/capital",
@@ -73,7 +75,8 @@ export const CHAPTERS: Chapter[] = [
     since: "2016",
     entity: "Pantheon Development, Dubai",
     headline: "Affordable luxury, delivered on schedule.",
-    proof: "1,000+ homes handed over in Jumeirah Village Circle.",
+    // Raj, 2026-10-09: "we must say that"
+    proof: "5,000+ apartments launched and sold to buyers from 72+ countries. AED 4.2bn GDV. 1,000+ delivered.",
     img: "/img/shoot-estate-card.jpg",
     alt: "Kalpesh Kinariwala at Pantheon Development",
   },
@@ -91,11 +94,15 @@ export const CHAPTERS: Chapter[] = [
 ];
 
 // The record in figures (client, Raj, 2026-10-05: "the website needs a lot more numbers"). Every figure is
-// from the client's own documents: "Kalpesh Kinariwala all time achievements doc" and KK_MEDIA_PROFILE.pdf.
+// from the client's own documents: "Kalpesh Kinariwala all time achievements doc" and KK_MEDIA_PROFILE.pdf;
+// the apartments, buyers' countries and development value from Raj on 2026-10-09.
 export const NUMBERS = [
   { k: "25+", v: "Years building", d: "From a hundred-square-foot office, 2001" },
   { k: "4", v: "Companies founded", d: "Pantheon Group to Pantheon A.C.R." },
-  { k: "1,000+", v: "Homes delivered", d: "Pantheon Development, Dubai" },
+  { k: "5,000+", v: "Apartments launched & sold", d: "Pantheon Development" },
+  { k: "4.2bn", v: "AED gross development value", d: "Pantheon Development" },
+  { k: "72+", v: "Buyers’ countries", d: "Pantheon Development" },
+  { k: "1,000+", v: "Apartments delivered", d: "Pantheon Development, Dubai" },
   { k: "10", v: "Developments", d: "Delivered or launched" },
   { k: "2", v: "Emirates", d: "Dubai and Ras Al Khaimah" },
   { k: "#2", v: "Best Workplace", d: "Real Estate, Middle East 2026" },
@@ -164,6 +171,38 @@ export const PRODUCTIONS = [
   { img: "/img/hop-dancers.jpg", t: "Choreography", w: "wide" },
   { img: "/img/hop-confetti.jpg", t: "The room", w: "wide" },
 ] as const;
+
+// The podcasts and interviews Raj sent on 2026-10-09, newest first, with each title and channel exactly as
+// YouTube lists them. The team edits the list in /admin; these are the defaults until the first save there.
+export const PODCASTS = [
+  {
+    url: "https://youtu.be/qbVyOYJDoys",
+    title: "Visionaries in Conversation: Kalpesh Kinariwala & Dr. Anand Menon on Real Estate Innovation",
+    show: "Pantheon Development",
+    date: "2025-06-04",
+  },
+  { url: "https://youtu.be/MdzTqX6AuZo", title: "“Tariffs do not stop at borders” | Kalpesh Kinariwala", show: "Pantheon Development", date: "2025-04-22" },
+  { url: "https://youtu.be/fVX_zyTPnrU", title: "#EMARATI “Untold Journeys” Mr. Kalpesh Kinariwala | season6", show: "EMARATI PROGRAM", date: "2024-12-16" },
+  {
+    url: "https://youtu.be/PrKgXNlJjGQ",
+    title: "Founder of Pantheon Development, Kalpesh Kinariwala: I Don’t Sell A Product, I Sell A Solution",
+    show: "Beyond The Blueprint",
+    date: "2024-10-31",
+  },
+  {
+    url: "https://youtu.be/qCdZWzFc8VY",
+    title: "that strada podcast ep5 | aed 188m villa in district 1 | properties by pantheon development",
+    show: "Strada UAE",
+    date: "2024-03-25",
+  },
+];
+
+/** "June 2025" for an episode's date; empty when it has none. */
+export const aired = (date: string) =>
+  date ? new Date(`${date}T12:00:00Z`).toLocaleDateString("en-GB", { month: "long", year: "numeric" }) : "";
+
+// His own YouTube channel, where the rest of the recordings live
+export const YOUTUBE = "https://www.youtube.com/@kalpeshkinariwala5593";
 
 // Brief §6: categories map to his pillars.
 export const PILLARS = ["The Widest", "Manage Risk", "Platform Thinking", "Life & Lessons", "Building People"] as const;
@@ -342,7 +381,7 @@ export const DOORS: Door[] = [
 // Launch defaults: the team edits the biography and fact sheet in /admin.
 export const PRESS_BIO = [
   "Kalpesh Kinariwala is a Dubai-based founder who builds platforms in fragmented markets — mining chemicals, capital markets, real estate and live entertainment.",
-  "He started Pantheon Group in 2001 from a hundred-square-foot office with US$2,000 of borrowed money. By 2008 it was the world’s leading mining chemical distributor. In 2016 he founded Pantheon Development in Dubai, which has handed over more than 1,000 homes in Jumeirah Village Circle.",
+  "He started Pantheon Group in 2001 from a hundred-square-foot office with US$2,000 of borrowed money. By 2008 it was the world’s leading mining chemical distributor. In 2010 his company became the first in India to start a long-short algorithmic hedge fund. In 2016 he founded Pantheon Development in Dubai, which has launched and sold more than 5,000 apartments to buyers from over 72 countries — AED 4.2 billion in gross development value — and delivered more than 1,000.",
   "His current focus is HOP Events, which produces arena-scale shows with India’s leading artists — including a sold-out Etihad Arena with Arijit Singh and A.R. Rahman — and was anchor sponsor of Shows of India 2026.",
 ];
 
@@ -360,16 +399,20 @@ export const PRESS_FACTS = [
   { k: "Roles", v: "Founder & Chairman — Pantheon A.C.R. (2026), HOP Events (2025), Pantheon Development (2016); founder, Pantheon Group (2001)" },
   { k: "Known as", v: "An affordable luxury real estate pioneer; “the Delivery Man of JVC”" },
   { k: "First company", v: "Pantheon Group, 2001 — mining chemical distribution" },
-  { k: "Real estate", v: "Pantheon Development, 2016 — 1,000+ homes handed over in JVC" },
+  {
+    k: "Real estate",
+    v: "Pantheon Development, 2016 — 5,000+ apartments launched and sold to buyers from 72+ countries; AED 4.2 billion gross development value; 1,000+ apartments delivered",
+  },
   { k: "Track record", v: "25+ years; 4 companies founded; 10 developments across Dubai and Ras Al Khaimah" },
   { k: "Live entertainment", v: "HOP Events — sold-out Etihad Arena; anchor sponsor, Shows of India 2026" },
   { k: "Workplace", v: "Pantheon Development — #2 Best Workplace in Real Estate, Middle East 2026 (Great Place to Work)" },
-  { k: "Capital market", v: "Details on request" }, // TODO: approved description of the fund
+  { k: "Capital market", v: "First company in India to start a long-short algorithmic hedge fund, 2010" },
 ];
 
 export const ELSEWHERE = [
   { href: "https://www.instagram.com/kalpesh.kinariwala/", label: "Instagram" },
   { href: "https://www.linkedin.com/in/kalpeshkinariwala/", label: "LinkedIn" }, // from his Instagram bio
+  { href: YOUTUBE, label: "YouTube" },
 ];
 
 // Each door is its own page (/contact/capital, /contact/hop, …); press lands on the press & media kit page.
