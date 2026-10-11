@@ -3,8 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Shell from "../../_components/Shell";
 import { WRAP, WashLayer } from "../../_components/Sheet";
-import { SITE_URL } from "../../_components/data";
-import { getContent, published, type Idea } from "../../_lib/content";
+import { getContent, published, youtubeId, type Idea } from "../../_lib/content";
+import { NAME, PERSON_ID, breadcrumbs, jsonLd, pageMeta, person, shareImage, url } from "../../_lib/seo";
 
 // One published piece from the Ideas hub (brief §6): the flagship long-form lives here, not on social
 // feeds. Pieces still in preparation have no page.
@@ -17,14 +17,19 @@ export async function generateStaticParams() {
   return published((await getContent()).ideas).map((i) => ({ slug: i.slug }));
 }
 
+// The summary, or else the opening of the piece, cut to a search-result length
+const summary = (idea: Idea) => {
+  const text = (idea.dek || idea.body || `${idea.format === "Video" ? "A talk" : "An essay"} by ${NAME}.`).replace(/\s+/g, " ").trim();
+  return text.length > 160 ? `${text.slice(0, 157).replace(/\s+\S*$/, "")}…` : text;
+};
+
 export async function generateMetadata({ params }: PageProps<"/ideas/[slug]">): Promise<Metadata> {
   const idea = await find((await params).slug);
   if (!idea) return {};
+  const meta = pageMeta({ title: idea.title, description: summary(idea), path: `/ideas/${idea.slug}`, image: "ideas" });
   return {
-    title: idea.title,
-    description: idea.dek,
-    alternates: { canonical: `/ideas/${idea.slug}` },
-    openGraph: { type: "article", title: idea.title, description: idea.dek, publishedTime: idea.date },
+    ...meta,
+    openGraph: { ...meta.openGraph, type: "article", publishedTime: idea.date, authors: [url("/")], section: idea.category },
   };
 }
 
@@ -54,18 +59,35 @@ export default async function IdeaPage({ params }: PageProps<"/ideas/[slug]">) {
   if (!idea) notFound();
   const video = idea.format === "Video" && idea.video ? player(idea.video) : null;
   const date = new Date(`${idea.date}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-  const ld = {
-    "@context": "https://schema.org",
-    "@type": idea.format === "Video" ? "VideoObject" : "Article",
-    ...(idea.format === "Video" ? { name: idea.title, uploadDate: idea.date } : { headline: idea.title, datePublished: idea.date }),
-    description: idea.dek,
-    author: { "@type": "Person", name: "Kalpesh Kinariwala", url: SITE_URL },
-    url: `${SITE_URL}/ideas/${idea.slug}`,
-  };
+  const yt = idea.format === "Video" ? youtubeId(idea.video) : null;
+  const ld = jsonLd(
+    {
+      "@type": idea.format === "Video" ? "VideoObject" : "Article",
+      ...(idea.format === "Video"
+        ? {
+            name: idea.title,
+            uploadDate: idea.date,
+            thumbnailUrl: yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : url(shareImage("ideas").url),
+            ...(video?.kind === "frame" ? { embedUrl: video.src } : video ? { contentUrl: video.src } : {}),
+          }
+        : { headline: idea.title, datePublished: idea.date, dateModified: idea.date, image: url(shareImage("ideas").url), articleSection: idea.category }),
+      description: summary(idea),
+      inLanguage: "en",
+      author: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+      mainEntityOfPage: url(`/ideas/${idea.slug}`),
+      url: url(`/ideas/${idea.slug}`),
+    },
+    person(),
+    breadcrumbs([
+      { name: "Ideas", path: "/ideas" },
+      { name: idea.title, path: `/ideas/${idea.slug}` },
+    ]),
+  );
 
   return (
     <Shell>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld }} />
       <main>
         <article data-theme="dark" className="relative isolate min-h-[100svh] bg-plum text-bone">
           <WashLayer wash="plum" />

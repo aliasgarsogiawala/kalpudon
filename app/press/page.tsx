@@ -9,12 +9,15 @@ import { WRAP, WashLayer } from "../_components/Sheet";
 import Scene, { ScenePhoto } from "../_components/Scene";
 import { PHILOSOPHY } from "../_components/data";
 import { FOCUS, getContent } from "../_lib/content";
+import { breadcrumbs, jsonLd, pageMeta } from "../_lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Press",
-  description: "Biography, fact sheet, awards and media kit requests for Kalpesh Kinariwala.",
-  alternates: { canonical: "/press" },
-};
+  description:
+    "Press and media for Kalpesh Kinariwala: biography, fact sheet, awards including AsiaOne Global Asian of the Year 2026, and media kit requests.",
+  path: "/press",
+  image: "press",
+});
 
 // Three full screens: the opening, the biography with the facts, and the awards. One typeface
 // throughout; weight, size and colour carry the order of importance.
@@ -25,6 +28,7 @@ export default async function PressPage() {
   const others = awards.filter((a) => !(a.featured && a.img));
   return (
     <Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs([{ name: "Press", path: "/press" }])) }} />
       <main>
         <PageHero
           word="Press"
@@ -60,8 +64,8 @@ export default async function PressPage() {
               <h2 className="t-note text-gold-soft">Biography</h2>
               <p className="t-lead mt-3 max-w-[42ch]">{press.bio[0]}</p>
               <div className="mt-5 grid gap-5 md:grid-cols-2 md:gap-8">
-                {press.bio.slice(1).map((p) => (
-                  <p key={p} className="t-body text-bone/75">
+                {press.bio.slice(1).map((p, i) => (
+                  <p key={i} className="t-body text-bone/75">
                     {p}
                   </p>
                 ))}
@@ -69,8 +73,8 @@ export default async function PressPage() {
 
               <h2 className="t-note mt-10 text-gold-soft lg:mt-[5svh]">Fact sheet</h2>
               <dl className="mt-3 border-t border-white/10">
-                {press.facts.map((f) => (
-                  <div key={f.k} className="grid gap-1 border-b border-white/10 py-3 md:grid-cols-12 md:items-baseline md:gap-8 lg:py-[1.3svh]">
+                {press.facts.map((f, i) => (
+                  <div key={i} className="grid gap-1 border-b border-white/10 py-3 md:grid-cols-12 md:items-baseline md:gap-8 lg:py-[1.3svh]">
                     <dt className="t-note text-bone/55 md:col-span-3">{f.k}</dt>
                     <dd className="t-body text-bone md:col-span-9">{f.v}</dd>
                   </div>
@@ -81,8 +85,8 @@ export default async function PressPage() {
                 <>
                   <h2 className="t-note mt-10 text-gold-soft lg:mt-[5svh]">Media kit</h2>
                   <ul className="mt-3 flex flex-wrap gap-x-8 gap-y-2">
-                    {press.kit.map((f) => (
-                      <li key={f.url}>
+                    {press.kit.map((f, i) => (
+                      <li key={i}>
                         <a href={f.url} target="_blank" rel="noreferrer" download className="t-body link-line text-gold-soft">
                           {f.label} ↓
                         </a>
@@ -133,8 +137,8 @@ export default async function PressPage() {
 
             {featured.length > 0 && (
             <ul className="mt-12 grid gap-12 md:grid-cols-3 md:gap-x-8 md:gap-y-0 lg:mt-[5svh]">
-              {featured.map((f) => (
-                <li key={f.who + f.what} className="md:row-span-3 md:grid md:grid-rows-subgrid md:[&:nth-child(n+4)]:mt-14">
+              {featured.map((f, i) => (
+                <li key={i} className="md:row-span-3 md:grid md:grid-rows-subgrid md:[&:nth-child(n+4)]:mt-14">
                   <div data-reveal className="relative aspect-[4/5] w-full md:aspect-auto md:h-[34svh] md:min-h-[240px]">
                     <div data-reveal-clip className="absolute inset-0 overflow-hidden bg-smoke">
                       <Image src={f.img} alt={f.alt} fill sizes="(min-width:768px) 30vw, 90vw" className={`object-cover ${FOCUS[f.focus]}`} />
@@ -158,8 +162,8 @@ export default async function PressPage() {
 
             {/* Every other award on a card of its own: the publication's logo, large, on a dark plate */}
             <ul className="mt-16 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-8 lg:mt-[7svh] lg:grid-cols-4">
-              {others.map((r) => (
-                <li key={r.who + r.what}>
+              {others.map((r, i) => (
+                <li key={i}>
                   <div
                     data-fade
                     className="relative flex aspect-[4/3] items-center justify-center overflow-hidden border border-white/10 bg-gradient-to-b from-gold/[0.09] via-white/[0.02] to-transparent"

@@ -9,28 +9,24 @@ import Ideas from "./_components/Ideas";
 import Podcasts from "./_components/Podcasts";
 import Legacy from "./_components/Legacy";
 import Doors from "./_components/Doors";
-import { SITE_URL } from "./_components/data";
+import type { Metadata } from "next";
+import { getContent } from "./_lib/content";
+import { DESCRIPTION, NAME, PERSON_ID, WEBSITE_ID, jsonLd, pageMeta, person, url } from "./_lib/seo";
 
-// Structured data so search engines connect the name to the man and his profiles (brief §8).
-const person = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Kalpesh Kinariwala",
-  url: SITE_URL,
-  jobTitle: "Founder",
-  description: "Platform builder across mining chemicals, capital markets, real estate and live entertainment.",
-  homeLocation: { "@type": "Place", name: "Dubai, United Arab Emirates" },
-  sameAs: ["https://www.instagram.com/kalpesh.kinariwala/", "https://www.linkedin.com/in/kalpeshkinariwala/"],
-};
+export const metadata: Metadata = pageMeta({ title: "Platform builder", description: DESCRIPTION, path: "/", image: "home", type: "profile" });
 
-// The home page is a stack of sheets, each sliding over the last (see Sheets.tsx).
-export default function Home() {
+// Structured data so search engines connect the name to the man, his companies, his awards and his
+// profiles elsewhere (brief §8): the site, the profile page, and the person both point to.
+export default async function Home() {
+  const { awards } = await getContent();
+  const ld = jsonLd(
+    { "@type": "WebSite", "@id": WEBSITE_ID, url: url("/"), name: NAME, description: DESCRIPTION, inLanguage: "en", publisher: { "@id": PERSON_ID } },
+    { "@type": "ProfilePage", url: url("/"), name: `${NAME} — Platform builder`, isPartOf: { "@id": WEBSITE_ID }, mainEntity: { "@id": PERSON_ID } },
+    person({ award: awards.map((a) => [a.what, a.who, a.y].filter(Boolean).join(", ")) }),
+  );
   return (
     <Shell>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld }} />
       <main>
         <Hero />
         <Thesis />

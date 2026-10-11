@@ -11,7 +11,7 @@
 // upscale so skin keeps its texture), matted with BiRefNet, and the hero's old gold backdrop glow taken off the
 // jacket. Replace them with proper cut-outs from the brand shoot. The old Unsplash stock (ch-*.jpg, pantheon.jpg) is unused.
 
-export const SITE_URL = "https://kalpeshkinariwala.com"; // TODO: confirm the production domain
+export const SITE_URL = "https://www.kalpeshkinariwala.com"; // the live address: the bare domain redirects here
 
 // Primary navigation, as the client set it (2026-09-29): Art & Culture (HOP and the Pantheon arts, whose page
 // is /hop), Real Estate, Ideas and Press, with Contact as the button that opens the five audience doors.

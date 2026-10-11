@@ -1,24 +1,17 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import type { Podcast } from "../../_lib/content";
-import { savePodcasts, type Result } from "../actions";
+import { savePodcasts } from "../actions";
 import { THEMES } from "../../_components/data";
-import { SaveBar, Text, move, quietButtonClass } from "../_fields";
+import { SaveBar, Text, move, quietButtonClass, useSave } from "../_fields";
 
 const BLANK: Podcast = { url: "", title: "", show: "", date: "", theme: "", headline: "", dek: "" };
 
 export default function PodcastsForm({ initial }: { initial: Podcast[] }) {
   const [podcasts, setPodcasts] = useState(initial);
-  const [result, setResult] = useState<Result>(null);
-  const [pending, start] = useTransition();
+  const { save, result, pending, dirty } = useSave(podcasts, savePodcasts);
   const edit = (i: number, patch: Partial<Podcast>) => setPodcasts((list) => list.map((p, n) => (n === i ? { ...p, ...patch } : p)));
-
-  const save = () =>
-    start(async () => {
-      setResult(null);
-      setResult(await savePodcasts(podcasts));
-    });
 
   // Every theme in use, so a new one (events, culture) is offered once it has been typed in
   const themes = [...new Set([...THEMES, ...podcasts.map((p) => p.theme ?? "").filter(Boolean)])];
@@ -90,7 +83,7 @@ export default function PodcastsForm({ initial }: { initial: Podcast[] }) {
       <button type="button" onClick={() => setPodcasts([BLANK, ...podcasts])} className={quietButtonClass}>
         Add an episode at the top
       </button>
-      <SaveBar pending={pending} result={result} onSave={save} />
+      <SaveBar pending={pending} result={result} dirty={dirty} onSave={() => save()} />
     </div>
   );
 }

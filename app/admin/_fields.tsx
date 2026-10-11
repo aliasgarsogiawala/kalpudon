@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, useTransition, type ReactNode } from "react";
 import Image from "next/image";
 import { upload } from "@vercel/blob/client";
 import type { Result } from "./actions";
@@ -163,17 +163,69 @@ export function Upload({
   );
 }
 
+/**
+ * Saving one editor's value: catches a dropped connection (rather than losing the page to an error screen) and
+ * asks before the tab is closed or reloaded with changes that haven't been saved.
+ */
+export function useSave<T>(value: T, action: (value: T) => Promise<Result>, onSaved?: () => void) {
+  const [saved, setSaved] = useState(() => JSON.stringify(value));
+  const [result, setResult] = useState<Result>(null);
+  const [pending, start] = useTransition();
+  const dirty = JSON.stringify(value) !== saved;
+
+  useEffect(() => {
+    if (!dirty) return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty]);
+
+  const save = (check?: () => string | null) =>
+    start(async () => {
+      setResult(null);
+      const problem = check?.();
+      if (problem) return setResult({ ok: false, message: problem });
+      const snapshot = JSON.stringify(value);
+      try {
+        const done = await action(value);
+        setResult(done);
+        if (done?.ok) {
+          setSaved(snapshot);
+          onSaved?.();
+        }
+      } catch {
+        setResult({ ok: false, message: "Couldn't reach the server, so nothing was saved. Check the connection and save again." });
+      }
+    });
+
+  return { save, result, pending, dirty };
+}
+
 /** Sticky footer with the save button and what happened last. */
-export function SaveBar({ pending, result, onSave, label = "Save" }: { pending: boolean; result: Result; onSave: () => void; label?: string }) {
+export function SaveBar({
+  pending,
+  result,
+  onSave,
+  dirty,
+  label = "Save",
+}: {
+  pending: boolean;
+  result: Result;
+  onSave: () => void;
+  dirty?: boolean;
+  label?: string;
+}) {
   return (
     <div className="sticky bottom-0 z-10 -mx-5 mt-10 flex items-center gap-4 border-t border-white/10 bg-ink/90 px-5 py-4 backdrop-blur md:-mx-10 md:px-10">
       <button type="button" onClick={onSave} disabled={pending} className={buttonClass}>
         {pending ? "Saving…" : label}
       </button>
-      {result && (
+      {result && !(result.ok && dirty) ? (
         <p role="status" className={`text-[14px] ${result.ok ? "text-gold-soft" : "text-[#ff9b8a]"}`}>
           {result.message}
         </p>
+      ) : (
+        dirty && !pending && <p className="text-[14px] text-bone/55">Unsaved changes</p>
       )}
     </div>
   );

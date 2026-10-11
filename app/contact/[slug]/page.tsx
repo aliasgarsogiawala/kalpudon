@@ -6,6 +6,7 @@ import Shell from "../../_components/Shell";
 import { DOORS } from "../../_components/data";
 import { Directory } from "../../_components/Doors";
 import { WRAP } from "../../_components/Sheet";
+import { breadcrumbs, jsonLd, pageMeta } from "../../_lib/seo";
 import DoorForm from "./DoorForm";
 
 // One page per audience door (brief §3, §5.7).
@@ -23,11 +24,13 @@ export async function generateMetadata({ params }: PageProps<"/contact/[slug]">)
   const { slug } = await params;
   const door = DOORS.find((d) => d.slug === slug);
   if (!door) return {};
-  return {
+  return pageMeta({
     title: door.label === "Contact" ? "Get in touch" : `${door.label} — Contact`,
     description: `${door.body} ${door.who}.`,
-    alternates: { canonical: `/contact/${door.slug}` },
-  };
+    // A door that opens another page (press) points search there
+    path: door.href ?? `/contact/${door.slug}`,
+    image: door.slug === "hop" ? "hop" : "contact",
+  });
 }
 
 export default async function DoorPage({ params }: PageProps<"/contact/[slug]">) {
@@ -36,8 +39,15 @@ export default async function DoorPage({ params }: PageProps<"/contact/[slug]">)
   if (!door) notFound();
   const others = DOORS.filter((d) => d.slug !== slug);
 
+  const ld = jsonLd(
+    breadcrumbs([
+      { name: "Contact", path: "/contact" },
+      { name: door.label, path: `/contact/${door.slug}` },
+    ]),
+  );
   return (
     <Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld }} />
       <main>
         {/* Split: the door beside its photograph, the form next to it. The door holds still while the form scrolls. */}
         <section data-theme="dark" className="grid bg-ink pt-16 lg:min-h-[100svh] lg:grid-cols-12">

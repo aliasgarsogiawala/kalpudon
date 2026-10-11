@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import type { Press } from "../../_lib/content";
-import { savePress, type Result } from "../actions";
-import { Area, SaveBar, Text, Upload, move, quietButtonClass } from "../_fields";
+import { savePress } from "../actions";
+import { Area, SaveBar, Text, Upload, move, quietButtonClass, useSave } from "../_fields";
 
 function Section({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
   return (
@@ -33,13 +33,7 @@ function RowTools({ at, count, onMove, onRemove }: { at: number; count: number; 
 
 export default function PressForm({ initial }: { initial: Press }) {
   const [press, setPress] = useState(initial);
-  const [result, setResult] = useState<Result>(null);
-  const [pending, start] = useTransition();
-  const save = () =>
-    start(async () => {
-      setResult(null);
-      setResult(await savePress(press));
-    });
+  const { save, result, pending, dirty } = useSave(press, savePress);
 
   const setBio = (bio: string[]) => setPress((p) => ({ ...p, bio }));
   const setFacts = (facts: Press["facts"]) => setPress((p) => ({ ...p, facts }));
@@ -99,7 +93,7 @@ export default function PressForm({ initial }: { initial: Press }) {
         </button>
       </Section>
 
-      <SaveBar pending={pending} result={result} onSave={save} />
+      <SaveBar pending={pending} result={result} dirty={dirty} onSave={() => save()} />
     </div>
   );
 }

@@ -10,8 +10,12 @@ export default function IdeaRowActions({ slug, first, last }: { slug: string; fi
   const [error, setError] = useState("");
   const run = (fn: () => Promise<{ ok: boolean; message: string } | null>) =>
     start(async () => {
-      const result = await fn();
-      setError(result && !result.ok ? result.message : "");
+      try {
+        const result = await fn();
+        setError(result && !result.ok ? result.message : "");
+      } catch {
+        setError("Couldn't reach the server. Check the connection and try again.");
+      }
     });
   return (
     <div className="flex flex-wrap items-center gap-2">

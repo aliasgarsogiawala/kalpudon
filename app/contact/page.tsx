@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import Shell from "../_components/Shell";
 import Doors from "../_components/Doors";
 import PageHero from "../_components/PageHero";
+import { breadcrumbs, jsonLd, pageMeta } from "../_lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Contact",
-  description: "Capital, real estate JVs, cultural partnerships, media and speaking enquiries for Kalpesh Kinariwala.",
-  alternates: { canonical: "/contact" },
-};
+  description:
+    "Capital, real estate JVs, cultural partnerships, media and speaking enquiries for Kalpesh Kinariwala.",
+  path: "/contact",
+  image: "contact",
+});
 
 export default function ContactPage() {
   return (
     <Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs([{ name: "Contact", path: "/contact" }])) }} />
       <main>
         <PageHero
           word="Enquiries"

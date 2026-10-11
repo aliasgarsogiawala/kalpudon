@@ -7,13 +7,15 @@ import Giant from "../_components/Giant";
 import LiveVideo from "../_components/LiveVideo";
 import { WRAP, WashLayer } from "../_components/Sheet";
 import { DOORS, HOP_ARTISTS, HOP_FACTS } from "../_components/data";
+import { breadcrumbs, jsonLd, pageMeta } from "../_lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "HOP Events",
   description:
     "HOP Events produces India's leading artists at arena scale in the UAE. Co-productions, touring and venue partnerships with Kalpesh Kinariwala's live-entertainment company.",
-  alternates: { canonical: "/hop" },
-};
+  path: "/hop",
+  image: "hop",
+});
 
 const door = DOORS.find((d) => d.slug === "hop")!;
 
@@ -35,6 +37,7 @@ const NAMES = HOP_ARTISTS;
 export default function HopPage() {
   return (
     <Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs([{ name: "HOP Events", path: "/hop" }])) }} />
       <main>
         <PageHero
           word="HOP"

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { PILLARS } from "../../../_components/data";
 import type { Idea } from "../../../_lib/content";
-import { saveIdea, type Result } from "../../actions";
-import { Area, Choice, SaveBar, Text, Upload } from "../../_fields";
+import { saveIdea } from "../../actions";
+import { Area, Choice, SaveBar, Text, Upload, useSave } from "../../_fields";
 
 const slugify = (s: string) =>
   s
@@ -19,15 +20,9 @@ const today = () => new Date().toISOString().slice(0, 10);
 export default function IdeaForm({ initial, originalSlug }: { initial: Idea; originalSlug: string | null }) {
   const [idea, setIdea] = useState(initial);
   const [slugTouched, setSlugTouched] = useState(Boolean(originalSlug));
-  const [result, setResult] = useState<Result>(null);
-  const [pending, start] = useTransition();
+  const router = useRouter();
+  const { save, result, pending, dirty } = useSave(idea, (value) => saveIdea(originalSlug, value), () => router.push("/admin/ideas?saved=1"));
   const set = <K extends keyof Idea>(key: K, value: Idea[K]) => setIdea((i) => ({ ...i, [key]: value }));
-
-  const save = () =>
-    start(async () => {
-      setResult(null);
-      setResult(await saveIdea(originalSlug, idea));
-    });
 
   return (
     <div className="mt-8 space-y-6">
@@ -96,7 +91,7 @@ export default function IdeaForm({ initial, originalSlug }: { initial: Idea; ori
           <Area label="Notes under the video (optional)" value={idea.body} onChange={(v) => set("body", v)} rows={6} />
         </>
       )}
-      <SaveBar pending={pending} result={result} onSave={save} label={originalSlug ? "Save changes" : "Add idea"} />
+      <SaveBar pending={pending} result={result} dirty={dirty} onSave={() => save()} label={originalSlug ? "Save changes" : "Add idea"} />
     </div>
   );
 }

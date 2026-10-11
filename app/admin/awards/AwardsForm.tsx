@@ -1,25 +1,17 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import type { Award } from "../../_lib/content";
-import { saveAwards, type Result } from "../actions";
-import { Choice, SaveBar, Text, Tick, Upload, move, quietButtonClass } from "../_fields";
+import { saveAwards } from "../actions";
+import { Choice, SaveBar, Text, Tick, Upload, move, quietButtonClass, useSave } from "../_fields";
 
 const BLANK: Award = { what: "", who: "", y: String(new Date().getFullYear()), logo: "", img: "", alt: "", focus: "upper", featured: false, home: false };
 
 export default function AwardsForm({ initial }: { initial: Award[] }) {
   const [awards, setAwards] = useState(initial);
-  const [result, setResult] = useState<Result>(null);
-  const [pending, start] = useTransition();
+  const { save, result, pending, dirty } = useSave(awards, saveAwards);
   const edit = (i: number, patch: Partial<Award>) => setAwards((list) => list.map((a, n) => (n === i ? { ...a, ...patch } : a)));
   const onHome = awards.filter((a) => a.home).length;
-
-  const save = () =>
-    start(async () => {
-      setResult(null);
-      if (onHome > 3) return setResult({ ok: false, message: "Only three awards fit on the home page. Untick one." });
-      setResult(await saveAwards(awards));
-    });
 
   return (
     <div className="mt-10 space-y-5">
@@ -73,7 +65,12 @@ export default function AwardsForm({ initial }: { initial: Award[] }) {
       <button type="button" onClick={() => setAwards([...awards, BLANK])} className={quietButtonClass}>
         Add an award
       </button>
-      <SaveBar pending={pending} result={result} onSave={save} />
+      <SaveBar
+        pending={pending}
+        result={result}
+        dirty={dirty}
+        onSave={() => save(() => (onHome > 3 ? "Only three awards fit on the home page. Untick one." : null))}
+      />
     </div>
   );
 }

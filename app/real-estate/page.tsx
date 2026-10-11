@@ -7,13 +7,15 @@ import Scene, { ScenePhoto } from "../_components/Scene";
 import { WashLayer } from "../_components/Sheet";
 import Marquee from "../_components/Marquee";
 import { CHAPTERS, DEVELOPMENTS } from "../_components/data";
+import { breadcrumbs, jsonLd, pageMeta } from "../_lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Real Estate",
   description:
     "Pantheon Development, Dubai: affordable luxury, delivered on schedule — 5,000+ apartments launched and sold to buyers from over 72 countries, AED 4.2 billion in gross development value and 1,000+ apartments delivered since 2016.",
-  alternates: { canonical: "/real-estate" },
-};
+  path: "/real-estate",
+  image: "real-estate",
+});
 
 const estate = CHAPTERS.find((c) => c.sector === "Real estate")!;
 
@@ -35,6 +37,7 @@ const RECORD = [
 export default function RealEstatePage() {
   return (
     <Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs([{ name: "Real Estate", path: "/real-estate" }])) }} />
       <main>
         <PageHero
           word="Real Estate"

@@ -4,8 +4,8 @@ import { isAdmin } from "../../_lib/session";
 // Files go straight from the admin's browser to Vercel Blob (no size limit from our server); this route
 // only hands out an upload token, and only to a signed-in admin.
 export async function POST(request: Request) {
-  const body = (await request.json()) as HandleUploadBody;
   try {
+    const body = (await request.json()) as HandleUploadBody;
     const result = await handleUpload({
       body,
       request,

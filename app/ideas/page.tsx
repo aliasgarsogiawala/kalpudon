@@ -4,19 +4,22 @@ import PageHero from "../_components/PageHero";
 import { WRAP, WashLayer } from "../_components/Sheet";
 import { getContent } from "../_lib/content";
 import IdeasIndex from "./IdeasIndex";
+import { breadcrumbs, jsonLd, pageMeta } from "../_lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Ideas",
   description:
     "Essays and talks by Kalpesh Kinariwala: manage risk not returns, inspect what you expect, the widest not the tallest.",
-  alternates: { canonical: "/ideas" },
-};
+  path: "/ideas",
+  image: "ideas",
+});
 
 // Brief §6: the durable home for the long-form work, independent of social feeds.
 export default async function IdeasPage() {
   const { ideas } = await getContent();
   return (
     <Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbs([{ name: "Ideas", path: "/ideas" }])) }} />
       <main>
         <PageHero
           word="Ideas"

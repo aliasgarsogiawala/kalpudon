@@ -5,12 +5,15 @@ import Episode from "../_components/Episode";
 import { WRAP, WashLayer } from "../_components/Sheet";
 import { YOUTUBE, aired, byTheme } from "../_components/data";
 import { getContent, youtubeId } from "../_lib/content";
+import { PERSON_ID, breadcrumbs, jsonLd, pageMeta, url } from "../_lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Podcasts",
-  description: "Podcasts and interviews with Kalpesh Kinariwala on real estate, markets and building in the UAE.",
-  alternates: { canonical: "/podcasts" },
-};
+  description:
+    "Podcasts and interviews with Kalpesh Kinariwala, on Dubai Eye 103.8 and more: real estate, capital markets, leadership and how his businesses were built in the UAE.",
+  path: "/podcasts",
+  image: "podcasts",
+});
 
 // Raj, 2026-10-09: his podcasts on a page of their own. Every episode plays in place; his YouTube
 // channel holds the rest. Raj, 2026-10-11: clubbed by theme.
@@ -20,8 +23,35 @@ export default async function PodcastsPage() {
     return id ? [{ ...p, id, theme: p.theme ?? "", headline: p.headline || p.title }] : [];
   });
   let shown = 0; // the first two stills on the page load first
+  // Each episode as a video he appears in, so search can show them with the page
+  const ld = jsonLd(
+    {
+      "@type": "ItemList",
+      name: "Podcasts and interviews with Kalpesh Kinariwala",
+      url: url("/podcasts"),
+      itemListElement: episodes.map((ep, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "VideoObject",
+          name: ep.headline,
+          alternateName: ep.title,
+          description: ep.dek || ep.title,
+          thumbnailUrl: `https://i.ytimg.com/vi/${ep.id}/hqdefault.jpg`,
+          embedUrl: `https://www.youtube-nocookie.com/embed/${ep.id}`,
+          url: `https://www.youtube.com/watch?v=${ep.id}`,
+          ...(ep.date && { uploadDate: ep.date }),
+          genre: ep.theme,
+          isPartOf: { "@type": "CreativeWorkSeries", name: ep.show },
+          actor: { "@id": PERSON_ID },
+        },
+      })),
+    },
+    breadcrumbs([{ name: "Podcasts", path: "/podcasts" }]),
+  );
   return (
     <Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld }} />
       <main>
         <PageHero
           word="Podcasts"

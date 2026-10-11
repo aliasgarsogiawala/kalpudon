@@ -15,28 +15,38 @@ const DIR = "cms/content/";
 const KEEP = 30;
 const TAG = "cms";
 
-const text = (max: number) => z.string().trim().max(max);
+const text = (max: number) => z.string().trim().max(max, `Keep it to ${max} characters or fewer`);
+// A real calendar day as the date pickers send it (YYYY-MM-DD); empty means none
+const realDay = (v: string) => {
+  const t = Date.parse(`${v}T00:00:00Z`);
+  return /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(t) && new Date(t).toISOString().startsWith(v);
+};
+const day = z
+  .string()
+  .trim()
+  .refine((v) => v === "" || realDay(v), "Pick a date");
 // A site path ("/img/...") or an https link (uploads land on the Blob store's https URL)
 const link = z
   .string()
   .trim()
-  .max(1000)
+  .max(1000, "That link is too long")
   .refine((v) => v === "" || v.startsWith("/") || v.startsWith("https://"), "Use a link that starts with https://");
 
 export const FOCUS = { top: "object-[50%_0%]", upper: "object-[50%_25%]", center: "object-center" } as const;
 
 export const IdeaSchema = z.object({
+  title: text(140).min(1, "Add a title"),
   slug: z
     .string()
     .trim()
     .min(1, "Add a web address")
     .max(80)
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Lowercase words joined by hyphens, e.g. manage-risk-not-returns"),
-  title: text(140).min(1, "Add a title"),
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Lowercase words joined by hyphens, e.g. manage-risk-not-returns")
+    .refine((v) => v !== "new", "“new” is taken by the admin. Choose another web address."),
   format: z.enum(["Article", "Video"]),
   category: z.enum(PILLARS),
   // Empty = in preparation (listed, but no page of its own yet)
-  date: z.union([z.literal(""), z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Pick a date")]),
+  date: day,
   dek: text(400),
   body: text(60000),
   video: link,
@@ -58,9 +68,11 @@ export const AwardSchema = z
   .refine((a) => !a.featured || a.img, { message: "Add a photo to show an award in the press page's photographs", path: ["img"] });
 
 export const PressSchema = z.object({
-  bio: z.array(text(2000).min(1)).min(1, "Keep at least the opening line").max(8),
-  facts: z.array(z.object({ k: text(80).min(1, "Label"), v: text(300).min(1, "Value") })).max(20),
-  kit: z.array(z.object({ label: text(120).min(1, "Name the file"), url: link.refine((v) => v !== "", "Upload the file") })).max(30),
+  bio: z.array(text(2000).min(1, "Write the paragraph, or remove it")).min(1, "Keep at least the opening line").max(8, "The biography holds up to eight paragraphs"),
+  facts: z.array(z.object({ k: text(80).min(1, "Add the label"), v: text(300).min(1, "Add the fact") })).max(20, "The fact sheet holds up to 20 facts"),
+  kit: z
+    .array(z.object({ label: text(120).min(1, "Name the file"), url: link.refine((v) => v !== "", "Upload the file") }))
+    .max(30, "The media kit holds up to 30 files"),
 });
 
 /** The YouTube video id in a youtu.be, watch, embed, shorts or live link; null for anything else. */
@@ -84,10 +96,11 @@ export const PodcastSchema = z.object({
   url: z
     .string()
     .trim()
+    .max(1000)
     .refine((v) => youtubeId(v) !== null, "Paste the episode's YouTube link, e.g. https://youtu.be/…"),
   title: text(160).min(1, "Add the episode's title"),
   show: text(120).min(1, "Name the show"),
-  date: z.union([z.literal(""), z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Pick a date")]),
+  date: day,
   // Missing in content saved before themes existed; parse() fills them in
   theme: text(60).min(1, "Give the episode a theme").optional(),
   headline: text(100).optional(), // empty shows the YouTube title
