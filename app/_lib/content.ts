@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { del, get, list, put, type ListBlobResultBlob } from "@vercel/blob";
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { z } from "zod";
-import { IDEAS, LOGOS, PILLARS, PODCASTS, PRESS_BIO, PRESS_FACTS, RECOGNITION } from "../_components/data";
+import { IDEAS, LOGOS, PILLARS, PODCASTS, PRESS_BIO, PRESS_FACTS, RECOGNITION, THEMES } from "../_components/data";
 
 // The light CMS (brief §6, §8): everything the team edits lives in one JSON document in Vercel Blob.
 // Until the first save from /admin, the site shows the defaults below (the content it launched with).
@@ -88,6 +88,10 @@ export const PodcastSchema = z.object({
   title: text(160).min(1, "Add the episode's title"),
   show: text(120).min(1, "Name the show"),
   date: z.union([z.literal(""), z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Pick a date")]),
+  // Missing in content saved before themes existed; parse() fills them in
+  theme: text(60).min(1, "Give the episode a theme").optional(),
+  headline: text(100).optional(), // empty shows the YouTube title
+  dek: text(200).optional(),
 });
 
 export const ContentSchema = z.object({
@@ -198,6 +202,11 @@ function parse(data: unknown): Content {
     ...parsed.data,
     // Awards saved before logos existed take the publication's logo the site ships with
     awards: parsed.data.awards.map((a) => ({ ...a, logo: a.logo ?? LOGOS[a.who] ?? "" })),
+    // Episodes saved before themes existed take the theme, headline and line the site ships with
+    podcasts: parsed.data.podcasts.map((p) => {
+      const seed = PODCASTS.find((s) => youtubeId(s.url) === youtubeId(p.url));
+      return { ...p, theme: p.theme ?? seed?.theme ?? THEMES[0], headline: p.headline ?? seed?.headline ?? "", dek: p.dek ?? seed?.dek ?? "" };
+    }),
     press: {
       ...parsed.data.press,
       bio: parsed.data.press.bio.map(currentTerms),
@@ -220,7 +229,7 @@ export const getContent = unstable_cache(
       return DEFAULT_CONTENT;
     }
   },
-  ["cms-content", "terminology-v2", "photos-2026-10-02b", "podcasts-v1"],
+  ["cms-content", "terminology-v2", "photos-2026-10-02b", "podcasts-v2"],
   { tags: [TAG], revalidate: 60 },
 );
 

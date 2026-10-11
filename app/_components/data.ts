@@ -172,30 +172,67 @@ export const PRODUCTIONS = [
   { img: "/img/hop-confetti.jpg", t: "The room", w: "wide" },
 ] as const;
 
-// The podcasts and interviews Raj sent on 2026-10-09, newest first, with each title and channel exactly as
-// YouTube lists them. The team edits the list in /admin; these are the defaults until the first save there.
+// Raj, 2026-10-11: the conversations clubbed by theme, each under a headline and a line of its own (the
+// YouTube title stays as the player's name). Themes show in this order; one added in the CMS later
+// (events, culture) follows them.
+export const THEMES = ["Markets & Investing", "Real Estate & Building", "Leadership & Life"];
+
+// The podcasts and interviews Raj sent on 2026-10-09, with each title and channel exactly as YouTube lists
+// them. The team edits the list in /admin; these are the defaults until the first save there.
 export const PODCASTS = [
+  {
+    url: "https://youtu.be/MdzTqX6AuZo",
+    title: "“Tariffs do not stop at borders” | Kalpesh Kinariwala",
+    show: "Pantheon Development",
+    date: "2025-04-22",
+    theme: "Markets & Investing",
+    headline: "Markets Don’t Stop at Borders",
+    dek: "Global trade, risk and long-term opportunity.",
+  },
   {
     url: "https://youtu.be/qbVyOYJDoys",
     title: "Visionaries in Conversation: Kalpesh Kinariwala & Dr. Anand Menon on Real Estate Innovation",
     show: "Pantheon Development",
     date: "2025-06-04",
-  },
-  { url: "https://youtu.be/MdzTqX6AuZo", title: "“Tariffs do not stop at borders” | Kalpesh Kinariwala", show: "Pantheon Development", date: "2025-04-22" },
-  { url: "https://youtu.be/fVX_zyTPnrU", title: "#EMARATI “Untold Journeys” Mr. Kalpesh Kinariwala | season6", show: "EMARATI PROGRAM", date: "2024-12-16" },
-  {
-    url: "https://youtu.be/PrKgXNlJjGQ",
-    title: "Founder of Pantheon Development, Kalpesh Kinariwala: I Don’t Sell A Product, I Sell A Solution",
-    show: "Beyond The Blueprint",
-    date: "2024-10-31",
+    theme: "Real Estate & Building",
+    headline: "Building Beyond the Blueprint",
+    dek: "Innovation, delivery and creating enduring communities.",
   },
   {
     url: "https://youtu.be/qCdZWzFc8VY",
     title: "that strada podcast ep5 | aed 188m villa in district 1 | properties by pantheon development",
     show: "Strada UAE",
     date: "2024-03-25",
+    theme: "Real Estate & Building",
+    headline: "The Business of Delivery",
+    dek: "Why execution remains the ultimate competitive advantage.",
+  },
+  {
+    url: "https://youtu.be/fVX_zyTPnrU",
+    title: "#EMARATI “Untold Journeys” Mr. Kalpesh Kinariwala | season6",
+    show: "EMARATI PROGRAM",
+    date: "2024-12-16",
+    theme: "Leadership & Life",
+    headline: "Building Through Adversity",
+    dek: "Resilience, conviction and lessons from the journey.",
+  },
+  {
+    url: "https://youtu.be/PrKgXNlJjGQ",
+    title: "Founder of Pantheon Development, Kalpesh Kinariwala: I Don’t Sell A Product, I Sell A Solution",
+    show: "Beyond The Blueprint",
+    date: "2024-10-31",
+    theme: "Leadership & Life",
+    headline: "Why Solutions Scale",
+    dek: "Understanding stakeholder needs and creating value at scale.",
   },
 ];
+
+/** Episodes clubbed under their themes: the known themes first, in THEMES order, then any new one as it first appears. */
+export function byTheme<T extends { theme: string }>(episodes: T[]): { theme: string; episodes: T[] }[] {
+  const groups = new Map<string, T[]>(THEMES.map((t) => [t, []]));
+  for (const ep of episodes) groups.set(ep.theme, [...(groups.get(ep.theme) ?? []), ep]);
+  return [...groups].filter(([, list]) => list.length > 0).map(([theme, list]) => ({ theme, episodes: list }));
+}
 
 /** "June 2025" for an episode's date; empty when it has none. */
 export const aired = (date: string) =>

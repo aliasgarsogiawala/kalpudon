@@ -3,9 +3,10 @@
 import { useState, useTransition } from "react";
 import type { Podcast } from "../../_lib/content";
 import { savePodcasts, type Result } from "../actions";
+import { THEMES } from "../../_components/data";
 import { SaveBar, Text, move, quietButtonClass } from "../_fields";
 
-const BLANK: Podcast = { url: "", title: "", show: "", date: "" };
+const BLANK: Podcast = { url: "", title: "", show: "", date: "", theme: "", headline: "", dek: "" };
 
 export default function PodcastsForm({ initial }: { initial: Podcast[] }) {
   const [podcasts, setPodcasts] = useState(initial);
@@ -19,8 +20,16 @@ export default function PodcastsForm({ initial }: { initial: Podcast[] }) {
       setResult(await savePodcasts(podcasts));
     });
 
+  // Every theme in use, so a new one (events, culture) is offered once it has been typed in
+  const themes = [...new Set([...THEMES, ...podcasts.map((p) => p.theme ?? "").filter(Boolean)])];
+
   return (
     <div className="mt-10 space-y-5">
+      <datalist id="podcast-themes">
+        {themes.map((t) => (
+          <option key={t} value={t} />
+        ))}
+      </datalist>
       {podcasts.map((p, i) => (
         <section key={i} className="space-y-5 rounded-xl border border-white/10 bg-white/[0.02] p-5">
           <Text
@@ -32,6 +41,29 @@ export default function PodcastsForm({ initial }: { initial: Podcast[] }) {
             onChange={(v) => edit(i, { url: v })}
           />
           <Text label="Episode title" placeholder="Paste it as YouTube shows it" value={p.title} onChange={(v) => edit(i, { title: v })} />
+          <Text
+            label="Theme"
+            hint="Episodes are grouped under their theme. Pick one, or type a new one, e.g. Events & Culture."
+            list="podcast-themes"
+            placeholder="Markets & Investing"
+            value={p.theme ?? ""}
+            onChange={(v) => edit(i, { theme: v })}
+          />
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Text
+              label="Headline"
+              hint="Shown on the site in place of the YouTube title."
+              placeholder="Markets Don’t Stop at Borders"
+              value={p.headline ?? ""}
+              onChange={(v) => edit(i, { headline: v })}
+            />
+            <Text
+              label="One line about it"
+              placeholder="Global trade, risk and long-term opportunity."
+              value={p.dek ?? ""}
+              onChange={(v) => edit(i, { dek: v })}
+            />
+          </div>
           <div className="grid gap-5 sm:grid-cols-[2fr_1fr]">
             <Text label="Show" placeholder="Beyond The Blueprint" value={p.show} onChange={(v) => edit(i, { show: v })} />
             <Text label="Aired (optional)" type="date" value={p.date} onChange={(v) => edit(i, { date: v })} />
